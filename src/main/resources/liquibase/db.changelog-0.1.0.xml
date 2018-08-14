@@ -2,4 +2,24 @@
                    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
                    xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+    <changeSet id="ADD_USERS" author="shalukho">
+        <createTable tableName="USERS">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="USERSPK" />
+            </column>
+            <column name="LOGIN" type="varchar(255)" />
+            <column name="PASSWORD" type="varchar(255)"/>
+            <column name="FIRST_NAME" type="varchar(255)"/>
+            <column name="LAST_NAME" type="varchar(255)"/>
+            <column name="ROLE" type="enum('ADMIN', 'USER')"/>
+        </createTable>
+        <insert tableName="USERS">
+            <column name="LOGIN">admin</column>
+            <column name="PASSWORD">$2a$10$o.kTyW1HS97I4CiS1uoTo./np2fqhpf0iCdNGkYXFgtjMR8N1xoTy</column>
+            <column name="FIRST_NAME">Alex</column>
+            <column name="LAST_NAME">Shalukho</column>
+            <column name="ROLE">ADMIN</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

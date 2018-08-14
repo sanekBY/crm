@@ -1,14 +1,14 @@
 package by.shalukho.controller;
 
-import by.shalukho.dbo.UserDbo;
+import by.shalukho.dbo.UserEntity;
 import by.shalukho.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@RequestBody final UserDbo userDbo) {
-        userService.createUser(userDbo);
+    public String createUser(@RequestBody final UserEntity userEntity) {
+        userService.createUser(userEntity);
         return "Person created";
     }
 
