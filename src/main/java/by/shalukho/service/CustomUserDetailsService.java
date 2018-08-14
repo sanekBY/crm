@@ -1,6 +1,7 @@
 package by.shalukho.service;
 
 import by.shalukho.dbo.UserEntity;
+import by.shalukho.dto.UserDto;
 import by.shalukho.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        UserEntity user = userService.getUser(login);
+        UserDto user = userService.getUser(login);
         if (user == null) {
             throw new UsernameNotFoundException(login);
         }

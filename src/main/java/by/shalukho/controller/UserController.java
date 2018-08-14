@@ -1,6 +1,6 @@
 package by.shalukho.controller;
 
-import by.shalukho.dbo.UserEntity;
+import by.shalukho.dto.UserDto;
 import by.shalukho.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@RequestBody final UserEntity userEntity) {
-        userService.createUser(userEntity);
+    public String createUser(@RequestBody final UserDto userDto) {
+        userService.createUser(userDto);
         return "Person created";
     }
 
