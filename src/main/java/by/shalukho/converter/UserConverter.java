@@ -2,22 +2,24 @@ package by.shalukho.converter;
 
 import by.shalukho.dbo.UserEntity;
 import by.shalukho.dto.UserDto;
-import org.springframework.beans.BeanUtils;
+import by.shalukho.enums.RoleEnum;
 import org.springframework.stereotype.Service;
 
+import java.util.function.BiFunction;
+
 @Service
-public class UserConverter implements DtoDboConverter<UserDto, UserEntity> {
-    @Override
-    public UserDto convertToDto(final UserEntity dbo) {
-        final UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(dbo, userDto);
-        return userDto;
-    }
+public class UserConverter extends GenericConverter<UserDto, UserEntity> {
 
     @Override
-    public UserEntity convertToDbo(final UserDto dto) {
-        final UserEntity userDbo = new UserEntity();
-        BeanUtils.copyProperties(dto, userDbo);
-        return userDbo;
+    protected BiFunction<UserDto, UserEntity, UserEntity> getEntityToDtoFunction() {
+        BiFunction<UserDto, UserEntity, UserEntity> function = (dto, entity) -> {
+            if (dto.getRole().equals("admin")) {
+                entity.setRole(RoleEnum.ADMIN);
+            } else {
+                entity.setRole(RoleEnum.USER);
+            }
+            return entity;
+        };
+        return function;
     }
 }

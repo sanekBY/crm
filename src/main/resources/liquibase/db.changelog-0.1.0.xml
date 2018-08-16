@@ -3,23 +3,56 @@
                    xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
     <changeSet id="ADD_USERS" author="shalukho">
-        <createTable tableName="USERS">
+        <createTable tableName="USER">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="USERSPK" />
+                             primaryKeyName="USERSPK"/>
             </column>
-            <column name="LOGIN" type="varchar(255)" />
+            <column name="LOGIN" type="varchar(255)"/>
             <column name="PASSWORD" type="varchar(255)"/>
             <column name="FIRST_NAME" type="varchar(255)"/>
             <column name="LAST_NAME" type="varchar(255)"/>
             <column name="ROLE" type="enum('ADMIN', 'USER')"/>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
-        <insert tableName="USERS">
+        <insert tableName="USER">
             <column name="LOGIN">admin</column>
             <column name="PASSWORD">$2a$10$o.kTyW1HS97I4CiS1uoTo./np2fqhpf0iCdNGkYXFgtjMR8N1xoTy</column>
             <column name="FIRST_NAME">Alex</column>
             <column name="LAST_NAME">Shalukho</column>
             <column name="ROLE">ADMIN</column>
         </insert>
+    </changeSet>
+    <changeSet id="ADD_PERSON_AND_COMPANY" author="shalukho">
+        <createTable tableName="PERSON">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="USERSPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHONE" type="varchar(255)"/>
+            <column name="EMAIL" type="varchar(255)"/>
+            <column name="ADDRESS" type="varchar(255)"/>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
+        </createTable>
+        <createTable tableName="COMPANY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="USERSPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHONE" type="varchar(255)"/>
+            <column name="EMAIL" type="varchar(255)"/>
+            <column name="ADDRESS" type="varchar(255)"/>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>

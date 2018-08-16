@@ -1,28 +1,20 @@
 package by.shalukho.service;
 
-import by.shalukho.converter.GenericConverter;
+import by.shalukho.converter.UserConverter;
 import by.shalukho.dbo.UserEntity;
 import by.shalukho.dto.UserDto;
 import by.shalukho.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @Service
-public class UserService {
+public class UserService extends AbstractService<UserDto, UserEntity> {
 
-    private final UserRepository userRepository;
-    private final GenericConverter<UserDto, UserEntity> genericConverter;
-
-    public void createUser(final UserDto userDto) {
-        userRepository.save(genericConverter.getConverter(UserDto.class, UserEntity.class).convertToDbo(userDto));
+    public UserService(UserRepository userRepository, UserConverter userConverter) {
+        super(userRepository, userConverter, UserDto.class, UserEntity.class);
     }
 
-    public UserDto getUser(final Long id) {
-        return genericConverter.getConverter(UserDto.class, UserEntity.class).convertToDto(userRepository.getOne(id));
+    public UserDto getUser(final String id) {
+        return getConverter().convertToDto(((UserRepository) getRepository()).findByLogin(id));
     }
 
-    public UserDto getUser(final String login) {
-        return genericConverter.getConverter(UserDto.class, UserEntity.class).convertToDto(userRepository.findByLogin(login));
-    }
 }

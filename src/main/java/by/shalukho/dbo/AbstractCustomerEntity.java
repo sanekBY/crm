@@ -2,25 +2,15 @@ package by.shalukho.dbo;
 
 import by.shalukho.enums.PhoneTypeEnum;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @Data
-@NoArgsConstructor
 @MappedSuperclass
-public abstract class AbstractCustomer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+public abstract class AbstractCustomerEntity extends AbstractNamedEntity {
 
     @Column(name = "PHONE")
     private String phone;

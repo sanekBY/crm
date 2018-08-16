@@ -1,6 +1,5 @@
 package by.shalukho.config;
 
-import by.shalukho.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,14 +25,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "/home", "/about", "/static/**", "/webjars/**", "/css/**").permitAll()
-                .antMatchers("/admin/**").hasAnyAuthority(RoleEnum.ADMIN.name())
-                .antMatchers("/user/**").hasAnyAuthority(RoleEnum.USER.name())
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
+                .authorizeRequests().antMatchers("**")
+//                .antMatchers("/", "/api/**","/home", "/about", "/static/**", "/webjars/**", "/css/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html").permitAll()
+//                .antMatchers("/admin/**").hasAnyAuthority(RoleEnum.ADMIN.name())
+//                .antMatchers("/user/**").hasAnyAuthority(RoleEnum.USER.name())
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
