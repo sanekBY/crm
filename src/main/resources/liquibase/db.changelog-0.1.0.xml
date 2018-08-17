@@ -8,7 +8,7 @@
                 <constraints primaryKey="true"
                              primaryKeyName="USERSPK"/>
             </column>
-            <column name="LOGIN" type="varchar(255)"/>
+            <column name="LOGIN" type="varchar(255)"></column>
             <column name="PASSWORD" type="varchar(255)"/>
             <column name="FIRST_NAME" type="varchar(255)"/>
             <column name="LAST_NAME" type="varchar(255)"/>
@@ -24,6 +24,7 @@
             <column name="LAST_NAME">Shalukho</column>
             <column name="ROLE">ADMIN</column>
         </insert>
+        <addUniqueConstraint columnNames="LOGIN" constraintName="UK_LOGIN" tableName="USER"/>
     </changeSet>
     <changeSet id="ADD_PERSON_AND_COMPANY" author="shalukho">
         <createTable tableName="PERSON">

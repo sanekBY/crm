@@ -13,8 +13,8 @@ public class UserService extends AbstractService<UserDto, UserEntity> {
         super(userRepository, userConverter, UserDto.class, UserEntity.class);
     }
 
-    public UserDto getUser(final String id) {
-        return getConverter().convertToDto(((UserRepository) getRepository()).findByLogin(id));
+    public UserDto getUser(final String login) {
+        return getConverter().convertToDto(((UserRepository) getRepository()).findByLogin(login).get());
     }
 
 }

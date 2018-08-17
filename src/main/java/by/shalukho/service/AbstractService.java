@@ -3,15 +3,15 @@ package by.shalukho.service;
 import by.shalukho.converter.DtoDboConverter;
 import by.shalukho.converter.GenericConverter;
 import by.shalukho.dbo.AbstractEntity;
-import by.shalukho.repository.AbstractRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public abstract class AbstractService<T, B extends AbstractEntity> {
-    private AbstractRepository repository;
+    private JpaRepository repository;
     private GenericConverter<T, B> converter;
     private Class<T> dtoClazz;
     private Class<B> dboClazz;
@@ -36,11 +36,11 @@ public abstract class AbstractService<T, B extends AbstractEntity> {
         repository.save(entity);
     }
 
-    public AbstractRepository getRepository() {
+    public JpaRepository getRepository() {
         return repository;
     }
 
-    public void setRepository(AbstractRepository repository) {
+    public void setRepository(JpaRepository repository) {
         this.repository = repository;
     }
 

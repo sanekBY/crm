@@ -10,12 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "USER")
+@Table(name = "USER", uniqueConstraints = {@UniqueConstraint(columnNames = {"LOGIN"})})
 @EqualsAndHashCode(callSuper = true)
 public class UserEntity extends AbstractEntity {
 

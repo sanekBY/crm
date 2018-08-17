@@ -1,6 +1,5 @@
 package by.shalukho.service;
 
-import by.shalukho.dbo.UserEntity;
 import by.shalukho.dto.UserDto;
 import by.shalukho.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
