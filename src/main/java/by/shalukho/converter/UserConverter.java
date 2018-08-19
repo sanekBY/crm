@@ -1,6 +1,6 @@
 package by.shalukho.converter;
 
-import by.shalukho.dbo.UserEntity;
+import by.shalukho.entity.UserEntity;
 import by.shalukho.dto.UserDto;
 import by.shalukho.enums.RoleEnum;
 import org.springframework.stereotype.Service;

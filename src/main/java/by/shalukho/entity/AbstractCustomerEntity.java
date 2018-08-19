@@ -1,4 +1,4 @@
-package by.shalukho.dbo;
+package by.shalukho.entity;
 
 import by.shalukho.enums.PhoneTypeEnum;
 import lombok.Data;

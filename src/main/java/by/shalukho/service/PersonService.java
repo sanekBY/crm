@@ -1,7 +1,7 @@
 package by.shalukho.service;
 
 import by.shalukho.converter.PersonConverter;
-import by.shalukho.dbo.PersonEntity;
+import by.shalukho.entity.PersonEntity;
 import by.shalukho.dto.PersonDto;
 import by.shalukho.repository.PersonRepository;
 import org.springframework.stereotype.Service;

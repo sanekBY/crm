@@ -1,6 +1,6 @@
 package by.shalukho.repository;
 
-import by.shalukho.dbo.UserEntity;
+import by.shalukho.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

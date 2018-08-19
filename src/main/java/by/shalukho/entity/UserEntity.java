@@ -1,16 +1,11 @@
-package by.shalukho.dbo;
+package by.shalukho.entity;
 
 import by.shalukho.enums.RoleEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -21,11 +16,11 @@ import javax.validation.constraints.NotNull;
 public class UserEntity extends AbstractEntity {
 
     @NotNull
-    @Column(name = "LOGIN")
+    @Column(name = "LOGIN", nullable = false)
     private String login;
 
     @NotNull
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @NotNull
@@ -38,6 +33,6 @@ public class UserEntity extends AbstractEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
+    @Column(name = "ROLE", nullable = false)
     private RoleEnum role;
 }

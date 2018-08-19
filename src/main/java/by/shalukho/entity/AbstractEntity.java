@@ -1,4 +1,4 @@
-package by.shalukho.dbo;
+package by.shalukho.entity;
 
 import lombok.Data;
 
@@ -18,7 +18,6 @@ public abstract class AbstractEntity {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Basic
     @Column(name = "ACTIVE", columnDefinition = "tinyint(2) default '1'", nullable = false)
     private boolean active = true;
 }

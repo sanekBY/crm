@@ -2,7 +2,7 @@ package by.shalukho.service;
 
 import by.shalukho.converter.DtoDboConverter;
 import by.shalukho.converter.GenericConverter;
-import by.shalukho.dbo.AbstractEntity;
+import by.shalukho.entity.AbstractEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 

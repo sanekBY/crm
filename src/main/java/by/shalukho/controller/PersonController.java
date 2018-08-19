@@ -3,11 +3,9 @@ package by.shalukho.controller;
 import by.shalukho.dto.PersonDto;
 import by.shalukho.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PersonController {
@@ -34,6 +32,11 @@ public class PersonController {
     @RequestMapping(value = "/api/person/{id}", method = RequestMethod.GET)
     public PersonDto getPerson(@PathVariable("id") final Long id) {
         return personService.findById(id);
+    }
+
+    @RequestMapping(value = "/api/person", method = RequestMethod.GET)
+    public List<PersonDto> getPersons() {
+        return personService.findAll();
     }
 
 }
