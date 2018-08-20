@@ -6,7 +6,7 @@
         <createTable tableName="USER">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="USERSPK"/>
+                             primaryKeyName="USERPK"/>
             </column>
             <column name="LOGIN" type="varchar(255)"></column>
             <column name="PASSWORD" type="varchar(255)"/>
@@ -30,7 +30,7 @@
         <createTable tableName="PERSON">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="USERSPK"/>
+                             primaryKeyName="PERSONPK"/>
             </column>
             <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
                 <constraints nullable="false"/>
@@ -44,7 +44,7 @@
         <createTable tableName="COMPANY">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="USERSPK"/>
+                             primaryKeyName="COMPANYPK"/>
             </column>
             <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
                 <constraints nullable="false"/>
@@ -57,10 +57,30 @@
         </createTable>
     </changeSet>
     <changeSet id="ADD_ITEMS" author="shalukho">
+        <createTable tableName="ITEM_TYPE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ITEM_TYPEPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="ITEM_TYPE_PROPERTY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ITEM_TYPE_PROPERTYPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+        </createTable>
         <createTable tableName="ITEM">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="USERSPK"/>
+                             primaryKeyName="ITEMPK"/>
             </column>
             <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
                 <constraints nullable="false"/>
@@ -71,8 +91,22 @@
                 <constraints nullable="false"/>
             </column>
             <column name="ITEM_TYPE_ID" type="BIGINT">
-                <constraints references="USERS(ID)"
-                             foreignKeyName="FK_UNIT_AMENITIES_SET__USER_ID" nullable="false" />
+                <constraints references="ITEM_TYPE(ID)"
+                             foreignKeyName="FK_ITEM__ITEM_TYPE_ID" nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ITEM_TYPE_ITEM_TYPE_PROPERTY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ITEMPK"/>
+            </column>
+            <column name="ITEM_TYPE_ID" type="BIGINT">
+                <constraints references="ITEM_TYPE(ID)"
+                             foreignKeyName="FK_ITITP__ITEM_TYPE_ID" nullable="false"/>
+            </column>
+            <column name="ITEM_TYPE_PROPERTY_ID" type="BIGINT">
+                <constraints references="ITEM_TYPE_PROPERTY(ID)"
+                             foreignKeyName="FK_ITITP__ITEM_TYPE_PROPERTY_ID" nullable="false"/>
             </column>
         </createTable>
     </changeSet>

@@ -11,9 +11,6 @@ import java.util.Set;
 @Table(name = "ITEM_TYPE_PROPERTY")
 public class ItemTypePropertyEntity extends AbstractNamedEntity {
 
-    @Column(name = "PRICE")
-    private BigDecimal price;
-
     @ManyToMany(mappedBy = "itemTypeProperties")
     private Set<ItemTypeEntity> itemTypes;
 
