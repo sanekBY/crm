@@ -56,4 +56,24 @@
             <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
         </createTable>
     </changeSet>
+    <changeSet id="ADD_ITEMS" author="shalukho">
+        <createTable tableName="ITEM">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="USERSPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="DESCRIPTION" type="varchar(255)"/>
+            <column name="PRICE" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ITEM_TYPE_ID" type="BIGINT">
+                <constraints references="USERS(ID)"
+                             foreignKeyName="FK_UNIT_AMENITIES_SET__USER_ID" nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

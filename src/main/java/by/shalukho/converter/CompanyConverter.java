@@ -1,10 +1,10 @@
 package by.shalukho.converter;
 
-import by.shalukho.entity.PersonEntity;
-import by.shalukho.dto.PersonDto;
+import by.shalukho.dto.CompanyDto;
+import by.shalukho.entity.CompanyEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CompanyConverter extends GenericConverter<PersonDto, PersonEntity> {
+public class CompanyConverter extends GenericConverter<CompanyDto, CompanyEntity> {
 
 }

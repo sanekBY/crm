@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "ITEM")
-public class Item extends AbstractNamedEntity {
+public class ItemEntity extends AbstractNamedEntity {
 
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
@@ -17,7 +17,7 @@ public class Item extends AbstractNamedEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "ITEM_TYPE_ID")
-    private ItemType itemType;
+    @JoinColumn(name = "ITEM_TYPE_ID", nullable=false)
+    private ItemTypeEntity itemType;
 
 }
