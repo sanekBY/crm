@@ -10,7 +10,7 @@ import java.util.function.BiFunction;
 @Service
 public class PersonConverter extends GenericConverter<PersonDto, PersonEntity> {
     @Override
-    protected BiFunction<PersonDto, PersonEntity, PersonEntity> getEntityToDtoFunction() {
+    protected BiFunction<PersonDto, PersonEntity, PersonEntity> getDtoToEntityFunction() {
         BiFunction<PersonDto, PersonEntity, PersonEntity> function = (dto, entity) -> {
             PhoneTypeEnum en;
 

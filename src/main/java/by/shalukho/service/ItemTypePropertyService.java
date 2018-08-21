@@ -13,4 +13,10 @@ public class ItemTypePropertyService extends AbstractService<ItemTypePropertyDto
         super(itemTypePropertyRepository, itemTypePropertyConverter, ItemTypePropertyDto.class, ItemTypePropertyEntity.class);
     }
 
+    @Override
+    public ItemTypePropertyDto findById(Long id) {
+        ItemTypePropertyDto itemType = super.findById(id);
+        itemType.setItemTypes(null);
+        return itemType;
+    }
 }

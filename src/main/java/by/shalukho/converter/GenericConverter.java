@@ -14,15 +14,15 @@ public class GenericConverter<T, B> {
     public class SimpleConverter implements DtoDboConverter<T, B> {
         private Class<T> dtoClazz;
         private Class<B> dboClazz;
-        private BiFunction<B, T, T> dtoToEntityFunction;
-        private BiFunction<T, B, B> entityToDtoFunction;
+        private BiFunction<B, T, T> entityToDtoFunction;
+        private BiFunction<T, B, B> dtoToEntityFunction;
 
 
         @Override
         public T convertToDto(B dbo) {
-            Object object = convert(dbo,  dtoClazz);
-            if (dtoToEntityFunction != null) {
-                dtoToEntityFunction.apply(dbo, (T) object);
+            Object object = convert(dbo, dtoClazz);
+            if (entityToDtoFunction != null) {
+                entityToDtoFunction.apply(dbo, (T) object);
             }
             return (T) object;
         }
@@ -30,8 +30,8 @@ public class GenericConverter<T, B> {
         @Override
         public B convertToEntity(T dto) {
             Object object = convert(dto, dboClazz);
-            if (entityToDtoFunction != null) {
-                entityToDtoFunction.apply(dto, (B) object);
+            if (dtoToEntityFunction != null) {
+                dtoToEntityFunction.apply(dto, (B) object);
             }
             return (B) object;
         }
@@ -51,14 +51,14 @@ public class GenericConverter<T, B> {
     }
 
     public DtoDboConverter<T, B> getConverter(Class<T> dtoClazz, Class<B> entityClazz) {
-        return new SimpleConverter(dtoClazz, entityClazz, getDtoToEntityFunction(), getEntityToDtoFunction());
+        return new SimpleConverter(dtoClazz, entityClazz, getEntityToDtoFunction(), getDtoToEntityFunction());
     }
 
-    protected BiFunction<T, B, B> getEntityToDtoFunction() {
+    protected BiFunction<B, T, T> getEntityToDtoFunction() {
         return null;
     }
 
-    protected BiFunction<B, T, T> getDtoToEntityFunction() {
+    protected BiFunction<T, B, B> getDtoToEntityFunction() {
         return null;
     }
 }
