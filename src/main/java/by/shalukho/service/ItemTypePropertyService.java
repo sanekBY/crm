@@ -6,6 +6,8 @@ import by.shalukho.entity.ItemTypePropertyEntity;
 import by.shalukho.repository.ItemTypePropertyRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemTypePropertyService extends AbstractService<ItemTypePropertyDto, ItemTypePropertyEntity> {
 
@@ -14,9 +16,12 @@ public class ItemTypePropertyService extends AbstractService<ItemTypePropertyDto
     }
 
     @Override
-    public ItemTypePropertyDto findById(Long id) {
-        ItemTypePropertyDto itemType = super.findById(id);
-        itemType.setItemTypes(null);
-        return itemType;
+    public ItemTypePropertyEntity findByActiveAndId(boolean active, Long id) {
+        return ((ItemTypePropertyRepository) getRepository()).findByActiveAndId(active, id);
+    }
+
+    @Override
+    public List<ItemTypePropertyEntity> findAllByActive(boolean active) {
+        return ((ItemTypePropertyRepository) getRepository()).findAllByActive(active);
     }
 }
