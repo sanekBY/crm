@@ -7,4 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanyConverter extends GenericConverter<CompanyDto, CompanyEntity> {
 
+    public CompanyConverter() {
+        super(CompanyDto.class, CompanyEntity.class);
+    }
 }

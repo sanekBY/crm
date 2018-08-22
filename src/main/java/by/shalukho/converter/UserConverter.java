@@ -10,6 +10,10 @@ import java.util.function.BiFunction;
 @Service
 public class UserConverter extends GenericConverter<UserDto, UserEntity> {
 
+    public UserConverter() {
+        super(UserDto.class, UserEntity.class);
+    }
+
     @Override
     protected BiFunction<UserDto, UserEntity, UserEntity> getDtoToEntityFunction() {
         BiFunction<UserDto, UserEntity, UserEntity> function = (dto, entity) -> {

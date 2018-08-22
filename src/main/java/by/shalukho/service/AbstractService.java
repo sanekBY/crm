@@ -1,6 +1,5 @@
 package by.shalukho.service;
 
-import by.shalukho.converter.DtoDboConverter;
 import by.shalukho.converter.GenericConverter;
 import by.shalukho.entity.AbstractEntity;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public abstract class AbstractService<T, B extends AbstractEntity> implements ServiceWithActive<B> {
     private JpaRepository repository;
+
     private GenericConverter<T, B> converter;
     private Class<T> dtoClazz;
     private Class<B> dboClazz;
@@ -20,11 +20,11 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
     @Transactional
     public T findById(Long id) {
         B entity = findByActiveAndId(true, id);
-        return getConverter().convertToDto(entity);
+        return converter.convertToDto(entity);
     }
 
     public List<T> findAll() {
-        return findAllByActive(true).stream().map(e -> getConverter().convertToDto((B) e)).collect(Collectors.toList());
+        return findAllByActive(true).stream().map(e -> converter.convertToDto((B) e)).collect(Collectors.toList());
     }
 
     public void delete(Long id) {
@@ -34,8 +34,14 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
     }
 
     public void save(T dto) {
-        B entity = getConverter().convertToEntity(dto);
+        B entity = converter.convertToEntity(dto);
         repository.save(entity);
+    }
+
+    public List<T> findAllById(List<Long> ids) {
+        List<B> entities = repository.findAllById(ids);
+        List<T> dtos = (List<T>) entities.stream().map(e -> converter.convertToDto(e));
+        return dtos;
     }
 
     public JpaRepository getRepository() {
@@ -46,8 +52,7 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
         this.repository = repository;
     }
 
-    public DtoDboConverter<T, B> getConverter() {
-        return converter.getConverter(dtoClazz, dboClazz);
+    public GenericConverter<T, B> getConverter() {
+        return converter;
     }
-
 }

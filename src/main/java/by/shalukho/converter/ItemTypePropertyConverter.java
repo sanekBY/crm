@@ -6,4 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ItemTypePropertyConverter extends GenericConverter<ItemTypePropertyDto, ItemTypePropertyEntity> {
+    public ItemTypePropertyConverter() {
+        super(ItemTypePropertyDto.class, ItemTypePropertyEntity.class);
+    }
 }

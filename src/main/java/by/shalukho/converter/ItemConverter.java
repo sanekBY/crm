@@ -14,18 +14,35 @@ import java.util.function.BiFunction;
 public class ItemConverter extends GenericConverter<ItemDto, ItemEntity> {
 
     @Autowired
-    ItemTypeService itemTypeService;
+    public ItemTypeService itemTypeService;
+
+    @Autowired
+    public ItemTypeConverter itemTypeConverter;
+
+    public ItemConverter() {
+        super(ItemDto.class, ItemEntity.class);
+    }
 
     @Override
     protected BiFunction<ItemDto, ItemEntity, ItemEntity> getDtoToEntityFunction() {
         BiFunction<ItemDto, ItemEntity, ItemEntity> function = (dto, entity) -> {
             if (dto.getItemType() != null) {
-                DtoDboConverter<ItemTypeDto, ItemTypeEntity> itemTypeConverter = itemTypeService.getConverter();
                 Long itemTypeId = dto.getItemType().getId();
-                ItemTypeEntity itemTypeEntity = itemTypeConverter.convertToEntity(itemTypeService.findById(itemTypeId));
+                ItemTypeDto itemType = itemTypeService.findById(itemTypeId);
+                ItemTypeEntity itemTypeEntity = itemTypeConverter.convertToEntity(itemType);
                 entity.setItemType(itemTypeEntity);
             }
             return entity;
+        };
+        return function;
+    }
+
+    @Override
+    protected BiFunction<ItemEntity, ItemDto, ItemDto> getEntityToDtoFunction() {
+        BiFunction<ItemEntity, ItemDto, ItemDto> function = (itemEntity, itemDto) -> {
+            ItemTypeEntity itemType = itemEntity.getItemType();
+            itemDto.setItemType(itemTypeConverter.convertToDto(itemType));
+            return itemDto;
         };
         return function;
     }
