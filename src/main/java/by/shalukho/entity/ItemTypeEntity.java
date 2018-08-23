@@ -2,7 +2,12 @@ package by.shalukho.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
@@ -10,7 +15,7 @@ import java.util.Set;
 @Table(name = "ITEM_TYPE")
 public class ItemTypeEntity extends AbstractNamedEntity {
 
-    @OneToMany
+    @OneToMany(mappedBy = "itemType")
     private Set<ItemEntity> items;
 
     @ManyToMany

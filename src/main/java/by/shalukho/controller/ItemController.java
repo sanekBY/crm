@@ -3,6 +3,7 @@ package by.shalukho.controller;
 import by.shalukho.dto.ItemDto;
 import by.shalukho.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+//@PreAuthorize("hasAuthority('ADMIN')")
 public class ItemController {
 
     private final ItemService itemService;
