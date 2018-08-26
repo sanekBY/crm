@@ -2,8 +2,8 @@ package by.shalukho.converter.item;
 
 import by.shalukho.converter.GenericConverter;
 import by.shalukho.dto.item.ItemTypeDto;
+import by.shalukho.entity.items.ItemPropertyEntity;
 import by.shalukho.entity.items.ItemTypeEntity;
-import by.shalukho.entity.items.ItemTypePropertyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.function.BiFunction;
 public class ItemTypeConverter extends GenericConverter<ItemTypeDto, ItemTypeEntity> {
 
     @Autowired
-    public ItemTypePropertyConverter itemTypePropertyConverter;
+    public ItemPropertyConverter itemPropertyConverter;
 
 
     public ItemTypeConverter() {
@@ -24,12 +24,12 @@ public class ItemTypeConverter extends GenericConverter<ItemTypeDto, ItemTypeEnt
     @Override protected BiFunction<ItemTypeDto, ItemTypeEntity, ItemTypeEntity> getDtoToEntityFunction() {
         BiFunction<ItemTypeDto, ItemTypeEntity, ItemTypeEntity> function = (itemTypeDto, itemTypeEntity) -> {
 
-            if (itemTypeDto.getItemTypeProperties() != null) {
-                List<ItemTypePropertyEntity> itemTypeProperties =
-                        itemTypePropertyConverter
-                                .convertAllToEntity(itemTypeDto.getItemTypeProperties());
+            if (itemTypeDto.getItemProperties() != null) {
+                List<ItemPropertyEntity> itemTypeProperties =
+                        itemPropertyConverter
+                                .convertAllToEntity(itemTypeDto.getItemProperties());
 
-                itemTypeEntity.setItemTypeProperties(itemTypeProperties);
+                itemTypeEntity.setItemProperties(itemTypeProperties);
             }
 
             return itemTypeEntity;
@@ -39,9 +39,9 @@ public class ItemTypeConverter extends GenericConverter<ItemTypeDto, ItemTypeEnt
 
     @Override protected BiFunction<ItemTypeEntity, ItemTypeDto, ItemTypeDto> getEntityToDtoFunction() {
         BiFunction<ItemTypeEntity, ItemTypeDto, ItemTypeDto> function = (itemTypeEntity, itemTypeDto) -> {
-            if (itemTypeEntity.getItemTypeProperties() != null) {
-                itemTypeDto.setItemTypeProperties(
-                        itemTypePropertyConverter.convertAllToDto(itemTypeEntity.getItemTypeProperties()));
+            if (itemTypeEntity.getItemProperties() != null) {
+                itemTypeDto.setItemProperties(
+                        itemPropertyConverter.convertAllToDto(itemTypeEntity.getItemProperties()));
             }
             return itemTypeDto;
         };

@@ -8,26 +8,22 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "ITEM_TYPE")
+@Table(name = "ITEM_PROPERTY")
 @EqualsAndHashCode(callSuper = true)
-public class ItemTypeEntity extends AbstractNamedEntity {
+public class ItemPropertyEntity extends AbstractNamedEntity {
 
-    @OneToMany(mappedBy = "itemType")
+    @ManyToMany(mappedBy = "itemProperties", fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<ItemEntity> items;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ITEM_TYPE_ITEM_PROPERTY", joinColumns = {@JoinColumn(name = "ITEM_TYPE_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ITEM_PROPERTY_ID")})
+    @ManyToMany(mappedBy = "itemProperties", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
-    private List<ItemPropertyEntity> itemProperties;
+    private List<ItemTypeEntity> itemTypes;
 
 }

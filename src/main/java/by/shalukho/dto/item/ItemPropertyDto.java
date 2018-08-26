@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ItemTypePropertyDto {
+public class ItemPropertyDto {
     private Long id;
     private String name;
 }

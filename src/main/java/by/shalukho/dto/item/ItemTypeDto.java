@@ -10,5 +10,5 @@ import java.util.List;
 public class ItemTypeDto {
     private Long id;
     private String name;
-    private List<ItemTypePropertyDto> itemTypeProperties;
+    private List<ItemPropertyDto> itemProperties;
 }

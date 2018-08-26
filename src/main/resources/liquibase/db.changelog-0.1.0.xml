@@ -67,10 +67,10 @@
             </column>
             <column name="NAME" type="varchar(255)"/>
         </createTable>
-        <createTable tableName="ITEM_TYPE_PROPERTY">
+        <createTable tableName="ITEM_PROPERTY">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="ITEM_TYPE_PROPERTYPK"/>
+                             primaryKeyName="ITEM_PROPERTYPK"/>
             </column>
             <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
                 <constraints nullable="false"/>
@@ -95,18 +95,32 @@
                              foreignKeyName="FK_ITEM__ITEM_TYPE_ID" nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="ITEM_TYPE_ITEM_TYPE_PROPERTY">
+        <createTable tableName="ITEM_TYPE_ITEM_PROPERTY">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="ITEM_TYPE_ITPPK"/>
+                             primaryKeyName="ITEM_TYPE_IPPK"/>
             </column>
             <column name="ITEM_TYPE_ID" type="BIGINT">
                 <constraints references="ITEM_TYPE(ID)"
                              foreignKeyName="FK_ITITP__ITEM_TYPE_ID" nullable="false"/>
             </column>
-            <column name="ITEM_TYPE_PROPERTY_ID" type="BIGINT">
-                <constraints references="ITEM_TYPE_PROPERTY(ID)"
-                             foreignKeyName="FK_ITITP__ITEM_TYPE_PROPERTY_ID" nullable="false"/>
+            <column name="ITEM_PROPERTY_ID" type="BIGINT">
+                <constraints references="ITEM_PROPERTY(ID)"
+                             foreignKeyName="FK_ITITP__ITEM_PROPERTY_ID" nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ITEM_ITEM_PROPERTY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ITEM_ITEM_PROPERTYPK"/>
+            </column>
+            <column name="ITEM_ID" type="BIGINT">
+                <constraints references="ITEM(ID)"
+                             foreignKeyName="FK_IITP_ITEM_ID" nullable="false"/>
+            </column>
+            <column name="ITEM_PROPERTY_ID" type="BIGINT">
+                <constraints references="ITEM_PROPERTY(ID)"
+                             foreignKeyName="FK_IITP__ITEM_PROPERTY_ID" nullable="false"/>
             </column>
         </createTable>
     </changeSet>

@@ -1,6 +1,6 @@
 package by.shalukho.controller.item;
 
-import by.shalukho.dto.item.ItemTypePropertyDto;
+import by.shalukho.dto.item.ItemPropertyDto;
 import by.shalukho.service.item.ItemTypePropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +22,8 @@ public class ItemTypePropertyController {
     }
 
     @RequestMapping(value = "/api/item-type-property", method = RequestMethod.POST)
-    public String createItemTypeProperty(@RequestBody final ItemTypePropertyDto itemTypePropertyDto) {
-        itemTypePropertyService.save(itemTypePropertyDto);
+    public String createItemTypeProperty(@RequestBody final ItemPropertyDto itemPropertyDto) {
+        itemTypePropertyService.save(itemPropertyDto);
         return "Item Type Property created";
     }
 
@@ -34,12 +34,12 @@ public class ItemTypePropertyController {
     }
 
     @RequestMapping(value = "/api/item-type-property/{id}", method = RequestMethod.GET)
-    public ItemTypePropertyDto getItemTypeProperty(@PathVariable("id") final Long id) {
+    public ItemPropertyDto getItemTypeProperty(@PathVariable("id") final Long id) {
         return itemTypePropertyService.findById(id);
     }
 
     @RequestMapping(value = "/api/item-type-property", method = RequestMethod.GET)
-    public List<ItemTypePropertyDto> getItems() {
+    public List<ItemPropertyDto> getItems() {
         return itemTypePropertyService.findAll();
     }
 
