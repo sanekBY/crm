@@ -23,21 +23,25 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
         return converter.convertToDto(entity);
     }
 
+    @Transactional
     public List<T> findAll() {
         return findAllByActive(true).stream().map(e -> converter.convertToDto((B) e)).collect(Collectors.toList());
     }
 
+    @Transactional
     public void delete(Long id) {
         B entity = (B) repository.findById(id).get();
         entity.setActive(false);
         repository.save(entity);
     }
 
+    @Transactional
     public void save(T dto) {
         B entity = converter.convertToEntity(dto);
         repository.save(entity);
     }
 
+    @Transactional
     public List<T> findAllById(List<Long> ids) {
         List<B> entities = repository.findAllById(ids);
         List<T> dtos = (List<T>) entities.stream().map(e -> converter.convertToDto(e));

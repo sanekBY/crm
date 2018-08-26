@@ -5,7 +5,9 @@ import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
@@ -32,19 +34,19 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     @Override
-    public Collection<T> convertAllToDto(Collection<B> entites) {
+    public List<T> convertAllToDto(Collection<B> entites) {
         if (entites == null) {
             return null;
         }
-        return (Collection<T>) entites.stream().map(e -> convertToDto(e));
+        return entites.stream().map(e -> convertToDto(e)).collect(Collectors.toList());
     }
 
     @Override
-    public Collection<B> convertAllToEntity(Collection<T> dbos) {
+    public List<B> convertAllToEntity(Collection<T> dbos) {
         if (dbos == null) {
             return null;
         }
-        return (Collection<B>) dbos.stream().map(d -> convertToEntity(d));
+        return dbos.stream().map(d -> convertToEntity(d)).collect(Collectors.toList());
     }
 
     private Object convert(Object dto, Class clazz) {

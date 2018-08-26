@@ -2,9 +2,10 @@ package by.shalukho.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import java.util.List;
 
 @Data
 @Entity
@@ -12,6 +13,6 @@ import java.util.Set;
 public class ItemTypePropertyEntity extends AbstractNamedEntity {
 
     @ManyToMany(mappedBy = "itemTypeProperties")
-    private Set<ItemTypeEntity> itemTypes;
+    private List<ItemTypeEntity> itemTypes;
 
 }
