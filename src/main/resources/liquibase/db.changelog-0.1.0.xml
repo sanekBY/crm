@@ -98,7 +98,7 @@
         <createTable tableName="ITEM_TYPE_ITEM_TYPE_PROPERTY">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="ITEMPK"/>
+                             primaryKeyName="ITEM_TYPE_ITPPK"/>
             </column>
             <column name="ITEM_TYPE_ID" type="BIGINT">
                 <constraints references="ITEM_TYPE(ID)"

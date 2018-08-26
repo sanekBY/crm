@@ -1,7 +1,8 @@
-package by.shalukho.service;
+package by.shalukho.service.customer;
 
 import by.shalukho.dto.UserDto;
 import by.shalukho.enums.RoleEnum;
+import by.shalukho.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -7,6 +7,7 @@ import by.shalukho.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService extends AbstractService<UserDto, UserEntity> {
@@ -20,7 +21,7 @@ public class UserService extends AbstractService<UserDto, UserEntity> {
     }
 
     @Override
-    public UserEntity findByActiveAndId(boolean active, Long id) {
+    public Optional<UserEntity> findByActiveAndId(boolean active, Long id) {
         return ((UserRepository) getRepository()).findByActiveAndId(active, id);
     }
 

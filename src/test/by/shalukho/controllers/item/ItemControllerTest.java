@@ -1,9 +1,9 @@
 package by.shalukho.controllers.item;
 
 
-import by.shalukho.dto.ItemDto;
-import by.shalukho.dto.ItemTypeDto;
-import by.shalukho.dto.ItemTypePropertyDto;
+import by.shalukho.dto.item.ItemDto;
+import by.shalukho.dto.item.ItemTypeDto;
+import by.shalukho.dto.item.ItemTypePropertyDto;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -24,14 +24,18 @@ public class ItemControllerTest extends AbstractTest {
     public static final String ITEM_NAME = "Simple mug";
     public static final String ITEM_DESCRIPTION = "No Descr";
     public static final BigDecimal ITEM_PRICE_PRICE = new BigDecimal(1000);
+    public static final String API_ITEM_TYPE_WITHOUT_ID = "/api/item-type";
+    public static final String API_ITEM_WITHOUT_ID = "/api/item";
+    public static final String API_ITEM_TYPE_PROPERTY_WITHOUT_ID = "/api/item-type-property";
+    public static final String ITEM_TYPE_PROPERTY_NAME = "Color";
 
     @Test
     public void checkItemTypeServiceCreation() throws Exception {
         ItemTypeDto itemTypeDto = createItemType();
 
-        createPostRequest("/api/item-type", this.json(itemTypeDto));
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
 
-        getMockMvc().perform(get("/api/item-type/1"))
+        getMockMvc().perform(get(API_ITEM_TYPE_WITHOUT_ID + "/" + ID))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -45,10 +49,10 @@ public class ItemControllerTest extends AbstractTest {
         ItemTypeDto itemTypeDto = createItemType();
         ItemDto itemDto = createItem(itemTypeDto);
 
-        createPostRequest("/api/item-type", this.json(itemTypeDto));
-        createPostRequest("/api/item", this.json(itemDto));
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
+        createPostRequest(API_ITEM_WITHOUT_ID, this.json(itemDto));
 
-        getMockMvc().perform(get("/api/item/1"))
+        getMockMvc().perform(get(API_ITEM_WITHOUT_ID + "/" + ID))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -67,10 +71,10 @@ public class ItemControllerTest extends AbstractTest {
         itemTypeProperties.add(itemTypePropertyDto);
         itemTypeDto.setItemTypeProperties(itemTypeProperties);
 
-        createPostRequest("/api/item-type-property", this.json(itemTypePropertyDto));
-        createPostRequest("/api/item-type", this.json(itemTypeDto));
+        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, this.json(itemTypePropertyDto));
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
 
-        getMockMvc().perform(get("/api/item-type/1"))
+        getMockMvc().perform(get(API_ITEM_TYPE_WITHOUT_ID + "/" + ID))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -101,7 +105,7 @@ public class ItemControllerTest extends AbstractTest {
     private ItemTypePropertyDto createItemTypeProperty() {
         ItemTypePropertyDto itemTypePropertyDto = new ItemTypePropertyDto();
         itemTypePropertyDto.setId(ID);
-        itemTypePropertyDto.setName("Color");
+        itemTypePropertyDto.setName(ITEM_TYPE_PROPERTY_NAME);
         return itemTypePropertyDto;
     }
 

@@ -1,7 +1,7 @@
-package by.shalukho.controller;
+package by.shalukho.controller.item;
 
-import by.shalukho.dto.ItemTypePropertyDto;
-import by.shalukho.service.ItemTypePropertyService;
+import by.shalukho.dto.item.ItemTypePropertyDto;
+import by.shalukho.service.item.ItemTypePropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

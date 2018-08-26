@@ -1,6 +1,6 @@
-package by.shalukho.controller;
+package by.shalukho.controller.customer;
 
-import by.shalukho.dto.PersonDto;
+import by.shalukho.dto.customer.PersonDto;
 import by.shalukho.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

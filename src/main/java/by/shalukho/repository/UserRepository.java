@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByLogin(String login);
 
-    public UserEntity findByActiveAndId(boolean active, Long id);
+    public Optional<UserEntity> findByActiveAndId(boolean active, Long id);
 
     public List<UserEntity> findAllByActive(boolean active);
 }

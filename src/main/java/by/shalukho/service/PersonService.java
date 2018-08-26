@@ -1,12 +1,13 @@
 package by.shalukho.service;
 
-import by.shalukho.converter.PersonConverter;
-import by.shalukho.dto.PersonDto;
-import by.shalukho.entity.PersonEntity;
+import by.shalukho.converter.customer.PersonConverter;
+import by.shalukho.dto.customer.PersonDto;
+import by.shalukho.entity.customer.PersonEntity;
 import by.shalukho.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService extends AbstractService<PersonDto, PersonEntity> {
@@ -16,7 +17,7 @@ public class PersonService extends AbstractService<PersonDto, PersonEntity> {
     }
 
     @Override
-    public PersonEntity findByActiveAndId(boolean active, Long id) {
+    public Optional<PersonEntity> findByActiveAndId(boolean active, Long id) {
         return ((PersonRepository) getRepository()).findByActiveAndId(active, id);
     }
 

@@ -1,4 +1,4 @@
-package by.shalukho.dto;
+package by.shalukho.dto.item;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

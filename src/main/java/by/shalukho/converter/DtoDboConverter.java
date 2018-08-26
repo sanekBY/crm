@@ -1,7 +1,6 @@
 package by.shalukho.converter;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface DtoDboConverter<T, B> {
     T convertToDto(final B dbo);

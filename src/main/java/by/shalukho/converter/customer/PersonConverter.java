@@ -1,7 +1,8 @@
-package by.shalukho.converter;
+package by.shalukho.converter.customer;
 
-import by.shalukho.dto.PersonDto;
-import by.shalukho.entity.PersonEntity;
+import by.shalukho.converter.GenericConverter;
+import by.shalukho.dto.customer.PersonDto;
+import by.shalukho.entity.customer.PersonEntity;
 import by.shalukho.enums.PhoneTypeEnum;
 import org.springframework.stereotype.Service;
 

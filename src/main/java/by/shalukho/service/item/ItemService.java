@@ -1,12 +1,14 @@
-package by.shalukho.service;
+package by.shalukho.service.item;
 
-import by.shalukho.converter.ItemConverter;
-import by.shalukho.dto.ItemDto;
-import by.shalukho.entity.ItemEntity;
+import by.shalukho.converter.item.ItemConverter;
+import by.shalukho.dto.item.ItemDto;
+import by.shalukho.entity.items.ItemEntity;
 import by.shalukho.repository.ItemRepository;
+import by.shalukho.service.AbstractService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService extends AbstractService<ItemDto, ItemEntity> {
@@ -16,7 +18,7 @@ public class ItemService extends AbstractService<ItemDto, ItemEntity> {
     }
 
     @Override
-    public ItemEntity findByActiveAndId(boolean active, Long id) {
+    public Optional<ItemEntity> findByActiveAndId(boolean active, Long id) {
         return ((ItemRepository) getRepository()).findByActiveAndId(active, id);
     }
 

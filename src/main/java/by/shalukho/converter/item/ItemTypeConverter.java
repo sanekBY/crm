@@ -1,8 +1,9 @@
-package by.shalukho.converter;
+package by.shalukho.converter.item;
 
-import by.shalukho.dto.ItemTypeDto;
-import by.shalukho.entity.ItemTypeEntity;
-import by.shalukho.entity.ItemTypePropertyEntity;
+import by.shalukho.converter.GenericConverter;
+import by.shalukho.dto.item.ItemTypeDto;
+import by.shalukho.entity.items.ItemTypeEntity;
+import by.shalukho.entity.items.ItemTypePropertyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package by.shalukho.dto;
+package by.shalukho.dto.customer;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

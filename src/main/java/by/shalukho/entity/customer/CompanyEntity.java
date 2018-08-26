@@ -1,4 +1,4 @@
-package by.shalukho.entity;
+package by.shalukho.entity.customer;
 
 import lombok.Data;
 

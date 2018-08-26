@@ -1,5 +1,6 @@
-package by.shalukho.entity;
+package by.shalukho.entity.customer;
 
+import by.shalukho.entity.AbstractNamedEntity;
 import by.shalukho.enums.PhoneTypeEnum;
 import lombok.Data;
 

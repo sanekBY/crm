@@ -1,9 +1,8 @@
-package by.shalukho.controller;
+package by.shalukho.controller.item;
 
-import by.shalukho.dto.ItemDto;
-import by.shalukho.service.ItemService;
+import by.shalukho.dto.item.ItemDto;
+import by.shalukho.service.item.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,12 +1,14 @@
-package by.shalukho.service;
+package by.shalukho.service.customer;
 
-import by.shalukho.converter.CompanyConverter;
-import by.shalukho.dto.CompanyDto;
-import by.shalukho.entity.CompanyEntity;
+import by.shalukho.converter.customer.CompanyConverter;
+import by.shalukho.dto.customer.CompanyDto;
+import by.shalukho.entity.customer.CompanyEntity;
 import by.shalukho.repository.CompanyRepository;
+import by.shalukho.service.AbstractService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyService extends AbstractService<CompanyDto, CompanyEntity> {
@@ -16,7 +18,7 @@ public class CompanyService extends AbstractService<CompanyDto, CompanyEntity> {
     }
 
     @Override
-    public CompanyEntity findByActiveAndId(boolean active, Long id) {
+    public Optional<CompanyEntity> findByActiveAndId(boolean active, Long id) {
         return ((CompanyRepository) getRepository()).findByActiveAndId(active, id);
     }
 

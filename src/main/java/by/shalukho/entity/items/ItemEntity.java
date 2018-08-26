@@ -1,5 +1,6 @@
-package by.shalukho.entity;
+package by.shalukho.entity.items;
 
+import by.shalukho.entity.AbstractNamedEntity;
 import lombok.Data;
 
 import javax.persistence.*;
