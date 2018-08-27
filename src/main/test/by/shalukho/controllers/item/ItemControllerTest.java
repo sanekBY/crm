@@ -60,12 +60,12 @@ public class ItemControllerTest extends AbstractTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(itemDto.getId().intValue())))
-                .andExpect(jsonPath("$.name", is(itemDto.getName())))
-                .andExpect(jsonPath("$.description", is(itemDto.getDescription())))
-                .andExpect(jsonPath("$.itemType.id", is(itemTypeDto.getId().intValue())))
-                .andExpect(jsonPath("$.itemType.name", is(itemTypeDto.getName())));
-    }
+            .andExpect(jsonPath("$.id", is(itemDto.getId().intValue())))
+            .andExpect(jsonPath("$.name", is(itemDto.getName())))
+            .andExpect(jsonPath("$.description", is(itemDto.getDescription())))
+            .andExpect(jsonPath("$.itemType.id", is(itemTypeDto.getId().intValue())))
+            .andExpect(jsonPath("$.itemType.name", is(itemTypeDto.getName())));
+}
 
     @Test
     public void checkItemTypeWithPropertyCreation() throws Exception {

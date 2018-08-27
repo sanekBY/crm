@@ -124,4 +124,61 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="ADD_ORDERS" author="shalukho">
+        <createTable tableName="ORDER_ITEM_TYPE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ORDER_ITEM_TYPEPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="ORDER_ITEM_PROPERTY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ORDER_ITEM_PROPERTYPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="CUSTOMER_ORDER">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ORDER_PK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(255)"/>
+            <column name="FINAL_PRICE" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="enum('IN_PROGRESS', 'OPENED', 'CLOSED')"/>
+        </createTable>
+        <createTable tableName="ORDER_ITEM">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ORDER_ITEMPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="DESCRIPTION" type="varchar(255)"/>
+            <column name="PRICE" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CUSTOMER_ORDER_ID" type="BIGINT">
+                <constraints references="CUSTOMER_ORDER(ID)"
+                             foreignKeyName="FK_CUSTOMER_ORDER__ORDER_ID" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
