@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,11 @@ public class OrderItemEntity extends AbstractItemEntity {
     @JoinColumn(name = "CUSTOMER_ORDER_ID", nullable = false)
     private CustomerOrderEntity order;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ITEM_TYPE_ID", nullable = false)
+    private OrderItemTypeEntity orderItemType;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "ORDER_ITEM_ITEM_PROPERTY", joinColumns = {@JoinColumn(name = "ORDER_ITEM_ID")},
             inverseJoinColumns = {@JoinColumn(name = "ORDER_ITEM_PROPERTY_ID")})
     @Fetch(value = FetchMode.SUBSELECT)

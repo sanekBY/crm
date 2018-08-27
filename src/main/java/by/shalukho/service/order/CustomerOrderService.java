@@ -7,6 +7,7 @@ import by.shalukho.repository.CustomerOrderRepository;
 import by.shalukho.service.AbstractService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,5 +27,13 @@ public class CustomerOrderService extends AbstractService<CustomerOrderDto, Cust
     @Override
     public List<CustomerOrderEntity> findAllByActive(boolean active) {
         return ((CustomerOrderRepository) getRepository()).findAllByActive(active);
+    }
+
+    @Override
+    protected void beforeEntitySave(CustomerOrderEntity customerOrderEntity) {
+        if (customerOrderEntity.getCreatedOn() == null) {
+            customerOrderEntity.setCreatedOn(LocalDateTime.now());
+        }
+        customerOrderEntity.setModifiedOn(LocalDateTime.now());
     }
 }

@@ -4,7 +4,6 @@ import by.shalukho.converter.GenericConverter;
 import by.shalukho.entity.AbstractEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,6 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
     private Class<T> dtoClazz;
     private Class<B> dboClazz;
 
-    @Transactional
     public T findById(Long id) {
         Optional<B> entity = findByActiveAndId(true, id);
         if (entity.isPresent()) {
@@ -28,12 +26,10 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
         }
     }
 
-    @Transactional
     public List<T> findAll() {
         return findAllByActive(true).stream().map(e -> converter.convertToDto(e)).collect(Collectors.toList());
     }
 
-    @Transactional
     public void delete(Long id) {
         Optional<B> entity = repository.findById(id);
         if (entity.isPresent()) {
@@ -44,13 +40,15 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
         }
     }
 
-    @Transactional
     public void save(T dto) {
         B entity = converter.convertToEntity(dto);
+        beforeEntitySave(entity);
         repository.save(entity);
     }
 
-    @Transactional
+    protected void beforeEntitySave(B entity) {
+    }
+
     public List<T> findAllById(List<Long> ids) {
         List<B> entities = repository.findAllById(ids);
         List<T> dtos = (List<T>) entities.stream().map(e -> converter.convertToDto(e));

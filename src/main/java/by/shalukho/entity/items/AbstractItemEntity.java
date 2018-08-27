@@ -28,8 +28,4 @@ public class AbstractItemEntity extends AbstractNamedEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "ITEM_TYPE_ID", nullable = false)
-    private ItemTypeEntity itemType;
-
 }

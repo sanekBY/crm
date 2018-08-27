@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Data
-@Entity
 @MappedSuperclass
 public class AbstractItemPropertyEntity extends AbstractNamedEntity {
 

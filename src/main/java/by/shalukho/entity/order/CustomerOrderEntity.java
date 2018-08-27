@@ -5,6 +5,7 @@ import by.shalukho.enums.OrderStatusEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,7 +28,7 @@ public class CustomerOrderEntity extends AbstractEntity {
     @Column(name = "FINAL_PRICE", nullable = false)
     private BigDecimal finalPrice;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItemEntity> orderItems;
 
     @Enumerated(EnumType.STRING)
