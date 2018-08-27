@@ -11,8 +11,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -30,8 +30,13 @@ public class CustomerOrderEntity extends AbstractEntity {
     @OneToMany(mappedBy = "order")
     private List<OrderItemEntity> orderItems;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
     private OrderStatusEnum status;
+
+    @Column(name = "CREATED_ON")
+    private LocalDateTime createdOn;
+
+    @Column(name = "MODIFIED_ON")
+    private LocalDateTime modifiedOn;
 }
