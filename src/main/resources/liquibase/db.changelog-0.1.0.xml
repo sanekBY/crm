@@ -169,7 +169,7 @@
             <column name="CREATED_ON" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODFIFED_ON" type="datetime">
+            <column name="MODIFIED_ON" type="datetime">
                 <constraints nullable="false"/>
             </column>
         </createTable>

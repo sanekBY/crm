@@ -1,13 +1,13 @@
 package by.shalukho.repository;
 
-import by.shalukho.entity.order.OrderItemPropertyEntity;
+import by.shalukho.entity.order.OrderItemTypeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface OrderItemTypeRepository extends JpaRepository<OrderItemPropertyEntity, Long> {
-    public Optional<OrderItemPropertyEntity> findByActiveAndId(boolean active, Long id);
+public interface OrderItemTypeRepository extends JpaRepository<OrderItemTypeEntity, Long> {
+    public Optional<OrderItemTypeEntity> findByActiveAndId(boolean active, Long id);
 
-    public List<OrderItemPropertyEntity> findAllByActive(boolean active);
+    public List<OrderItemTypeEntity> findAllByActive(boolean active);
 }
