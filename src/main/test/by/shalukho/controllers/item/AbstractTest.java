@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 public abstract class AbstractTest {
 
+    public static final long ID = 1L;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

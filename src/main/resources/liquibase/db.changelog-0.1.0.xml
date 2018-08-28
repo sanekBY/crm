@@ -35,12 +35,41 @@
             <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="PHONE" type="varchar(255)"/>
             <column name="EMAIL" type="varchar(255)"/>
-            <column name="ADDRESS" type="varchar(255)"/>
             <column name="NAME" type="varchar(255)"/>
-            <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
             <column name="TYPE" type="enum('PERSON', 'COMPANY')"/>
+        </createTable>
+        <createTable tableName="CUSTOMER_CONTACT_DATA">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="CUSTOMER_CONTACT_DATAPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHONE" type="varchar(255)"/>
+            <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
+            <column name="CUSTOMER_ID" type="BIGINT">
+                <constraints references="CUSTOMER(ID)"
+                             foreignKeyName="FK_CONTACT_DATA__CUSTOMER_ID" nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="CUSTOMER_ADDRESS">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="CUSTOMER_ADDRESSPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CITY" type="varchar(255)"/>
+            <column name="STATE" type="varchar(255)"/>
+            <column name="ADDRESS" type="varchar(255)"/>
+            <column name="POSTAL_CODE" type="varchar(255)"/>
+            <column name="CUSTOMER_ID" type="BIGINT">
+                <constraints references="CUSTOMER(ID)"
+                             foreignKeyName="FK_ADDRESS__CUSTOMER_ID" nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet id="ADD_ITEMS" author="shalukho">
@@ -145,6 +174,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="STATUS" type="enum('IN_PROGRESS', 'OPENED', 'CLOSED')"/>
+            <column name="CUSTOMER_ID" type="BIGINT">
+                <constraints references="CUSTOMER(ID)"
+                             foreignKeyName="FK_CUSTOMER_ORDER__CUSTOMER_ID" nullable="false"/>
+            </column>
         </createTable>
         <createTable tableName="ORDER_ITEM">
             <column autoIncrement="true" name="ID" type="BIGINT">

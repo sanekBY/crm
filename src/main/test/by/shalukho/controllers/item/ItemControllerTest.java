@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ItemControllerTest extends AbstractTest {
 
-    public static final long ID = 1L;
     public static final String ITEM_TYPE_NAME = "Name";
     public static final String ITEM_NAME = "Simple mug";
     public static final String ITEM_DESCRIPTION = "No Descr";
