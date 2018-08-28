@@ -26,11 +26,11 @@
         </insert>
         <addUniqueConstraint columnNames="LOGIN" constraintName="UK_LOGIN" tableName="USER"/>
     </changeSet>
-    <changeSet id="ADD_PERSON_AND_COMPANY" author="shalukho">
-        <createTable tableName="PERSON">
+    <changeSet id="ADD_CUSTOMER" author="shalukho">
+        <createTable tableName="CUSTOMER">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
-                             primaryKeyName="PERSONPK"/>
+                             primaryKeyName="CUSTOMERPK"/>
             </column>
             <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
                 <constraints nullable="false"/>
@@ -40,20 +40,7 @@
             <column name="ADDRESS" type="varchar(255)"/>
             <column name="NAME" type="varchar(255)"/>
             <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
-        </createTable>
-        <createTable tableName="COMPANY">
-            <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints primaryKey="true"
-                             primaryKeyName="COMPANYPK"/>
-            </column>
-            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="PHONE" type="varchar(255)"/>
-            <column name="EMAIL" type="varchar(255)"/>
-            <column name="ADDRESS" type="varchar(255)"/>
-            <column name="NAME" type="varchar(255)"/>
-            <column name="PHONE_TYPE" type="enum('MOBILE', 'WORK', 'HOME')"/>
+            <column name="TYPE" type="enum('PERSON', 'COMPANY')"/>
         </createTable>
     </changeSet>
     <changeSet id="ADD_ITEMS" author="shalukho">
