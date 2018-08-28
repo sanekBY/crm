@@ -1,6 +1,7 @@
 package by.shalukho.entity.order;
 
 import by.shalukho.entity.AbstractEntity;
+import by.shalukho.entity.customer.CustomerEntity;
 import by.shalukho.enums.OrderStatusEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -40,4 +43,8 @@ public class CustomerOrderEntity extends AbstractEntity {
 
     @Column(name = "MODIFIED_ON")
     private LocalDateTime modifiedOn;
+
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    private CustomerEntity customerEntity;
 }
