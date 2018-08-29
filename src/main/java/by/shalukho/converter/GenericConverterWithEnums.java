@@ -80,7 +80,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
     }
 
     private void throwException(final Object firstObj, final Object secondObj) {
-        throw new RuntimeException("Impossible to convert enum from " + firstObj.getClass().getName() + "to" +
+        throw new RuntimeException("Impossible to convert enum from " + firstObj.getClass().getName() + " to " +
                                    secondObj.getClass().getName());
     }
 

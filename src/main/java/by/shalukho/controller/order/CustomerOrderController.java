@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -42,7 +41,6 @@ public class CustomerOrderController {
 
     @RequestMapping(value = "/api/customer-order/{id}", method = RequestMethod.PUT)
     public String updateCustomerOrder(@RequestBody final CustomerOrderDto customerOrderDto) {
-        customerOrderDto.setModifiedOn(LocalDateTime.now());
         customerOrderService.save(customerOrderDto);
         return "Customer order is saved";
     }

@@ -27,7 +27,7 @@ import java.util.List;
 public class OrderItemEntity extends AbstractItemEntity {
 
     @Column(name = "QUANTITY", nullable = false)
-    private Long quantity;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ORDER_ID", nullable = false)

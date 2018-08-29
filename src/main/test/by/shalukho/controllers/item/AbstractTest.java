@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,7 +35,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest(classes = {SpringBootWebApplication.class, H2TestProfileJPAConfig.class})
 @WebAppConfiguration
 @ActiveProfiles("test")
-public abstract class AbstractTest<T> {
+public abstract class AbstractTest {
 
     public static final long ID = 1L;
     public Map<String, Matcher<?>> expectations;
@@ -68,23 +67,30 @@ public abstract class AbstractTest<T> {
         this.expectations = new HashMap<>();
     }
 
-    protected void createPostRequest(String url, String json) throws Exception {
-        mockMvc.perform(post(url)
-                                .content(json)
-                                .contentType(contentType))
-                .andExpect(status().isOk());
+    protected void createPostRequest(String url, Object o) {
+        try {
+            mockMvc.perform(post(url)
+                                    .content(convertToJson(o))
+                                    .contentType(contentType))
+                    .andExpect(status().isOk());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    protected String json(Object o) throws IOException {
+    protected String convertToJson(Object o) {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        this.mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+        try {
+            this.mappingJackson2HttpMessageConverter.write(
+                    o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+        } catch (Exception e) {
+//            throw new RuntimeException("Unable to convert to json");
+        }
         return mockHttpOutputMessage.getBodyAsString();
     }
 
-    protected void checkGetRequest(String url) throws Exception {
-        final ResultActions resultActions = getMockMvc().perform(get(url))
-                .andDo(print());
+    protected void checkGetRequest(String url) {
+        final ResultActions resultActions = getResultActions(url);
 
         expectations.forEach((k, v) -> {
             try {
@@ -93,6 +99,17 @@ public abstract class AbstractTest<T> {
                 e.printStackTrace();
             }
         });
+    }
+
+    private ResultActions getResultActions(final String url) {
+        ResultActions resultActions = null;
+        try {
+            resultActions = getMockMvc().perform(get(url))
+                    .andDo(print());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultActions;
     }
 
     public MockMvc getMockMvc() {

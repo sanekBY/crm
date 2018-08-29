@@ -28,10 +28,10 @@ public class ItemControllerTest extends AbstractTest {
     public static final String SECOND_ITEM_TYPE_NAME = "Paper";
 
     @Test
-    public void checkItemTypeCreation() throws Exception {
+    public void checkItemTypeCreation() {
         ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
 
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
 
         expectations.put("$.id", is(itemTypeDto.getId().intValue()));
         expectations.put("$.name", is(itemTypeDto.getName()));
@@ -41,12 +41,12 @@ public class ItemControllerTest extends AbstractTest {
 
 
     @Test
-    public void checkItemCreation() throws Exception {
+    public void checkItemCreation() {
         ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
         ItemDto itemDto = createItem(ID, ITEM_NAME, itemTypeDto);
 
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
-        createPostRequest(API_ITEM_WITHOUT_ID, this.json(itemDto));
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
+        createPostRequest(API_ITEM_WITHOUT_ID, itemDto);
 
         expectations.put("$.id", is(itemDto.getId().intValue()));
         expectations.put("$.name", is(itemDto.getName()));
@@ -58,7 +58,7 @@ public class ItemControllerTest extends AbstractTest {
     }
 
     @Test
-    public void checkItemTypeWithPropertyCreation() throws Exception {
+    public void checkItemTypeWithPropertyCreation() {
         ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
 
         ItemPropertyDto itemPropertyDto = createItemProperty(ID, ITEM_TYPE_PROPERTY_NAME);
@@ -67,8 +67,8 @@ public class ItemControllerTest extends AbstractTest {
 
         itemTypeDto.setItemProperties(itemProperties);
 
-        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, this.json(itemPropertyDto));
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
+        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, itemPropertyDto);
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
 
         expectations.put("$.id", is(itemTypeDto.getId().intValue()));
         expectations.put("$.name", is(itemTypeDto.getName()));
@@ -79,7 +79,7 @@ public class ItemControllerTest extends AbstractTest {
     }
 
     @Test
-    public void checkItemTypesWithMultiplePropertiesCreation() throws Exception {
+    public void checkItemTypesWithMultiplePropertiesCreation() {
         ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
         ItemTypeDto secondItemTypeDto = createItemType(SECOND_ID, SECOND_ITEM_TYPE_NAME);
 
@@ -95,11 +95,11 @@ public class ItemControllerTest extends AbstractTest {
         itemTypeDto.setItemProperties(itemTypeProperties);
         secondItemTypeDto.setItemProperties(secondItemTypeProperties);
 
-        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, this.json(itemPropertyDto));
-        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, this.json(secondItemPropertyDto));
+        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, itemPropertyDto);
+        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, secondItemPropertyDto);
 
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(secondItemTypeDto));
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
+        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, secondItemTypeDto);
 
         expectations.put("$.id", is(itemTypeDto.getId().intValue()));
         expectations.put("$.name", is(itemTypeDto.getName()));

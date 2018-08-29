@@ -178,6 +178,12 @@
                 <constraints references="CUSTOMER(ID)"
                              foreignKeyName="FK_CUSTOMER_ORDER__CUSTOMER_ID" nullable="false"/>
             </column>
+            <column name="CREATED_ON" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODIFIED_ON" type="datetime">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <createTable tableName="ORDER_ITEM">
             <column autoIncrement="true" name="ID" type="BIGINT">
@@ -198,12 +204,6 @@
             <column name="CUSTOMER_ORDER_ID" type="BIGINT">
                 <constraints references="CUSTOMER_ORDER(ID)"
                              foreignKeyName="FK_CUSTOMER_ORDER__ORDER_ID" nullable="false"/>
-            </column>
-            <column name="CREATED_ON" type="datetime">
-                <constraints nullable="false"/>
-            </column>
-            <column name="MODIFIED_ON" type="datetime">
-                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>

@@ -14,6 +14,6 @@ public class OrderItemDto extends AbstractDto {
     private String name;
     private String description;
     private BigDecimal price;
-    private Long quantity;
+    private int quantity;
     private List<ItemPropertyDto> orderItemProperties;
 }

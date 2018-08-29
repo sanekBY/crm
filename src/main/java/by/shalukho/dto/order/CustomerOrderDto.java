@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,8 +13,7 @@ import java.util.List;
 public class CustomerOrderDto extends AbstractDto {
     private String description;
     private BigDecimal finalPrice;
-    private LocalDateTime createdOn;
-    private LocalDateTime modifiedOn;
     private List<OrderItemDto> orderItems;
     private CustomerDto customer;
+    private String status;
 }

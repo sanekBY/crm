@@ -13,5 +13,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface ConnectedDto {
     @SuppressWarnings("rawtypes")
-    Class<? extends AbstractDto> value() default AbstractDto.class;
+    Class<? extends AbstractDto> value();
 }

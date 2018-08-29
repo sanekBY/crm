@@ -41,10 +41,10 @@ public class CustomerOrderEntity extends AbstractEntity {
     @Column(name = "STATUS", nullable = false)
     private OrderStatusEnum status;
 
-    @Column(name = "CREATED_ON")
+    @Column(name = "CREATED_ON", nullable = false)
     private LocalDateTime createdOn;
 
-    @Column(name = "MODIFIED_ON")
+    @Column(name = "MODIFIED_ON", nullable = false)
     private LocalDateTime modifiedOn;
 
     @ManyToOne
