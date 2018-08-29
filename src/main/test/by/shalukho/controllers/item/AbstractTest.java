@@ -2,6 +2,7 @@ package by.shalukho.controllers.item;
 
 import by.shalukho.SpringBootWebApplication;
 import by.shalukho.config.H2TestProfileJPAConfig;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,20 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -29,9 +36,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest(classes = {SpringBootWebApplication.class, H2TestProfileJPAConfig.class})
 @WebAppConfiguration
 @ActiveProfiles("test")
-public abstract class AbstractTest {
+public abstract class AbstractTest<T> {
 
     public static final long ID = 1L;
+    public Map<String, Matcher<?>> expectations;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -59,7 +67,7 @@ public abstract class AbstractTest {
     @Before
     public void setup() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
-
+        this.expectations = new HashMap<>();
     }
 
     protected void createPostRequest(String url, String json) throws Exception {
@@ -74,6 +82,19 @@ public abstract class AbstractTest {
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
         return mockHttpOutputMessage.getBodyAsString();
+    }
+
+    protected void checkGetRequest(String url) throws Exception {
+        final ResultActions resultActions = getMockMvc().perform(get(url))
+                .andDo(print());
+
+        expectations.forEach((k, v) -> {
+            try {
+                resultActions.andExpect(jsonPath(k, v));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public MockMvc getMockMvc() {

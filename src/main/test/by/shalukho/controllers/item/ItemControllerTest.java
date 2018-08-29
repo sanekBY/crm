@@ -12,11 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ItemControllerTest extends AbstractTest {
 
@@ -38,12 +33,10 @@ public class ItemControllerTest extends AbstractTest {
 
         createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
 
-        getMockMvc().perform(get(API_ITEM_TYPE_WITHOUT_ID + "/" + ID))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(itemTypeDto.getId().intValue())))
-                .andExpect(jsonPath("$.name", is(itemTypeDto.getName())));
+        expectations.put("$.id", is(itemTypeDto.getId().intValue()));
+        expectations.put("$.name", is(itemTypeDto.getName()));
+
+        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + ID);
     }
 
 
@@ -55,16 +48,14 @@ public class ItemControllerTest extends AbstractTest {
         createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
         createPostRequest(API_ITEM_WITHOUT_ID, this.json(itemDto));
 
-        getMockMvc().perform(get(API_ITEM_WITHOUT_ID + "/" + ID))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-            .andExpect(jsonPath("$.id", is(itemDto.getId().intValue())))
-            .andExpect(jsonPath("$.name", is(itemDto.getName())))
-            .andExpect(jsonPath("$.description", is(itemDto.getDescription())))
-            .andExpect(jsonPath("$.itemType.id", is(itemTypeDto.getId().intValue())))
-            .andExpect(jsonPath("$.itemType.name", is(itemTypeDto.getName())));
-}
+        expectations.put("$.id", is(itemDto.getId().intValue()));
+        expectations.put("$.name", is(itemDto.getName()));
+        expectations.put("$.description", is(itemDto.getDescription()));
+        expectations.put("$.itemType.id", is(itemTypeDto.getId().intValue()));
+        expectations.put("$.itemType.name", is(itemTypeDto.getName()));
+
+        checkGetRequest(API_ITEM_WITHOUT_ID + "/" + ID);
+    }
 
     @Test
     public void checkItemTypeWithPropertyCreation() throws Exception {
@@ -79,14 +70,12 @@ public class ItemControllerTest extends AbstractTest {
         createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, this.json(itemPropertyDto));
         createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
 
-        getMockMvc().perform(get(API_ITEM_TYPE_WITHOUT_ID + "/" + ID))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(itemTypeDto.getId().intValue())))
-                .andExpect(jsonPath("$.name", is(itemTypeDto.getName())))
-                .andExpect(jsonPath("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue())))
-                .andExpect(jsonPath("$.itemProperties[0].name", is(itemPropertyDto.getName())));
+        expectations.put("$.id", is(itemTypeDto.getId().intValue()));
+        expectations.put("$.name", is(itemTypeDto.getName()));
+        expectations.put("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue()));
+        expectations.put("$.itemProperties[0].name", is(itemPropertyDto.getName()));
+
+        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + ID);
     }
 
     @Test
@@ -112,27 +101,22 @@ public class ItemControllerTest extends AbstractTest {
         createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(itemTypeDto));
         createPostRequest(API_ITEM_TYPE_WITHOUT_ID, this.json(secondItemTypeDto));
 
-        getMockMvc().perform(get(API_ITEM_TYPE_WITHOUT_ID + "/" + ID))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(itemTypeDto.getId().intValue())))
-                .andExpect(jsonPath("$.name", is(itemTypeDto.getName())))
-                .andExpect(jsonPath("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue())))
-                .andExpect(jsonPath("$.itemProperties[0].name", is(itemPropertyDto.getName())))
-                .andExpect(jsonPath("$.itemProperties[1].id", is(secondItemPropertyDto.getId().intValue())))
-                .andExpect(jsonPath("$.itemProperties[1].name", is(secondItemPropertyDto.getName())));
+        expectations.put("$.id", is(itemTypeDto.getId().intValue()));
+        expectations.put("$.name", is(itemTypeDto.getName()));
+        expectations.put("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue()));
+        expectations.put("$.itemProperties[0].name", is(itemPropertyDto.getName()));
+        expectations.put("$.itemProperties[1].id", is(secondItemPropertyDto.getId().intValue()));
+        expectations.put("$.itemProperties[1].name", is(secondItemPropertyDto.getName()));
 
-        getMockMvc().perform(get(API_ITEM_TYPE_WITHOUT_ID + "/" + SECOND_ID))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(secondItemTypeDto.getId().intValue())))
-                .andExpect(jsonPath("$.name", is(secondItemTypeDto.getName())))
-                .andExpect(jsonPath("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue())))
-                .andExpect(jsonPath("$.itemProperties[0].name", is(itemPropertyDto.getName())));
+        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + ID);
 
+        expectations.clear();
+        expectations.put("$.id", is(secondItemTypeDto.getId().intValue()));
+        expectations.put("$.name", is(secondItemTypeDto.getName()));
+        expectations.put("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue()));
+        expectations.put("$.itemProperties[0].name", is(itemPropertyDto.getName()));
 
+        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + SECOND_ID);
     }
 
 

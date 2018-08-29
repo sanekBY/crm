@@ -13,24 +13,25 @@ import java.util.stream.Collectors;
 public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
 
     private final Class<T> dtoClazz;
-    private final Class<B> dboClazz;
+
+    private final Class<B> entityClazz;
 
     @Override
-    public T convertToDto(B dbo) {
-        Object object = convert(dbo, dtoClazz);
+    public T convertToDto(B entity) {
+        T dto = (T) convert(entity, dtoClazz);
         if (getEntityToDtoFunction() != null) {
-            getEntityToDtoFunction().apply(dbo, (T) object);
+            getEntityToDtoFunction().apply(entity, (T) dto);
         }
-        return (T) object;
+        return dto;
     }
 
     @Override
     public B convertToEntity(T dto) {
-        Object object = convert(dto, dboClazz);
+        B entity = (B) convert(dto, entityClazz);
         if (getDtoToEntityFunction() != null) {
-            getDtoToEntityFunction().apply(dto, (B) object);
+            getDtoToEntityFunction().apply(dto, (B) entity);
         }
-        return (B) object;
+        return entity;
     }
 
     @Override
@@ -61,11 +62,6 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
         }
         return object;
     }
-//    }
-
-//    public DtoDboConverter<T, B> getConverter(Class<T> dtoClazz, Class<B> entityClazz) {
-//        return new SimpleConverter(dtoClazz, entityClazz, getEntityToDtoFunction(), getDtoToEntityFunction());
-//    }
 
     protected BiFunction<B, T, T> getEntityToDtoFunction() {
         return null;
@@ -73,5 +69,9 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
 
     protected BiFunction<T, B, B> getDtoToEntityFunction() {
         return null;
+    }
+
+    public Class<B> getEntityClazz() {
+        return entityClazz;
     }
 }

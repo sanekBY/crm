@@ -1,5 +1,5 @@
 package by.shalukho.enums;
 
 public enum OrderStatusEnum {
-    IN_PROGRESS, CLOSED, OPENED;
+    OPENED, IN_PROGRESS, CLOSED
 }

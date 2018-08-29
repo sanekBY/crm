@@ -1,6 +1,6 @@
 package by.shalukho.service;
 
-import by.shalukho.converter.UserConverter;
+import by.shalukho.converter.user.UserConverter;
 import by.shalukho.dto.UserDto;
 import by.shalukho.entity.UserEntity;
 import by.shalukho.repository.UserRepository;

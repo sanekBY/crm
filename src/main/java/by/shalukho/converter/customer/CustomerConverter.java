@@ -1,11 +1,10 @@
 package by.shalukho.converter.customer;
 
-import by.shalukho.converter.GenericConverter;
+import by.shalukho.converter.GenericConverterWithEnums;
 import by.shalukho.dto.customer.CustomerDto;
 import by.shalukho.entity.customer.AddressEntity;
 import by.shalukho.entity.customer.ContactDataEntity;
 import by.shalukho.entity.customer.CustomerEntity;
-import by.shalukho.enums.CustomerTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 @Service
-public class CustomerConverter extends GenericConverter<CustomerDto, CustomerEntity> {
+public class CustomerConverter extends GenericConverterWithEnums<CustomerDto, CustomerEntity> {
 
     @Autowired
     private AddressConverter addressConverter;
@@ -42,12 +41,6 @@ public class CustomerConverter extends GenericConverter<CustomerDto, CustomerEnt
                 customerEntity.setContacts(contacts);
             }
 
-            if (customerDto.getType().equals(CustomerTypeEnum.COMPANY.toString())) {
-                customerEntity.setCustomerType(CustomerTypeEnum.COMPANY);
-            } else {
-                customerEntity.setCustomerType(CustomerTypeEnum.PERSON);
-            }
-
             return customerEntity;
         };
         return function;
@@ -59,10 +52,10 @@ public class CustomerConverter extends GenericConverter<CustomerDto, CustomerEnt
 
             customerDto.setAddresses(addressConverter.convertAllToDto(customerEntity.getAddresses()));
             customerDto.setContacts(contactDataConverter.convertAllToDto(customerEntity.getContacts()));
-            customerDto.setType(customerEntity.getCustomerType().toString());
 
             return customerDto;
         };
         return function;
     }
+
 }

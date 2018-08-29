@@ -30,7 +30,7 @@ public class CustomerEntity extends AbstractNamedEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    private CustomerTypeEnum customerType;
+    private CustomerTypeEnum type;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
