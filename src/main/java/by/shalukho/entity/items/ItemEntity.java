@@ -1,5 +1,7 @@
 package by.shalukho.entity.items;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.item.ItemDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Fetch;
@@ -18,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "ITEM")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = ItemDto.class)
 public class ItemEntity extends AbstractItemEntity {
 
     @ManyToOne

@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserService extends AbstractService<UserDto, UserEntity> {
 
     public UserService(UserRepository userRepository, UserConverter userConverter) {
-        super(userRepository, userConverter, UserDto.class, UserEntity.class);
+        super(userRepository, userConverter);
     }
 
     public UserDto getUser(final String login) {

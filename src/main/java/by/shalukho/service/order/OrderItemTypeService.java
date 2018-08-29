@@ -15,7 +15,7 @@ public class OrderItemTypeService extends AbstractService<OrderItemTypeDto, Orde
 
     public OrderItemTypeService(OrderItemTypeRepository orderItemTypeRepository,
                                 OrderItemTypeConverter orderItemTypeConverter) {
-        super(orderItemTypeRepository, orderItemTypeConverter, OrderItemTypeDto.class, OrderItemTypeEntity.class);
+        super(orderItemTypeRepository, orderItemTypeConverter);
     }
 
     @Override

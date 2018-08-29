@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> implements EnumsConverter<T, B> {
 
-    public GenericConverterWithEnums(final Class<T> dtoClazz, final Class<B> dboClazz) {
-        super(dtoClazz, dboClazz);
+    public GenericConverterWithEnums(final Class<B> entityClazz) {
+        super(entityClazz);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
 
     protected static <EnymType extends Enum<EnymType>> EnymType getEnumValue(String stringValue, final EnymType[] en) {
         final EnymType actualEnumValue =
-                (EnymType) Arrays.stream(en).filter(e -> e.toString().equals(stringValue)).findFirst().orElse(en[0]);
+                Arrays.stream(en).filter(e -> e.toString().equals(stringValue)).findFirst().orElse(en[0]);
         return actualEnumValue;
     }
 

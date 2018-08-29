@@ -15,8 +15,7 @@ public class OrderItemPropertyService extends AbstractService<OrderItemPropertyD
 
     public OrderItemPropertyService(OrderItemPropertyRepository orderItemPropertyRepository,
                                     OrderItemPropertyConverter orderItemPropertyConverter) {
-        super(orderItemPropertyRepository, orderItemPropertyConverter, OrderItemPropertyDto.class,
-              OrderItemPropertyEntity.class);
+        super(orderItemPropertyRepository, orderItemPropertyConverter);
     }
 
     @Override

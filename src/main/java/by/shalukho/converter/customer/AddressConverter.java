@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 public class AddressConverter extends GenericConverter<AddressDto, AddressEntity> {
 
     public AddressConverter() {
-        super(AddressDto.class, AddressEntity.class);
+        super(AddressEntity.class);
     }
 }

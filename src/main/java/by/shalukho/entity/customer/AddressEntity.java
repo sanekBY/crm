@@ -1,5 +1,7 @@
 package by.shalukho.entity.customer;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.customer.AddressDto;
 import by.shalukho.entity.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CUSTOMER_ADDRESS")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = AddressDto.class)
 public class AddressEntity extends AbstractEntity {
 
     @Column(name = "CITY")

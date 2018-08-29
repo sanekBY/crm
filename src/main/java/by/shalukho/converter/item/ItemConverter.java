@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 @Service
 public class ItemConverter extends GenericConverter<ItemDto, ItemEntity> {
@@ -26,45 +25,38 @@ public class ItemConverter extends GenericConverter<ItemDto, ItemEntity> {
     public ItemPropertyConverter itemPropertyConverter;
 
     public ItemConverter() {
-        super(ItemDto.class, ItemEntity.class);
+        super(ItemEntity.class);
     }
 
     @Override
-    protected BiFunction<ItemDto, ItemEntity, ItemEntity> getDtoToEntityFunction() {
-        BiFunction<ItemDto, ItemEntity, ItemEntity> function = (dto, entity) -> {
-            
-            if (dto.getItemType() != null) {
-                Long itemTypeId = dto.getItemType().getId();
-                ItemTypeDto itemType = itemTypeService.findById(itemTypeId);
-                ItemTypeEntity itemTypeEntity = itemTypeConverter.convertToEntity(itemType);
+    protected ItemEntity extraConvertToEntity(final ItemDto itemDto, final ItemEntity itemEntity) {
+        if (itemDto.getItemType() != null) {
+            Long itemTypeId = itemDto.getItemType().getId();
+            ItemTypeDto itemType = itemTypeService.findById(itemTypeId);
+            ItemTypeEntity itemTypeEntity = itemTypeConverter.convertToEntity(itemType);
 
-                entity.setItemType(itemTypeEntity);
-            }
-            if (dto.getItemProperties() != null) {
-                List<ItemPropertyEntity> itemTypeProperties =
-                        itemPropertyConverter
-                                .convertAllToEntity(dto.getItemProperties());
-                entity.setItemProperties(itemTypeProperties);
-            }
-            return entity;
-        };
-        return function;
+            itemEntity.setItemType(itemTypeEntity);
+        }
+        if (itemDto.getItemProperties() != null) {
+            List<ItemPropertyEntity> itemTypeProperties =
+                    itemPropertyConverter
+                            .convertAllToEntity(itemDto.getItemProperties());
+            itemEntity.setItemProperties(itemTypeProperties);
+        }
+        return itemEntity;
     }
 
     @Override
-    protected BiFunction<ItemEntity, ItemDto, ItemDto> getEntityToDtoFunction() {
-        BiFunction<ItemEntity, ItemDto, ItemDto> function = (itemEntity, itemDto) -> {
+    protected ItemDto extraConvertToDto(final ItemEntity itemEntity, final ItemDto itemDto) {
 
-            ItemTypeEntity itemType = itemEntity.getItemType();
-            itemDto.setItemType(itemTypeConverter.convertToDto(itemType));
+        ItemTypeEntity itemType = itemEntity.getItemType();
+        itemDto.setItemType(itemTypeConverter.convertToDto(itemType));
 
-            if (itemEntity.getItemProperties() != null) {
-                itemDto.setItemProperties(itemPropertyConverter.convertAllToDto(itemEntity.getItemProperties()));
-            }
+        if (itemEntity.getItemProperties() != null) {
+            itemDto.setItemProperties(itemPropertyConverter.convertAllToDto(itemEntity.getItemProperties()));
+        }
 
-            return itemDto;
-        };
-        return function;
+        return itemDto;
     }
 
 }

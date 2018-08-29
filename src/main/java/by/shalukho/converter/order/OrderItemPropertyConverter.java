@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderItemPropertyConverter extends GenericConverter<OrderItemPropertyDto, OrderItemPropertyEntity> {
     public OrderItemPropertyConverter() {
-        super(OrderItemPropertyDto.class, OrderItemPropertyEntity.class);
+        super(OrderItemPropertyEntity.class);
     }
 }

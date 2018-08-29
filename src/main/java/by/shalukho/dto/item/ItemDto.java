@@ -1,5 +1,6 @@
 package by.shalukho.dto.item;
 
+import by.shalukho.dto.AbstractDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,8 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ItemDto {
-    private Long id;
+public class ItemDto extends AbstractDto {
     private String name;
     private String description;
     private BigDecimal price;

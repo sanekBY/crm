@@ -1,5 +1,7 @@
 package by.shalukho.entity.order;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.order.CustomerOrderDto;
 import by.shalukho.entity.AbstractEntity;
 import by.shalukho.entity.customer.CustomerEntity;
 import by.shalukho.enums.OrderStatusEnum;
@@ -23,6 +25,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER_ORDER")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = CustomerOrderDto.class)
 public class CustomerOrderEntity extends AbstractEntity {
 
     @Column(name = "DESCRIPTION")

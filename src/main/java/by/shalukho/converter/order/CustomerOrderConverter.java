@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerOrderConverter extends GenericConverterWithEnums<CustomerOrderDto, CustomerOrderEntity> {
     public CustomerOrderConverter() {
-        super(CustomerOrderDto.class, CustomerOrderEntity.class);
+        super(CustomerOrderEntity.class);
     }
 }
 

@@ -1,5 +1,7 @@
 package by.shalukho.entity.order;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.order.OrderItemDto;
 import by.shalukho.entity.items.AbstractItemEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "ORDER_ITEM")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = OrderItemDto.class)
 public class OrderItemEntity extends AbstractItemEntity {
 
     @Column(name = "QUANTITY", nullable = false)

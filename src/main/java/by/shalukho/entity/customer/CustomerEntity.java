@@ -1,5 +1,7 @@
 package by.shalukho.entity.customer;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.customer.CustomerDto;
 import by.shalukho.entity.AbstractNamedEntity;
 import by.shalukho.enums.CustomerTypeEnum;
 import lombok.Data;
@@ -22,6 +24,7 @@ import java.util.List;
 @Entity
 @Table(name = "CUSTOMER")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = CustomerDto.class)
 public class CustomerEntity extends AbstractNamedEntity {
 
     @Column(name = "EMAIL")

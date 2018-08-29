@@ -1,5 +1,7 @@
 package by.shalukho.entity.order;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.order.OrderItemPropertyDto;
 import by.shalukho.entity.AbstractNamedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "ORDER_ITEM_TYPE")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = OrderItemPropertyDto.class)
 public class OrderItemTypeEntity extends AbstractNamedEntity {
 
     @OneToMany(mappedBy = "orderItemType")

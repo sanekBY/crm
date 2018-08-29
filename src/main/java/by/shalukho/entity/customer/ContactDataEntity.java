@@ -1,5 +1,7 @@
 package by.shalukho.entity.customer;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.customer.ContactDataDto;
 import by.shalukho.entity.AbstractEntity;
 import by.shalukho.enums.PhoneTypeEnum;
 import lombok.Data;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CUSTOMER_CONTACT_DATA")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = ContactDataDto.class)
 public class ContactDataEntity extends AbstractEntity {
     @Column(name = "PHONE")
     private String phone;

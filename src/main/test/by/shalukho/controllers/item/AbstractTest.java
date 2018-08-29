@@ -40,6 +40,9 @@ public abstract class AbstractTest<T> {
 
     public static final long ID = 1L;
     public Map<String, Matcher<?>> expectations;
+    private MockMvc mockMvc;
+    public MediaType contentType;
+    private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -56,16 +59,11 @@ public abstract class AbstractTest<T> {
                       this.mappingJackson2HttpMessageConverter);
     }
 
-    private MockMvc mockMvc;
-    public MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-                                                 MediaType.APPLICATION_JSON.getSubtype(),
-                                                 Charset.forName("utf8"));
-
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-
     @Before
     public void setup() {
+        this.contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+                                         MediaType.APPLICATION_JSON.getSubtype(),
+                                         Charset.forName("utf8"));
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
         this.expectations = new HashMap<>();
     }

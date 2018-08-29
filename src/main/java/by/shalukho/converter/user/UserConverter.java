@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class UserConverter extends GenericConverterWithEnums<UserDto, UserEntity> {
 
     public UserConverter() {
-        super(UserDto.class, UserEntity.class);
+        super(UserEntity.class);
     }
 
 }

@@ -17,5 +17,4 @@ import java.util.List;
 @MappedSuperclass
 public class AbstractItemPropertyEntity extends AbstractNamedEntity {
 
-
 }

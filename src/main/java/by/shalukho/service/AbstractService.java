@@ -14,15 +14,13 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
     private JpaRepository repository;
 
     private GenericConverter<T, B> converter;
-    private Class<T> dtoClazz;
-    private Class<B> dboClazz;
 
     public T findById(Long id) {
         Optional<B> entity = findByActiveAndId(true, id);
         if (entity.isPresent()) {
             return converter.convertToDto(entity.get());
         } else {
-            throw new RuntimeException("entity was no found");
+            throw new RuntimeException("entity was not found");
         }
     }
 
@@ -36,7 +34,7 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
             entity.get().setActive(false);
             repository.save(entity);
         } else {
-            throw new RuntimeException("entity was no found");
+            throw new RuntimeException("entity was not found");
         }
     }
 

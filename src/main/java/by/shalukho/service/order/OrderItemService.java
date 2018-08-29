@@ -14,7 +14,7 @@ import java.util.Optional;
 public class OrderItemService extends AbstractService<OrderItemDto, OrderItemEntity> {
 
     public OrderItemService(OrderItemRepository orderItemRepository, OrderItemConverter orderItemConverter) {
-        super(orderItemRepository, orderItemConverter, OrderItemDto.class, OrderItemEntity.class);
+        super(orderItemRepository, orderItemConverter);
     }
 
     @Override

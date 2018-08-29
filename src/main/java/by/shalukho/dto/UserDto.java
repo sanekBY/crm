@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserDto {
-    private Long id;
+public class UserDto extends AbstractDto {
     private String login;
     private String password;
     private String firstName;

@@ -1,5 +1,7 @@
 package by.shalukho.entity.items;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.item.ItemTypeDto;
 import by.shalukho.entity.AbstractNamedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "ITEM_TYPE")
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = ItemTypeDto.class)
 public class ItemTypeEntity extends AbstractNamedEntity {
 
     @OneToMany(mappedBy = "itemType")

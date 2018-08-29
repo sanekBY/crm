@@ -16,7 +16,7 @@ public class CustomerOrderService extends AbstractService<CustomerOrderDto, Cust
 
     public CustomerOrderService(CustomerOrderRepository CustomerOrderRepository,
                                 CustomerOrderConverter CustomerOrderConverter) {
-        super(CustomerOrderRepository, CustomerOrderConverter, CustomerOrderDto.class, CustomerOrderEntity.class);
+        super(CustomerOrderRepository, CustomerOrderConverter);
     }
 
     @Override

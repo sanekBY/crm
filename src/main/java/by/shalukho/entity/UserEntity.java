@@ -1,5 +1,7 @@
 package by.shalukho.entity;
 
+import by.shalukho.dto.ConnectedDto;
+import by.shalukho.dto.UserDto;
 import by.shalukho.enums.RoleEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "USER", uniqueConstraints = {@UniqueConstraint(columnNames = {"LOGIN"})})
 @EqualsAndHashCode(callSuper = true)
+@ConnectedDto(value = UserDto.class)
 public class UserEntity extends AbstractEntity {
 
     @NotNull

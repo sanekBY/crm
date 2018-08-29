@@ -15,8 +15,7 @@ public class ItemTypePropertyService extends AbstractService<ItemPropertyDto, It
 
     public ItemTypePropertyService(ItemPropertyRepository itemPropertyRepository,
                                    ItemPropertyConverter itemPropertyConverter) {
-        super(itemPropertyRepository, itemPropertyConverter, ItemPropertyDto.class,
-              ItemPropertyEntity.class);
+        super(itemPropertyRepository, itemPropertyConverter);
     }
 
     @Override

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 @Service
 public class CustomerConverter extends GenericConverterWithEnums<CustomerDto, CustomerEntity> {
@@ -22,40 +21,34 @@ public class CustomerConverter extends GenericConverterWithEnums<CustomerDto, Cu
 
 
     public CustomerConverter() {
-        super(CustomerDto.class, CustomerEntity.class);
+        super(CustomerEntity.class);
     }
 
     @Override
-    protected BiFunction<CustomerDto, CustomerEntity, CustomerEntity> getDtoToEntityFunction() {
-        BiFunction<CustomerDto, CustomerEntity, CustomerEntity> function = (customerDto, customerEntity) -> {
+    protected CustomerDto extraConvertToDto(final CustomerEntity customerEntity,
+                                            final CustomerDto customerDto) {
+        customerDto.setAddresses(addressConverter.convertAllToDto(customerEntity.getAddresses()));
+        customerDto.setContacts(contactDataConverter.convertAllToDto(customerEntity.getContacts()));
 
-            List<AddressEntity> addresses = addressConverter.convertAllToEntity(customerDto.getAddresses());
-            List<ContactDataEntity> contacts = contactDataConverter.convertAllToEntity(customerDto.getContacts());
-
-            if (addresses != null) {
-                addresses.stream().forEach(a -> a.setCustomer(customerEntity));
-                customerEntity.setAddresses(addresses);
-            }
-            if (contacts != null) {
-                contacts.stream().forEach(c -> c.setCustomer(customerEntity));
-                customerEntity.setContacts(contacts);
-            }
-
-            return customerEntity;
-        };
-        return function;
+        return customerDto;
     }
 
     @Override
-    protected BiFunction<CustomerEntity, CustomerDto, CustomerDto> getEntityToDtoFunction() {
-        BiFunction<CustomerEntity, CustomerDto, CustomerDto> function = (customerEntity, customerDto) -> {
+    protected CustomerEntity extraConvertToEntity(final CustomerDto customerDto,
+                                                  final CustomerEntity customerEntity) {
+        List<AddressEntity> addresses = addressConverter.convertAllToEntity(customerDto.getAddresses());
+        List<ContactDataEntity> contacts = contactDataConverter.convertAllToEntity(customerDto.getContacts());
 
-            customerDto.setAddresses(addressConverter.convertAllToDto(customerEntity.getAddresses()));
-            customerDto.setContacts(contactDataConverter.convertAllToDto(customerEntity.getContacts()));
+        if (addresses != null) {
+            addresses.stream().forEach(a -> a.setCustomer(customerEntity));
+            customerEntity.setAddresses(addresses);
+        }
+        if (contacts != null) {
+            contacts.stream().forEach(c -> c.setCustomer(customerEntity));
+            customerEntity.setContacts(contacts);
+        }
 
-            return customerDto;
-        };
-        return function;
+        return customerEntity;
     }
 
 }

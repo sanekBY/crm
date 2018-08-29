@@ -1,6 +1,6 @@
 package by.shalukho.converter;
 
-import lombok.AllArgsConstructor;
+import by.shalukho.dto.ConnectedDto;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Constructor;
@@ -9,28 +9,26 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
 
-    private final Class<T> dtoClazz;
-
+    private Class<T> dtoClazz;
     private final Class<B> entityClazz;
+
+    public GenericConverter(final Class<B> entityClazz) {
+        this.entityClazz = entityClazz;
+    }
 
     @Override
     public T convertToDto(B entity) {
-        T dto = (T) convert(entity, dtoClazz);
-        if (getEntityToDtoFunction() != null) {
-            getEntityToDtoFunction().apply(entity, (T) dto);
-        }
+        T dto = (T) convert(entity, getDtoClass());
+        getEntityToDtoFunction().apply(entity, dto);
         return dto;
     }
 
     @Override
     public B convertToEntity(T dto) {
         B entity = (B) convert(dto, entityClazz);
-        if (getDtoToEntityFunction() != null) {
-            getDtoToEntityFunction().apply(dto, (B) entity);
-        }
+        getDtoToEntityFunction().apply(dto, entity);
         return entity;
     }
 
@@ -63,12 +61,33 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
         return object;
     }
 
-    protected BiFunction<B, T, T> getEntityToDtoFunction() {
-        return null;
+    private BiFunction<B, T, T> getEntityToDtoFunction() {
+        BiFunction<B, T, T> function = (b, t) -> {
+            return extraConvertToDto(b, t);
+        };
+        return function;
     }
 
-    protected BiFunction<T, B, B> getDtoToEntityFunction() {
-        return null;
+    protected T extraConvertToDto(final B b, final T t) {
+        return t;
+    }
+
+    private BiFunction<T, B, B> getDtoToEntityFunction() {
+        BiFunction<T, B, B> function = (t, b) -> {
+            return extraConvertToEntity(t, b);
+        };
+        return function;
+    }
+
+    private Class<T> getDtoClass() {
+        if (dtoClazz == null) {
+            dtoClazz = (Class<T>) entityClazz.getAnnotation(ConnectedDto.class).value();
+        }
+        return dtoClazz;
+    }
+
+    protected B extraConvertToEntity(final T t, final B b) {
+        return b;
     }
 
     public Class<B> getEntityClazz() {

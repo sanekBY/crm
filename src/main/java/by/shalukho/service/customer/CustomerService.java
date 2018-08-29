@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CustomerService extends AbstractService<CustomerDto, CustomerEntity> {
 
     public CustomerService(CustomerRepository customerRepository, CustomerConverter customerConverter) {
-        super(customerRepository, customerConverter, CustomerDto.class, CustomerEntity.class);
+        super(customerRepository, customerConverter);
     }
 
     @Override

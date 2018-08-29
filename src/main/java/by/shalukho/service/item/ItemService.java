@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ItemService extends AbstractService<ItemDto, ItemEntity> {
 
     public ItemService(ItemRepository itemRepository, ItemConverter itemConverter) {
-        super(itemRepository, itemConverter, ItemDto.class, ItemEntity.class);
+        super(itemRepository, itemConverter);
     }
 
     @Override

@@ -3,6 +3,7 @@ package by.shalukho.controllers.item;
 import by.shalukho.dto.customer.AddressDto;
 import by.shalukho.dto.customer.ContactDataDto;
 import by.shalukho.dto.customer.CustomerDto;
+import by.shalukho.enums.CustomerTypeEnum;
 import by.shalukho.enums.PhoneTypeEnum;
 import org.junit.Test;
 
@@ -13,6 +14,15 @@ import static org.hamcrest.core.Is.is;
 public class CustomerTest extends AbstractTest {
 
     private static final String API_CUSTOMER_WITHOUT_ID = "/api/customer";
+    private static final String CUSTOMER_NAME = "Ivan Ivanov";
+    private static final String CUSTOMER_EMAIL = "customer@gmail.com";
+    private static final String CUSTOMER_TYPE = CustomerTypeEnum.COMPANY.toString();
+    private static final String CUSOTMER_ADDRESS = "Nezalezhnasti pr.";
+    private static final String CUSTOMER_CITY = "Minsk";
+    private static final String CUSTOMER_STATE = "Minsk vobl.";
+    private static final String CUSTOMER_POST_CODE = "220056";
+    private static final String CUSTOMER_PHONE = "+375291820620";
+    private static final String CUSTOMER_PHONE_TYPE = PhoneTypeEnum.MOBILE.toString();
 
     @Test
     public void checkCustomerCreation() throws Exception {
@@ -60,27 +70,27 @@ public class CustomerTest extends AbstractTest {
     private CustomerDto createCustomer() {
         CustomerDto customerDto = new CustomerDto();
         customerDto.setId(ID);
-        customerDto.setName("Ivan Ivanov");
-        customerDto.setEmail("customer@gmail.com");
-        customerDto.setType("PERSON");
+        customerDto.setName(CUSTOMER_NAME);
+        customerDto.setEmail(CUSTOMER_EMAIL);
+        customerDto.setType(CUSTOMER_TYPE);
         return customerDto;
     }
 
     private AddressDto createAddress() {
         AddressDto addressDto = new AddressDto();
         addressDto.setId(ID);
-        addressDto.setAddress("Nezalezhnasti pr.");
-        addressDto.setCity("Minsk");
-        addressDto.setState("Minsk vobl.");
-        addressDto.setPostalCode("220056");
+        addressDto.setAddress(CUSOTMER_ADDRESS);
+        addressDto.setCity(CUSTOMER_CITY);
+        addressDto.setState(CUSTOMER_STATE);
+        addressDto.setPostalCode(CUSTOMER_POST_CODE);
         return addressDto;
     }
 
     private ContactDataDto createContacts() {
         ContactDataDto contactDataDto = new ContactDataDto();
         contactDataDto.setId(ID);
-        contactDataDto.setPhone("+375291820620");
-        contactDataDto.setPhoneType(PhoneTypeEnum.MOBILE.toString());
+        contactDataDto.setPhone(CUSTOMER_PHONE);
+        contactDataDto.setPhoneType(CUSTOMER_PHONE_TYPE);
         return contactDataDto;
     }
 
