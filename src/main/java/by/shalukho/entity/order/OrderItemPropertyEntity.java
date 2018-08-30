@@ -25,8 +25,8 @@ public class OrderItemPropertyEntity extends AbstractItemPropertyEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<OrderItemEntity> orderItems;
 
-    @ManyToMany(mappedBy = "orderItemProperties", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<OrderItemTypeEntity> orderItemTypes;
+//    @ManyToMany(mappedBy = "orderItemProperties", fetch = FetchType.LAZY)
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    private List<OrderItemTypeEntity> orderItemTypes;
 
 }

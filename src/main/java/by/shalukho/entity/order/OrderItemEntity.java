@@ -3,8 +3,10 @@ package by.shalukho.entity.order;
 import by.shalukho.dto.ConnectedDto;
 import by.shalukho.dto.order.OrderItemDto;
 import by.shalukho.entity.items.AbstractItemEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -29,13 +31,10 @@ public class OrderItemEntity extends AbstractItemEntity {
     @Column(name = "QUANTITY", nullable = false)
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CUSTOMER_ORDER_ID", nullable = false)
+    @ToString.Exclude
     private CustomerOrderEntity order;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ITEM_TYPE_ID", nullable = false)
-    private OrderItemTypeEntity orderItemType;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "ORDER_ITEM_ITEM_PROPERTY", joinColumns = {@JoinColumn(name = "ORDER_ITEM_ID")},
@@ -44,3 +43,4 @@ public class OrderItemEntity extends AbstractItemEntity {
     private List<OrderItemPropertyEntity> orderItemProperties;
 
 }
+

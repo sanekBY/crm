@@ -7,12 +7,14 @@ import by.shalukho.entity.customer.CustomerEntity;
 import by.shalukho.enums.OrderStatusEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,7 +36,8 @@ public class CustomerOrderEntity extends AbstractEntity {
     @Column(name = "FINAL_PRICE", nullable = false)
     private BigDecimal finalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ToString.Exclude
     private List<OrderItemEntity> orderItems;
 
     @Enumerated(EnumType.STRING)
@@ -49,5 +52,6 @@ public class CustomerOrderEntity extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @EqualsAndHashCode.Exclude
     private CustomerEntity customerEntity;
 }

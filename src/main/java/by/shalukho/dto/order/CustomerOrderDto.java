@@ -13,7 +13,7 @@ import java.util.List;
 public class CustomerOrderDto extends AbstractDto {
     private String description;
     private BigDecimal finalPrice;
-    private List<OrderItemDto> orderItems;
     private CustomerDto customer;
     private String status;
+    private List<OrderItemDto> orderItems;
 }

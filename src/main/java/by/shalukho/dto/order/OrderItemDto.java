@@ -1,7 +1,6 @@
 package by.shalukho.dto.order;
 
 import by.shalukho.dto.AbstractDto;
-import by.shalukho.dto.item.ItemPropertyDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +14,5 @@ public class OrderItemDto extends AbstractDto {
     private String description;
     private BigDecimal price;
     private int quantity;
-    private List<ItemPropertyDto> orderItemProperties;
+    private List<OrderItemPropertyDto> orderItemProperties;
 }

@@ -84,7 +84,7 @@ public abstract class AbstractTest {
             this.mappingJackson2HttpMessageConverter.write(
                     o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
         } catch (Exception e) {
-//            throw new RuntimeException("Unable to convert to json");
+            throw new RuntimeException("Unable to convert to json");
         }
         return mockHttpOutputMessage.getBodyAsString();
     }
