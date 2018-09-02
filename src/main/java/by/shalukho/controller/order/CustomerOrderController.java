@@ -1,53 +1,38 @@
 package by.shalukho.controller.order;
 
+import by.shalukho.controller.AbstractController;
 import by.shalukho.dto.order.CustomerOrderDto;
+import by.shalukho.entity.order.CustomerOrderEntity;
 import by.shalukho.service.order.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RestController
+@Controller
+@RequestMapping(value = "/order")
 //@PreAuthorize("hasAuthority('ADMIN')")
-public class CustomerOrderController {
+public class CustomerOrderController extends AbstractController<CustomerOrderDto, CustomerOrderEntity> {
 
-    private final CustomerOrderService customerOrderService;
+    public static final String CUSTOMER_ORDER_DTO_ATTRIBUTE = "customerOrderDto";
 
     @Autowired
     public CustomerOrderController(final CustomerOrderService customerOrderService) {
-        this.customerOrderService = customerOrderService;
+        super(customerOrderService, CustomerOrderDto.class);
     }
 
-    @RequestMapping(value = "/api/customer-order", method = RequestMethod.POST)
-    public String createCustomerOrder(@RequestBody final CustomerOrderDto customerOrderDto) {
-        customerOrderService.save(customerOrderDto);
-        return "Customer order is created";
+    @Override protected String getAttribute() {
+        return CUSTOMER_ORDER_DTO_ATTRIBUTE;
     }
 
-    @RequestMapping(value = "/api/customer-order/{id}", method = RequestMethod.DELETE)
-    public String deleteCustomerOrder(@PathVariable("id") final Long id) {
-        customerOrderService.delete(id);
-        return "Customer order is deleted";
+    @Override protected String getListAttribute() {
+        return "customerOrders";
     }
 
-    @RequestMapping(value = "/api/customer-order/{id}", method = RequestMethod.GET)
-    public CustomerOrderDto getCustomerOrder(@PathVariable("id") final Long id) {
-        return customerOrderService.findById(id);
+    @Override protected String getListHtml() {
+        return "/order/order";
     }
 
-    @RequestMapping(value = "/api/customer-order/{id}", method = RequestMethod.PUT)
-    public String updateCustomerOrder(@RequestBody final CustomerOrderDto customerOrderDto) {
-        customerOrderService.save(customerOrderDto);
-        return "Customer order is saved";
+    @Override protected String getHtml() {
+        return "/order/orders";
     }
-
-    @RequestMapping(value = "/api/customer-order", method = RequestMethod.GET)
-    public List<CustomerOrderDto> getCustomerOrders() {
-        return customerOrderService.findAll();
-    }
-
 }

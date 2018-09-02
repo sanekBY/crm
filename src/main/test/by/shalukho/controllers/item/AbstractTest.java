@@ -2,15 +2,13 @@ package by.shalukho.controllers.item;
 
 import by.shalukho.SpringBootWebApplication;
 import by.shalukho.config.H2TestProfileJPAConfig;
+import by.shalukho.dto.AbstractDto;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -19,15 +17,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -38,25 +34,12 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 public abstract class AbstractTest {
 
     public static final long ID = 1L;
-    public Map<String, Matcher<?>> expectations;
     private MockMvc mockMvc;
     public MediaType contentType;
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
+    public List<Matcher<?>> expectations;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
-    @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-
-        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
-                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
-                .findAny()
-                .orElse(null);
-
-        assertNotNull("the JSON message converter must not be null",
-                      this.mappingJackson2HttpMessageConverter);
-    }
 
     @Before
     public void setup() {
@@ -64,13 +47,17 @@ public abstract class AbstractTest {
                                          MediaType.APPLICATION_JSON.getSubtype(),
                                          Charset.forName("utf8"));
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
-        this.expectations = new HashMap<>();
+        expectations = new ArrayList<>();
     }
 
-    protected void createPostRequest(String url, Object o) {
+    protected void checkEntityCreation(String url, String attr, AbstractDto dto) {
+        createPostRequest(url, attr, dto);
+        checkGetRequest(url, attr, dto);
+    }
+
+    protected void createPostRequest(String url, String attr, AbstractDto dto) {
         try {
-            mockMvc.perform(post(url)
-                                    .content(convertToJson(o))
+            mockMvc.perform(post(url).flashAttr(attr, dto)
                                     .contentType(contentType))
                     .andExpect(status().isOk());
         } catch (Exception e) {
@@ -78,38 +65,24 @@ public abstract class AbstractTest {
         }
     }
 
-    protected String convertToJson(Object o) {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+    protected void checkGetRequest(String url, String attr, AbstractDto dto) {
+        final ResultActions resultActions;
         try {
-            this.mappingJackson2HttpMessageConverter.write(
-                    o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to convert to json");
-        }
-        return mockHttpOutputMessage.getBodyAsString();
-    }
-
-    protected void checkGetRequest(String url) {
-        final ResultActions resultActions = getResultActions(url);
-
-        expectations.forEach((k, v) -> {
-            try {
-                resultActions.andExpect(jsonPath(k, v));
-            } catch (Exception e) {
-                e.printStackTrace();
+            resultActions = getMockMvc().perform(get(url + "/" + dto.getId()));
+            if (expectations.isEmpty()) {
+                resultActions.andExpect(model().attribute(attr, dto));
+            } else {
+                expectations.forEach(e -> {
+                    try {
+                        resultActions.andDo(print()).andExpect(model().attribute(attr, e));
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
             }
-        });
-    }
-
-    private ResultActions getResultActions(final String url) {
-        ResultActions resultActions = null;
-        try {
-            resultActions = getMockMvc().perform(get(url))
-                    .andDo(print());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return resultActions;
     }
 
     public MockMvc getMockMvc() {

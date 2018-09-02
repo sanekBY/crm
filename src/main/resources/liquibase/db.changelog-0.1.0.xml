@@ -141,16 +141,6 @@
         </createTable>
     </changeSet>
     <changeSet id="ADD_ORDERS" author="shalukho">
-<!--        <createTable tableName="ORDER_ITEM_TYPE">
-            <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints primaryKey="true"
-                             primaryKeyName="ORDER_ITEM_TYPEPK"/>
-            </column>
-            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="varchar(255)"/>
-        </createTable>-->
         <createTable tableName="ORDER_ITEM_PROPERTY">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"
@@ -205,10 +195,6 @@
                 <constraints references="CUSTOMER_ORDER(ID)"
                              foreignKeyName="FK_CUSTOMER_ORDER__ORDER_ID" nullable="false"/>
             </column>
-          <!--  <column name="ORDER_ITEM_TYPE_ID" type="BIGINT">
-                <constraints references="ORDER_ITEM_TYPE(ID)"
-                             foreignKeyName="FK_ORDER_ITEM__ORDER_ITEM_TYPE_ID" nullable="false"/>
-            </column>-->
         </createTable>
     </changeSet>
     <changeSet id="ADDED_ORDER_ITE_ITEM_PROPERTY_TABLE" author="shalukho">
@@ -226,19 +212,5 @@
                              foreignKeyName="FK_OIITP__ORDER_ITEM_PROPERTY_ID" nullable="false"/>
             </column>
         </createTable>
-<!--        <createTable tableName="ORDER_ITEM_TYPE_ORDER_ITEM_PROPERTY">
-            <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints primaryKey="true"
-                             primaryKeyName="ORDER_ITEM_TYPE_OIPPK"/>
-            </column>
-            <column name="ORDER_ITEM_TYPE_ID" type="BIGINT">
-                <constraints references="ORDER_ITEM_TYPE(ID)"
-                             foreignKeyName="FK_OITITP__ORDER_ITEM_TYPE_ID" nullable="false"/>
-            </column>
-            <column name="ORDER_ITEM_PROPERTY_ID" type="BIGINT">
-                <constraints references="ORDER_ITEM_PROPERTY(ID)"
-                             foreignKeyName="FK_OITITP__ORDER_ITEM_PROPERTY_ID" nullable="false"/>
-            </column>
-        </createTable>-->
     </changeSet>
 </databaseChangeLog>

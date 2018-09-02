@@ -52,6 +52,5 @@ public class CustomerOrderEntity extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
-    @EqualsAndHashCode.Exclude
     private CustomerEntity customerEntity;
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <a th:href="@{/customer}" class="btn btn-success">Add new customer</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th> ID</th>
+            <th> Name</th>
+            <th> Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${customers.empty}">
+            <td colspan="2"> No any customers</td>
+        </tr>
+        <tr th:each="customer : ${customers}">
+            <td><span th:text="${customer.id}"> Id </span></td>
+            <td><span th:text="${customer.name}"> Name </span></td>
+            <td><span th:text="${customer.email}"> Email </span></td>
+            <td><a th:href="@{'/customer/' + ${customer.id}}" class="btn btn-success">View</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<!-- /.container -->
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ItemTypePropertyService extends AbstractService<ItemPropertyDto, ItemPropertyEntity> {
+public class ItemPropertyService extends AbstractService<ItemPropertyDto, ItemPropertyEntity> {
 
-    public ItemTypePropertyService(ItemPropertyRepository itemPropertyRepository,
-                                   ItemPropertyConverter itemPropertyConverter) {
+    public ItemPropertyService(ItemPropertyRepository itemPropertyRepository,
+                               ItemPropertyConverter itemPropertyConverter) {
         super(itemPropertyRepository, itemPropertyConverter);
     }
 

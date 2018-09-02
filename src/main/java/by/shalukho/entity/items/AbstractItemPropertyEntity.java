@@ -15,6 +15,7 @@ import java.util.List;
 
 @Data
 @MappedSuperclass
+@EqualsAndHashCode(callSuper = true)
 public class AbstractItemPropertyEntity extends AbstractNamedEntity {
 
 }

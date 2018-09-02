@@ -6,9 +6,11 @@ import by.shalukho.dto.customer.CustomerDto;
 import by.shalukho.enums.CustomerTypeEnum;
 import by.shalukho.enums.PhoneTypeEnum;
 
+import java.util.ArrayList;
+
 public abstract class AbstractCustomerTest extends AbstractTest {
 
-    public static final String API_CUSTOMER_WITHOUT_ID = "/api/customer";
+    public static final String API_CUSTOMER_WITHOUT_ID = "/customer";
     public static final String CUSTOMER_NAME = "Ivan Ivanov";
     public static final String CUSTOMER_EMAIL = "customer@gmail.com";
     public static final String CUSTOMER_TYPE = CustomerTypeEnum.COMPANY.toString();
@@ -25,6 +27,8 @@ public abstract class AbstractCustomerTest extends AbstractTest {
         customerDto.setName(CUSTOMER_NAME);
         customerDto.setEmail(CUSTOMER_EMAIL);
         customerDto.setType(CUSTOMER_TYPE);
+        customerDto.setAddresses(new ArrayList<>());
+        customerDto.setContacts(new ArrayList<>());
         return customerDto;
     }
 

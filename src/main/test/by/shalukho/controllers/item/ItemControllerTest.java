@@ -1,6 +1,8 @@
 package by.shalukho.controllers.item;
 
 
+import by.shalukho.controller.item.ItemPropertyController;
+import by.shalukho.controller.item.ItemTypeController;
 import by.shalukho.dto.item.ItemDto;
 import by.shalukho.dto.item.ItemPropertyDto;
 import by.shalukho.dto.item.ItemTypeDto;
@@ -11,17 +13,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-
 public class ItemControllerTest extends AbstractTest {
 
     public static final String ITEM_TYPE_NAME = "Name";
     public static final String ITEM_NAME = "Simple mug";
     public static final String ITEM_DESCRIPTION = "No Descr";
     public static final BigDecimal ITEM_PRICE_PRICE = new BigDecimal(1000);
-    public static final String API_ITEM_TYPE_WITHOUT_ID = "/api/item-type";
-    public static final String API_ITEM_WITHOUT_ID = "/api/item";
-    public static final String API_ITEM_TYPE_PROPERTY_WITHOUT_ID = "/api/item-type-property";
+    public static final String ITEM_TYPE_WITHOUT_ID_URL = "/item-type";
+    public static final String ITEM_WITHOUT_ID_URL = "/item";
+    public static final String ITEM_PROPERTY_WITHOUT_ID_URL = "/item-property";
     public static final String ITEM_TYPE_PROPERTY_NAME = "Color";
     public static final long SECOND_ID = 2l;
     public static final String SECOND_ITEM_TYPE_PROPERTY_NAME = "Size";
@@ -31,30 +31,18 @@ public class ItemControllerTest extends AbstractTest {
     public void checkItemTypeCreation() {
         ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
 
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
-
-        expectations.put("$.id", is(itemTypeDto.getId().intValue()));
-        expectations.put("$.name", is(itemTypeDto.getName()));
-
-        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + ID);
+        checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
     }
 
 
     @Test
-    public void checkItemCreation() {
+    public void checkEntityCreation() {
         ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
         ItemDto itemDto = createItem(ID, ITEM_NAME, itemTypeDto);
 
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
-        createPostRequest(API_ITEM_WITHOUT_ID, itemDto);
+        createPostRequest(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
 
-        expectations.put("$.id", is(itemDto.getId().intValue()));
-        expectations.put("$.name", is(itemDto.getName()));
-        expectations.put("$.description", is(itemDto.getDescription()));
-        expectations.put("$.itemType.id", is(itemTypeDto.getId().intValue()));
-        expectations.put("$.itemType.name", is(itemTypeDto.getName()));
-
-        checkGetRequest(API_ITEM_WITHOUT_ID + "/" + ID);
+        checkEntityCreation(ITEM_WITHOUT_ID_URL, "itemDto", itemDto);
     }
 
     @Test
@@ -67,15 +55,9 @@ public class ItemControllerTest extends AbstractTest {
 
         itemTypeDto.setItemProperties(itemProperties);
 
-        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, itemPropertyDto);
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
-
-        expectations.put("$.id", is(itemTypeDto.getId().intValue()));
-        expectations.put("$.name", is(itemTypeDto.getName()));
-        expectations.put("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue()));
-        expectations.put("$.itemProperties[0].name", is(itemPropertyDto.getName()));
-
-        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + ID);
+        createPostRequest(ITEM_PROPERTY_WITHOUT_ID_URL, ItemPropertyController.ITEM_PROPERTY_DTO_ATTRIBUTE,
+                          itemPropertyDto);
+        checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
     }
 
     @Test
@@ -95,28 +77,13 @@ public class ItemControllerTest extends AbstractTest {
         itemTypeDto.setItemProperties(itemTypeProperties);
         secondItemTypeDto.setItemProperties(secondItemTypeProperties);
 
-        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, itemPropertyDto);
-        createPostRequest(API_ITEM_TYPE_PROPERTY_WITHOUT_ID, secondItemPropertyDto);
+        createPostRequest(ITEM_PROPERTY_WITHOUT_ID_URL, ItemPropertyController.ITEM_PROPERTY_DTO_ATTRIBUTE,
+                          itemPropertyDto);
+        createPostRequest(ITEM_PROPERTY_WITHOUT_ID_URL, ItemPropertyController.ITEM_PROPERTY_DTO_ATTRIBUTE,
+                          secondItemPropertyDto);
 
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, itemTypeDto);
-        createPostRequest(API_ITEM_TYPE_WITHOUT_ID, secondItemTypeDto);
-
-        expectations.put("$.id", is(itemTypeDto.getId().intValue()));
-        expectations.put("$.name", is(itemTypeDto.getName()));
-        expectations.put("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue()));
-        expectations.put("$.itemProperties[0].name", is(itemPropertyDto.getName()));
-        expectations.put("$.itemProperties[1].id", is(secondItemPropertyDto.getId().intValue()));
-        expectations.put("$.itemProperties[1].name", is(secondItemPropertyDto.getName()));
-
-        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + ID);
-
-        expectations.clear();
-        expectations.put("$.id", is(secondItemTypeDto.getId().intValue()));
-        expectations.put("$.name", is(secondItemTypeDto.getName()));
-        expectations.put("$.itemProperties[0].id", is(itemPropertyDto.getId().intValue()));
-        expectations.put("$.itemProperties[0].name", is(itemPropertyDto.getName()));
-
-        checkGetRequest(API_ITEM_TYPE_WITHOUT_ID + "/" + SECOND_ID);
+        checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
+        checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, secondItemTypeDto);
     }
 
 
@@ -124,6 +91,7 @@ public class ItemControllerTest extends AbstractTest {
         ItemTypeDto itemTypeDto = new ItemTypeDto();
         itemTypeDto.setId(id);
         itemTypeDto.setName(name);
+        itemTypeDto.setItemProperties(new ArrayList<>());
         return itemTypeDto;
     }
 
@@ -134,6 +102,7 @@ public class ItemControllerTest extends AbstractTest {
         itemDto.setName(name);
         itemDto.setDescription(ITEM_DESCRIPTION);
         itemDto.setPrice(ITEM_PRICE_PRICE);
+        itemDto.setItemProperties(new ArrayList<>());
         return itemDto;
     }
 

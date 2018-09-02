@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+    <h1 th:inline="text">Add New Customer</h1>
+
+
+    <form th:action="@{/customer}" th:object="${customerDto}" method="post">
+
+        <div class="form-group">
+            <input type="text" name="name" class="form-control input-sm"
+                   placeholder="Name" required="true" autofocus="true" th:field="*{name}"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="email" class="form-control input-sm"
+                   placeholder="Email" required="true" autofocus="true" th:field="*{email}"/>
+        </div>
+        <select class="custom-select" name="type">
+            <option th:each="type : ${T(by.shalukho.enums.CustomerTypeEnum).values()}"
+                    th:value="${type.toString()}"
+                    th:text="${type}">
+            </option>
+        </select>
+        <div class="row">
+                <input type="submit" class="btn btn-success" value="Save"/>
+                <input type="reset" class="btn btn-warning" value="Reset"/>
+        </div>
+    </form>
+</div>
+<!-- /.container -->
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

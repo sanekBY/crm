@@ -1,47 +1,41 @@
 package by.shalukho.controller.item;
 
+import by.shalukho.controller.AbstractController;
 import by.shalukho.dto.item.ItemDto;
+import by.shalukho.dto.item.ItemTypeDto;
+import by.shalukho.entity.items.ItemEntity;
 import by.shalukho.service.item.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RestController
+@Controller
+@RequestMapping(value = "/item")
 //@PreAuthorize("hasAuthority('ADMIN')")
-public class ItemController {
-
-    private final ItemService itemService;
+public class ItemController extends AbstractController<ItemDto, ItemEntity> {
 
     @Autowired
-    public ItemController(ItemService itemService) {
-        this.itemService = itemService;
+    public ItemController(final ItemService itemService) {
+        super(itemService, ItemDto.class);
     }
 
-    @RequestMapping(value = "/api/item", method = RequestMethod.POST)
-    public String createItem(@RequestBody final ItemDto itemDto) {
-        itemService.save(itemDto);
-        return "Item is created";
+    @Override
+    protected String getAttribute() {
+        return "itemDto";
     }
 
-    @RequestMapping(value = "/api/item/{id}", method = RequestMethod.DELETE)
-    public String deleteItem(@PathVariable("id") final Long id) {
-        itemService.delete(id);
-        return "Item is deleted";
+    @Override
+    protected String getListAttribute() {
+        return "items";
     }
 
-    @RequestMapping(value = "/api/item/{id}", method = RequestMethod.GET)
-    public ItemDto getItem(@PathVariable("id") final Long id) {
-        return itemService.findById(id);
+    @Override
+    protected String getListHtml() {
+        return "/item/items";
     }
 
-    @RequestMapping(value = "/api/item", method = RequestMethod.GET)
-    public List<ItemDto> getItems() {
-        return itemService.findAll();
+    @Override
+    protected String getHtml() {
+        return "/item/item";
     }
-
 }
