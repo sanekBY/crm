@@ -13,21 +13,6 @@ public class DefaultController {
         return "/home";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin() {
-        return "/admin/admin";
-    }
-
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String user() {
-        return "/user/user";
-    }
-
-    @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String about() {
-        return "/about";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "/login";

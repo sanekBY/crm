@@ -1,39 +1,37 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.UserDto;
+import by.shalukho.entity.UserEntity;
 import by.shalukho.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class UserController {
-
-    private final UserService userService;
+@Controller
+@RequestMapping(value = "/user")
+public class UserController extends AbstractController<UserDto, UserEntity> {
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(final UserService userService) {
+        super(userService, UserDto.class);
     }
 
-    @RequestMapping(value = "/api/user", method = RequestMethod.POST)
-    public String createUser(@RequestBody final UserDto userDto) {
-        userService.save(userDto);
-        return "PersonEntity created";
+    @Override
+    protected String getAttribute() {
+        return "userDto";
     }
 
-    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET)
-    public UserDto getUser(@PathVariable("id") final Long id) {
-        return userService.findById(id);
+    @Override
+    protected String getListAttribute() {
+        return "users";
     }
 
-    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable("id") final Long id) {
-        userService.delete(id);
-        return "User deleted";
+    @Override
+    protected String getListHtml() {
+        return "/user/users";
     }
 
+    @Override protected String getHtml() {
+        return "/user/user";
+    }
 }

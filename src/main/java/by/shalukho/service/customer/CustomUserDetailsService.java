@@ -19,6 +19,7 @@ import java.util.List;
 @Service("userDetailsService")
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
+    
     @Autowired
     private UserService userService;
 

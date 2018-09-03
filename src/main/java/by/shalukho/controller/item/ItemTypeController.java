@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/item-type")
 public class ItemTypeController extends AbstractController<ItemTypeDto, ItemTypeEntity> {
 
-
     public static final String ITEM_TYPE_DTO_ATTRIBUTE = "itemTypeDto";
 
     @Autowired

@@ -23,12 +23,8 @@ public class OrderItemConverter extends GenericConverter<OrderItemDto, OrderItem
     protected OrderItemEntity extraConvertToEntity(final OrderItemDto orderItemDto,
                                                    final OrderItemEntity orderItemEntity) {
         final OrderItemEntity orderItem = super.extraConvertToEntity(orderItemDto, orderItemEntity);
-//        final OrderItemTypeEntity orderItemType =
-//                orderItemTypeConverter.convertToEntity(orderItemDto.getOrderItemType());
         final List<OrderItemPropertyEntity> orderItemProperties =
                 orderItemPropertyConverter.convertAllToEntity(orderItemDto.getOrderItemProperties());
-
-//        orderItem.setOrderItemType(orderItemType);
         orderItem.setOrderItemProperties(orderItemProperties);
 
         return orderItem;
