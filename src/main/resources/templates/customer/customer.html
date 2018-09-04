@@ -1,41 +1,43 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
 <head>
-    <div th:replace="fragments/header :: header-css"/>
+    <title>Customers</title>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
-
-<div class="container">
+<div layout:fragment="content">
     <h1 th:inline="text">Add New Customer</h1>
-
 
     <form th:action="@{/customer}" th:object="${customerDto}" method="post">
 
         <div class="form-group">
-            <input type="text" name="name" class="form-control input-sm"
+            <input type="text" name="name" class="form-control"
                    placeholder="Name" required="true" autofocus="true" th:field="*{name}"/>
         </div>
 
         <div class="form-group">
-            <input type="text" name="email" class="form-control input-sm"
+            <input type="text" name="email" class="form-control"
                    placeholder="Email" required="true" autofocus="true" th:field="*{email}"/>
         </div>
-        <select class="custom-select" name="type">
-            <option th:each="type : ${T(by.shalukho.enums.CustomerTypeEnum).values()}"
-                    th:value="${type.toString()}"
-                    th:text="${type}">
-            </option>
-        </select>
-        <div class="row">
-                <input type="submit" class="btn btn-success" value="Save"/>
-                <input type="reset" class="btn btn-warning" value="Reset"/>
+        <div class="form-group">
+            <select class="custom-select" name="type">
+                <option th:each="type : ${T(by.shalukho.enums.CustomerTypeEnum).values()}"
+                        th:value="${type.toString()}"
+                        th:text="${type}">
+                </option>
+            </select>
         </div>
+        <input type="submit" class="btn btn-success" value="Save"/>
+        <input type="reset" class="btn btn-warning" value="Reset"/>
     </form>
-</div>
-<!-- /.container -->
-<div th:replace="fragments/footer :: footer"/>
 
+    <form action="#" th:action="@{'/customer/{id}'(id=*{id})}" th:method="delete">
+        <!--<a th:href="@{'/customer/' + *{id}}" data-method="delete" class="btn btn-danger">Delete</a>-->
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" id="submitButton"></button>
+    </form>
+
+</div>
 </body>
 </html>

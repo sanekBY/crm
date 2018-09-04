@@ -1,26 +1,46 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <div th:fragment="header-css">
         <!-- this is header-css -->
+
         <link rel="stylesheet" type="text/css"
               href="/webjars/bootstrap/4.1.1/css/bootstrap.min.css"/>
 
-        <link rel="stylesheet" href="/static/css/main.css"/>
+        <base href="/">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
     </div>
 </head>
 <body>
 <div th:fragment="header">
-    <!-- this is header -->
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/}">Spring Boot</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/}">Home</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-md navbar-dark navbar-static-top bg-dark">
+        <a class="navbar-brand" th:href="@{/}">CRM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <!--<li class="nav-item active">-->
+                <!--<a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
+                <!--</li>-->
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                <a class="btn btn-dark" type="submit" sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+
+                <div class="dropdown" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        [[${#httpServletRequest.remoteUser}]]
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                    </div>
+                </div>
+
+            </form>
         </div>
     </nav>
 </div>

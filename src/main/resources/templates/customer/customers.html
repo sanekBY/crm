@@ -1,41 +1,43 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
 <head>
-    <div th:replace="fragments/header :: header-css"/>
+    <title>Customers</title>
 </head>
 <body>
+<div layout:fragment="content">
 
-<div th:replace="fragments/header :: header"/>
+    <div class="row form-group">
+        <a th:href="@{/customer}" class="btn btn-success">New</a>
+    </div>
 
-<div class="container">
-
-    <a th:href="@{/customer}" class="btn btn-success">Add new customer</a>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th> ID</th>
-            <th> Name</th>
-            <th> Email</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${customers.empty}">
-            <td colspan="2"> No any customers</td>
-        </tr>
-        <tr th:each="customer : ${customers}">
-            <td><span th:text="${customer.id}"> Id </span></td>
-            <td><span th:text="${customer.name}"> Name </span></td>
-            <td><span th:text="${customer.email}"> Email </span></td>
-            <td><a th:href="@{'/customer/' + ${customer.id}}" class="btn btn-success">View</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row form-group">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> ID</th>
+                <th> Name</th>
+                <th> Type</th>
+                <th> Email</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${customers.empty}">
+                <td colspan="2"> No any customers</td>
+            </tr>
+            <tr th:each="customer : ${customers}">
+                <td><span th:text="${customer.id}"> Id </span></td>
+                <td><span th:text="${customer.name}"> Name </span></td>
+                <td><span th:text="${customer.type}"> Type </span></td>
+                <td><span th:text="${customer.email}"> Email </span></td>
+                <td><a th:href="@{'/customer/' + ${customer.id}}" class="btn btn-success">View</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
-<!-- /.container -->
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>
