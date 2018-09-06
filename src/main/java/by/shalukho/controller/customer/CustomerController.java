@@ -5,11 +5,13 @@ import by.shalukho.dto.customer.CustomerDto;
 import by.shalukho.entity.customer.CustomerEntity;
 import by.shalukho.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/customer")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class CustomerController extends AbstractController<CustomerDto, CustomerEntity> {
 
 

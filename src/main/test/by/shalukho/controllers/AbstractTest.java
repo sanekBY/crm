@@ -1,4 +1,4 @@
-package by.shalukho.controllers.item;
+package by.shalukho.controllers;
 
 import by.shalukho.SpringBootWebApplication;
 import by.shalukho.config.H2TestProfileJPAConfig;
@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,7 +34,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 public abstract class AbstractTest {
 
-    public static final long ID = 1L;
+    public static final Long RANDOM_VALUE = new Random().nextLong();
+
     private MockMvc mockMvc;
     public MediaType contentType;
     public List<Matcher<?>> expectations;

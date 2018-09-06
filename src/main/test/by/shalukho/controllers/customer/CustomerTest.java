@@ -1,4 +1,4 @@
-package by.shalukho.controllers.item;
+package by.shalukho.controllers.customer;
 
 import by.shalukho.dto.customer.AddressDto;
 import by.shalukho.dto.customer.ContactDataDto;

@@ -1,4 +1,4 @@
-package by.shalukho.controllers.item;
+package by.shalukho.controllers.customer;
 
 import by.shalukho.controller.customer.CustomerController;
 import by.shalukho.controller.order.CustomerOrderController;
@@ -45,7 +45,7 @@ public class CustomerOrderTest extends AbstractCustomerTest {
                                                     final OrderItemDto orderItem) {
 
         final CustomerOrderDto customerOrderDto = new CustomerOrderDto();
-        customerOrderDto.setId(ID);
+        customerOrderDto.setId(RANDOM_VALUE);
         customerOrderDto.setDescription(CUSTOMER_ORDER_DESCRIPTION);
         customerOrderDto.setCustomer(customer);
         customerOrderDto.setFinalPrice(new BigDecimal(2000));

@@ -12,6 +12,10 @@
     <form th:action="@{/customer}" th:object="${customerDto}" method="post">
 
         <div class="form-group">
+            <input type="hidden" name="id" class="form-control" th:field="*{id}"/>
+        </div>
+
+        <div class="form-group">
             <input type="text" name="name" class="form-control"
                    placeholder="Name" required="true" autofocus="true" th:field="*{name}"/>
         </div>
@@ -32,11 +36,11 @@
         <input type="reset" class="btn btn-warning" value="Reset"/>
     </form>
 
-    <form action="#" th:action="@{'/customer/{id}'(id=*{id})}" th:method="delete">
-        <!--<a th:href="@{'/customer/' + *{id}}" data-method="delete" class="btn btn-danger">Delete</a>-->
-        <input type="hidden" name="_method" value="delete"/>
-        <button type="submit" id="submitButton"></button>
-    </form>
+    <!--<form action="#" th:action="@{'/customer/{id}'(id=*{id})}" th:method="delete">-->
+    <!--&lt;!&ndash;<a th:href="@{'/customer/' + *{id}}" data-method="delete" class="btn btn-danger">Delete</a>&ndash;&gt;-->
+    <!--<input type="hidden" name="_method" value="delete"/>-->
+    <!--<button type="submit" id="submitButton"></button>-->
+    <!--</form>-->
 
 </div>
 </body>

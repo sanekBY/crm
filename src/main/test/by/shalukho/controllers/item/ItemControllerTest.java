@@ -3,6 +3,7 @@ package by.shalukho.controllers.item;
 
 import by.shalukho.controller.item.ItemPropertyController;
 import by.shalukho.controller.item.ItemTypeController;
+import by.shalukho.controllers.AbstractTest;
 import by.shalukho.dto.item.ItemDto;
 import by.shalukho.dto.item.ItemPropertyDto;
 import by.shalukho.dto.item.ItemTypeDto;
@@ -29,7 +30,7 @@ public class ItemControllerTest extends AbstractTest {
 
     @Test
     public void checkItemTypeCreation() {
-        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
+        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
 
         checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
     }
@@ -37,8 +38,8 @@ public class ItemControllerTest extends AbstractTest {
 
     @Test
     public void checkEntityCreation() {
-        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
-        ItemDto itemDto = createItem(ID, ITEM_NAME, itemTypeDto);
+        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
+        ItemDto itemDto = createItem(RANDOM_VALUE, ITEM_NAME, itemTypeDto);
 
         createPostRequest(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
 
@@ -47,9 +48,9 @@ public class ItemControllerTest extends AbstractTest {
 
     @Test
     public void checkItemTypeWithPropertyCreation() {
-        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
+        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
 
-        ItemPropertyDto itemPropertyDto = createItemProperty(ID, ITEM_TYPE_PROPERTY_NAME);
+        ItemPropertyDto itemPropertyDto = createItemProperty(RANDOM_VALUE, ITEM_TYPE_PROPERTY_NAME);
         List<ItemPropertyDto> itemProperties = new ArrayList<>();
         itemProperties.add(itemPropertyDto);
 
@@ -62,10 +63,10 @@ public class ItemControllerTest extends AbstractTest {
 
     @Test
     public void checkItemTypesWithMultiplePropertiesCreation() {
-        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
+        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
         ItemTypeDto secondItemTypeDto = createItemType(SECOND_ID, SECOND_ITEM_TYPE_NAME);
 
-        ItemPropertyDto itemPropertyDto = createItemProperty(ID, ITEM_TYPE_PROPERTY_NAME);
+        ItemPropertyDto itemPropertyDto = createItemProperty(RANDOM_VALUE, ITEM_TYPE_PROPERTY_NAME);
         ItemPropertyDto secondItemPropertyDto = createItemProperty(SECOND_ID,
                                                                    SECOND_ITEM_TYPE_PROPERTY_NAME);
 

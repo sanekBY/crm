@@ -1,5 +1,6 @@
 package by.shalukho.config;
 
+import by.shalukho.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,17 +28,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable().formLogin()
-//                .antMatchers("/", "/api/**","/home", "/about", "/static/**", "/webjars/**", "/css/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html").permitAll()
-//                .antMatchers("/admin/**").hasAnyAuthority(RoleEnum.ADMIN.name())
-//                .antMatchers("/user/**").hasAnyAuthority(RoleEnum.USER.name())
-//                .anyRequest().authenticated()
-//                .and()
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/", "/about", "/static/**", "/webjars/**", "/css/**", "/v2/api-docs",
+                             "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html")
+                .permitAll()
+                .antMatchers("/**").hasAnyAuthority(RoleEnum.USER.name(), RoleEnum.ADMIN.name())
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
                 .loginPage("/login")
-//                .permitAll()
+                .permitAll()
                 .and()
                 .logout()
-//                .permitAll()
+                .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
@@ -51,7 +54,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     public static void main(String[] args) {
         String password = "admin";
