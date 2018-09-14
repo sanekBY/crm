@@ -10,13 +10,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public abstract class AbstractService<T, B extends AbstractEntity> implements ServiceWithActive<B> {
-    private JpaRepository repository;
+public abstract class AbstractService<T, B extends AbstractEntity, CustomRepository extends JpaRepository>
+        implements ServiceWithActive<B> {
+
+    private CustomRepository repository;
 
     private GenericConverter<T, B> converter;
 
-    public T findById(Long id) {
-        Optional<B> entity = findByActiveAndId(true, id);
+    public T findById(final Long id) {
+        final Optional<B> entity = findByActiveAndId(true, id);
         if (entity.isPresent()) {
             return converter.convertToDto(entity.get());
         } else {
@@ -28,8 +30,8 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
         return findAllByActive(true).stream().map(e -> converter.convertToDto(e)).collect(Collectors.toList());
     }
 
-    public void delete(Long id) {
-        Optional<B> entity = repository.findById(id);
+    public void delete(final Long id) {
+        final Optional<B> entity = repository.findById(id);
         if (entity.isPresent()) {
             entity.get().setActive(false);
             repository.save(entity);
@@ -38,8 +40,8 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
         }
     }
 
-    public void save(T dto) {
-        B entity = converter.convertToEntity(dto);
+    public void save(final T dto) {
+        final B entity = converter.convertToEntity(dto);
         beforeEntitySave(entity);
         repository.save(entity);
     }
@@ -48,16 +50,16 @@ public abstract class AbstractService<T, B extends AbstractEntity> implements Se
     }
 
     public List<T> findAllById(List<Long> ids) {
-        List<B> entities = repository.findAllById(ids);
-        List<T> dtos = (List<T>) entities.stream().map(e -> converter.convertToDto(e));
+        final List<B> entities = repository.findAllById(ids);
+        final List<T> dtos = (List<T>) entities.stream().map(e -> converter.convertToDto(e));
         return dtos;
     }
 
-    public JpaRepository getRepository() {
+    public CustomRepository getRepository() {
         return repository;
     }
 
-    public void setRepository(JpaRepository repository) {
+    public void setRepository(CustomRepository repository) {
         this.repository = repository;
     }
 

@@ -1,6 +1,6 @@
 package by.shalukho.config;
 
-import by.shalukho.enums.RoleEnum;
+import by.shalukho.entity.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

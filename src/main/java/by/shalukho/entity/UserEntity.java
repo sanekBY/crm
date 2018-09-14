@@ -2,7 +2,6 @@ package by.shalukho.entity;
 
 import by.shalukho.dto.ConnectedDto;
 import by.shalukho.dto.UserDto;
-import by.shalukho.enums.RoleEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

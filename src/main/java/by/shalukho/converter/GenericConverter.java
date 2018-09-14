@@ -19,21 +19,21 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     @Override
-    public T convertToDto(B entity) {
-        T dto = (T) convert(entity, getDtoClass());
+    public T convertToDto(final B entity) {
+        final T dto = (T) convert(entity, getDtoClass());
         getEntityToDtoFunction().apply(entity, dto);
         return dto;
     }
 
     @Override
-    public B convertToEntity(T dto) {
-        B entity = (B) convert(dto, entityClazz);
+    public B convertToEntity(final T dto) {
+        final B entity = (B) convert(dto, entityClazz);
         getDtoToEntityFunction().apply(dto, entity);
         return entity;
     }
 
     @Override
-    public List<T> convertAllToDto(Collection<B> entites) {
+    public List<T> convertAllToDto(final Collection<B> entites) {
         if (entites == null) {
             return null;
         }
@@ -41,15 +41,15 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     @Override
-    public List<B> convertAllToEntity(Collection<T> dbos) {
+    public List<B> convertAllToEntity(final Collection<T> dbos) {
         if (dbos == null) {
             return null;
         }
         return dbos.stream().map(d -> convertToEntity(d)).collect(Collectors.toList());
     }
 
-    private Object convert(Object dto, Class clazz) {
-        Constructor<?> ctor;
+    private Object convert(final Object dto, final Class clazz) {
+        final Constructor<?> ctor;
         Object object = null;
         try {
             ctor = clazz.getConstructor();
@@ -62,7 +62,7 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     private BiFunction<B, T, T> getEntityToDtoFunction() {
-        BiFunction<B, T, T> function = (b, t) -> {
+        final BiFunction<B, T, T> function = (b, t) -> {
             return extraConvertToDto(b, t);
         };
         return function;
@@ -73,7 +73,7 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     private BiFunction<T, B, B> getDtoToEntityFunction() {
-        BiFunction<T, B, B> function = (t, b) -> {
+        final BiFunction<T, B, B> function = (t, b) -> {
             return extraConvertToEntity(t, b);
         };
         return function;

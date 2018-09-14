@@ -50,7 +50,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
     }
 
     @Override
-    public <EnymType extends Enum<EnymType>> T convertEnumsToDto(B entity, T dto) {
+    public <EnymType extends Enum<EnymType>> T convertEnumsToDto(final B entity, final T dto) {
 
         final List<Field> enumFields = getEnumFields();
 
@@ -68,7 +68,8 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
         return dto;
     }
 
-    protected static <EnymType extends Enum<EnymType>> EnymType getEnumValue(String stringValue, final EnymType[] en) {
+    protected static <EnymType extends Enum<EnymType>> EnymType getEnumValue(final String stringValue,
+                                                                             final EnymType[] en) {
         final EnymType actualEnumValue =
                 Arrays.stream(en).filter(e -> e.toString().equals(stringValue)).findFirst().orElse(en[0]);
         return actualEnumValue;
