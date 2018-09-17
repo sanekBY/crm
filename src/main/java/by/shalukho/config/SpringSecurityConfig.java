@@ -55,10 +55,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    public static void main(String[] args) {
-        String password = "admin";
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        System.out.println(hashedPassword);
-    }
 }

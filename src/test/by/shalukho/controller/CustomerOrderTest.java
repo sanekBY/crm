@@ -1,7 +1,5 @@
-package by.shalukho.controllers.customer;
+package by.shalukho.controller;
 
-import by.shalukho.controller.CustomerController;
-import by.shalukho.controller.CustomerOrderController;
 import by.shalukho.dto.CustomerDto;
 import by.shalukho.dto.CustomerOrderDto;
 import by.shalukho.dto.OrderItemDto;

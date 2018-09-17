@@ -1,9 +1,6 @@
-package by.shalukho.controllers.item;
+package by.shalukho.controller;
 
 
-import by.shalukho.controller.ItemPropertyController;
-import by.shalukho.controller.ItemTypeController;
-import by.shalukho.controllers.AbstractTest;
 import by.shalukho.dto.ItemDto;
 import by.shalukho.dto.ItemPropertyDto;
 import by.shalukho.dto.ItemTypeDto;
@@ -14,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemControllerTest extends AbstractTest {
+public class ItemControllerTest extends AbstractControllerTest {
 
     public static final String ITEM_TYPE_NAME = "Name";
     public static final String ITEM_NAME = "Simple mug";
@@ -86,7 +83,6 @@ public class ItemControllerTest extends AbstractTest {
         checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
         checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, secondItemTypeDto);
     }
-
 
     private ItemTypeDto createItemType(Long id, String name) {
         ItemTypeDto itemTypeDto = new ItemTypeDto();

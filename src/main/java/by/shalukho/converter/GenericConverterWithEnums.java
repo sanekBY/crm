@@ -27,7 +27,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
     }
 
     @Override
-    public <EnymType extends Enum<EnymType>> B convertEnumsToEntity(final T dto, final B entity) {
+    public <EnumType extends Enum<EnumType>> B convertEnumsToEntity(final T dto, final B entity) {
 
         final List<Field> enumFields = getEnumFields();
 
@@ -36,7 +36,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
                 final Field field = dto.getClass().getDeclaredField(f.getName());
                 field.setAccessible(true);
 
-                final EnymType[] enumConstants = (EnymType[]) f.getType().getEnumConstants();
+                final EnumType[] enumConstants = (EnumType[]) f.getType().getEnumConstants();
 
                 f.set(entity,
                       getEnumValue((String) field.get(dto),
@@ -50,7 +50,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
     }
 
     @Override
-    public <EnymType extends Enum<EnymType>> T convertEnumsToDto(final B entity, final T dto) {
+    public <EnumType extends Enum<EnumType>> T convertEnumsToDto(final B entity, final T dto) {
 
         final List<Field> enumFields = getEnumFields();
 
@@ -58,7 +58,7 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
             try {
                 final Field field = dto.getClass().getDeclaredField(f.getName());
                 field.setAccessible(true);
-                final EnymType value = (EnymType) f.get(entity);
+                final EnumType value = (EnumType) f.get(entity);
                 field.set(dto, value.toString());
             } catch (Exception e) {
                 throwException(entity, dto);
@@ -68,9 +68,9 @@ public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> impl
         return dto;
     }
 
-    protected static <EnymType extends Enum<EnymType>> EnymType getEnumValue(final String stringValue,
-                                                                             final EnymType[] en) {
-        final EnymType actualEnumValue =
+    protected static <EnumType extends Enum<EnumType>> EnumType getEnumValue(final String stringValue,
+                                                                             final EnumType[] en) {
+        final EnumType actualEnumValue =
                 Arrays.stream(en).filter(e -> e.toString().equals(stringValue)).findFirst().orElse(en[0]);
         return actualEnumValue;
     }

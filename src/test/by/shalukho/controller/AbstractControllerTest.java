@@ -1,4 +1,4 @@
-package by.shalukho.controllers;
+package by.shalukho.controller;
 
 import by.shalukho.SpringBootWebApplication;
 import by.shalukho.config.H2TestProfileJPAConfig;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest(classes = {SpringBootWebApplication.class, H2TestProfileJPAConfig.class})
 @WebAppConfiguration
 @ActiveProfiles("test")
-public abstract class AbstractTest {
+public abstract class AbstractControllerTest {
 
     public static final Long RANDOM_VALUE = new Random().nextLong();
 

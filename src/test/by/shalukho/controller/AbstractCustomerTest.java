@@ -1,6 +1,6 @@
-package by.shalukho.controllers.customer;
+package by.shalukho.controller;
 
-import by.shalukho.controllers.AbstractTest;
+import by.shalukho.controller.AbstractControllerTest;
 import by.shalukho.dto.AddressDto;
 import by.shalukho.dto.ContactDataDto;
 import by.shalukho.dto.CustomerDto;
@@ -9,7 +9,7 @@ import by.shalukho.entity.PhoneTypeEnum;
 
 import java.util.ArrayList;
 
-public abstract class AbstractCustomerTest extends AbstractTest {
+public abstract class AbstractCustomerTest extends AbstractControllerTest {
 
     public static final String API_CUSTOMER_WITHOUT_ID = "/customer";
     public static final String CUSTOMER_NAME = "Ivan Ivanov";
