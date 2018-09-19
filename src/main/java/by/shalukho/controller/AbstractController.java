@@ -27,11 +27,15 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
     @RequestMapping(method = RequestMethod.GET)
     public String createEntity(final Model model) {
         try {
-            model.addAttribute(getAttribute(), clazz.newInstance());
+            model.addAttribute(getAttribute(), createNewObject());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return getHtml();
+    }
+
+    protected T createNewObject() throws InstantiationException, IllegalAccessException {
+        return clazz.newInstance();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
