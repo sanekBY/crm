@@ -33,8 +33,9 @@ public abstract class AbstractService<T, B extends AbstractEntity, CustomReposit
     public void delete(final Long id) {
         final Optional<B> entity = repository.findById(id);
         if (entity.isPresent()) {
-            entity.get().setActive(false);
-            repository.save(entity);
+            B entityValue = entity.get();
+            entityValue.setActive(false);
+            repository.save(entityValue);
         } else {
             throw new RuntimeException("entity was not found");
         }

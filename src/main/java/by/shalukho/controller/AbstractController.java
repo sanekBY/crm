@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public abstract class AbstractController<T, B extends AbstractEntity> {
 
+    public static final String ALERT_SUCCESS = "alert-success";
+    public static final String ALERT_DANGER = "alert-danger";
+    public static final String ALERT_WARNING = "alert-warning";
     private final AbstractService service;
     private final Class<T> clazz;
 
@@ -21,6 +24,7 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
     @RequestMapping(method = RequestMethod.POST)
     public String createEntity(@ModelAttribute final T dto, final Model model) {
         service.save(dto);
+        addSuccessAlert(model, "Saved");
         return goToEntityList(model);
     }
 
@@ -29,7 +33,7 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
         try {
             model.addAttribute(getAttribute(), createNewObject());
         } catch (Exception e) {
-            e.printStackTrace();
+            addDangerAlert(model, e.getMessage());
         }
         return getHtml();
     }
@@ -38,14 +42,15 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
         return clazz.newInstance();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteEntity(@PathVariable("id") final Long id, final Model model) {
         service.delete(id);
+        addSuccessAlert(model, "Deleted");
         return goToEntityList(model);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getEntity(@PathVariable("id") final Long id, Model model) {
+    public String getEntity(@PathVariable("id") final Long id, final Model model) {
         model.addAttribute(getAttribute(), service.findById(id));
         return getHtml();
     }
@@ -58,6 +63,23 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
     private String goToEntityList(final Model model) {
         model.addAttribute(getListAttribute(), service.findAll());
         return getListHtml();
+    }
+
+    private void addAlert(final Model model, final String text, final String alertClass) {
+        model.addAttribute("notification", text);
+        model.addAttribute("alertType", alertClass);
+    }
+
+    protected void addSuccessAlert(final Model model, final String text) {
+        addAlert(model, text, ALERT_SUCCESS);
+    }
+
+    protected void addDangerAlert(final Model model, final String text) {
+        addAlert(model, text, ALERT_DANGER);
+    }
+
+    protected void addWarningAlert(final Model model, final String text) {
+        addAlert(model, text, ALERT_WARNING);
     }
 
     protected abstract String getAttribute();

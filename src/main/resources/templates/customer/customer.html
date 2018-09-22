@@ -7,49 +7,121 @@
 <body>
 
 <div layout:fragment="content">
-    <h1 th:inline="text">Add New Customer</h1>
+    <h1 th:inline="text" th:text="#{add.new.customer}" style="text-align: center"></h1>
 
     <form th:action="@{/customer}" th:object="${customerDto}" method="post">
 
-        <div class="form-group">
+        <div class="form-row">
             <input type="hidden" name="id" class="form-control" th:field="*{id}"/>
         </div>
 
-        <div class="form-group">
-            <input type="text" name="name" class="form-control"
-                   placeholder="Name" required="true" autofocus="true" th:field="*{name}"/>
-        </div>
-
-        <div class="form-group">
-            <input type="text" name="email" class="form-control"
-                   placeholder="Email" required="true" autofocus="true" th:field="*{email}"/>
-        </div>
-
-        <div th:each="contact,i: *{contacts}">
-            <div class="form-group">
-                Phone:
-                <input type="text" class="form-control" th:field="*{contacts[__${i.index}__].phone}"/>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="name" th:text="#{name}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="name" type="text" th:name="#{name}" class="form-control" required="true" autofocus="true"
+                       th:field="*{name}"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <select class="custom-select" name="type">
-                <option th:each="type : ${T(by.shalukho.entity.CustomerTypeEnum).values()}"
-                        th:value="${type.toString()}"
-                        th:text="${type}">
-                </option>
-            </select>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="email" th:text="#{email}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="email" type="text" th:name="#{email}" class="form-control" required="true" autofocus="true"
+                       th:field="*{email}"/>
+            </div>
         </div>
-        <input type="submit" class="btn btn-success" value="Save"/>
-        <input type="reset" class="btn btn-warning" value="Reset"/>
-        <button type="submit" name="addRow" th:text="#{customerDto.row.add}">Add row</button>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="type" th:text="#{customer.type}"/>
+            </div>
+            <div class="col-sm-10">
+                <select id="type" class="custom-select" name="type">
+                    <option th:each="type : ${T(by.shalukho.entity.CustomerTypeEnum).values()}"
+                            th:value="${type.toString()}"
+                            th:text="${type}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <table class="form-control" th:if="*{!contacts.empty}">
+            <tr>
+                <th th:text="#{phone}"></th>
+                <th th:text="#{phone.type}"></th>
+                <th></th>
+            </tr>
+            <tr th:each="contact,i: *{contacts}">
+                <td>
+                    <input type="text" class="form-control" th:field="*{contacts[__${i.index}__].phone}"/>
+                </td>
+                <td>
+                    <select class="custom-select" name="type">
+                        <option th:each="type : ${T(by.shalukho.entity.PhoneTypeEnum).values()}"
+                                th:value="${type.toString()}"
+                                th:text="${type}">
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-danger" name="removePhone" th:value="${i.index}">
+                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <table class="form-control" th:if="*{!addresses.empty}">
+            <tr>
+                <th th:text="#{city}"></th>
+                <th th:text="#{state}"></th>
+                <th th:text="#{address}"></th>
+                <th th:text="#{postal.code}"></th>
+                <th></th>
+            </tr>
+            <tr th:each="address,i: *{addresses}">
+                <td>
+                    <input type="text" class="form-control" th:field="*{addresses[__${i.index}__].city}"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" th:field="*{addresses[__${i.index}__].state}"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" th:field="*{addresses[__${i.index}__].address}"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" th:field="*{addresses[__${i.index}__].postalCode}"/>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-danger" name="removeAddress" th:value="${i.index}">
+                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" name="addPhone">
+                <span class="fa fa-plus" aria-hidden="true"/>
+                <span class="fa fa-mobile-phone fa-lg" aria-hidden="true"/>
+            </button>
+            <button type="submit" class="btn btn-default" name="addAddress">
+                <span class="fa fa-plus" aria-hidden="true"/>
+                <span class="fa fa-address-book" aria-hidden="true"/>
+            </button>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" th:value="#{save}"/>
+            <a th:href="@{'/customer/{id}/delete'(id=*{id})}" class="btn btn-danger" th:if="*{id != null}">
+                <span class="fa fa-trash-o fa-lg" aria-hidden="true"/>
+            </a>
+        </div>
     </form>
 
-    <!--<form action="#" th:action="@{'/customer/{id}'(id=*{id})}" th:method="delete">-->
-    <!--&lt;!&ndash;<a th:href="@{'/customer/' + *{id}}" data-method="delete" class="btn btn-danger">Delete</a>&ndash;&gt;-->
-    <!--<input type="hidden" name="_method" value="delete"/>-->
-    <!--<button type="submit" id="submitButton"></button>-->
-    <!--</form>-->
 
 </div>
 </body>

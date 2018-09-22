@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="table-col-filter">
+    <script>
+        $(document).ready(function () {
+            // do Filter on View
+            var index = [[${index}]];
+            $("#inputFilter-" + index).on("keyup", function () {
+                var inputValue = $(this).val().toLowerCase();
+                $("#customerList tr td:nth-child(" + index + ")").filter(function () {
+                    $(this).parent('tr').toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+                });
+            });
+        })
+    </script>
+</div>
+<div th:fragment="table-filter">
+    <script>
+        $(document).ready(function () {
+            $("#inputFilter").on("keyup", function () {
+                var inputValue = $(this).val().toLowerCase();
+                $("#customerList tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(inputValue) > -1)
+                });
+            });
+        })
+    </script>
+</div>
+</body>
+</html>

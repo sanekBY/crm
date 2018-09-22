@@ -13,19 +13,13 @@
         <div class="sidebar-sticky">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/customer/list}">
-                        Customers
-                    </a>
+                    <a class="nav-link active" th:href="@{/customer/list}" th:text="#{customers}"/>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/item/list}">
-                        Items
-                    </a>
+                    <a class="nav-link active" th:href="@{/item/list}" th:text="#{items}"/>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/order/list}">
-                        Orders
-                    </a>
+                    <a class="nav-link active" th:href="@{/order/list}" th:text="#{orders}"/>
                 </li>
             </ul>
         </div>
