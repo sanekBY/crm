@@ -43,13 +43,14 @@
                 <select id="type" class="custom-select" name="type">
                     <option th:each="type : ${T(by.shalukho.entity.CustomerTypeEnum).values()}"
                             th:value="${type.toString()}"
-                            th:text="${type}">
+                            th:text="#{__${type}__}">
                     </option>
                 </select>
             </div>
         </div>
 
         <table class="form-control" th:if="*{!contacts.empty}">
+            <h3 th:text="#{phones}" style="text-align: center"/>
             <tr>
                 <th th:text="#{phone}"></th>
                 <th th:text="#{phone.type}"></th>
@@ -63,7 +64,7 @@
                     <select class="custom-select" name="type">
                         <option th:each="type : ${T(by.shalukho.entity.PhoneTypeEnum).values()}"
                                 th:value="${type.toString()}"
-                                th:text="${type}">
+                                th:text="#{__${type.toString()}__}">
                         </option>
                     </select>
                 </td>
@@ -76,6 +77,7 @@
         </table>
 
         <table class="form-control" th:if="*{!addresses.empty}">
+            <h3 th:text="#{addresses}" style="text-align: center"/>
             <tr>
                 <th th:text="#{city}"></th>
                 <th th:text="#{state}"></th>

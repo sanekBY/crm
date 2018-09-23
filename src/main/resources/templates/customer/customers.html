@@ -32,7 +32,7 @@
             <tr th:each="customer : ${customers}">
                 <td><span th:text="${customer.id}"> </span></td>
                 <td><span th:text="${customer.name}"></span></td>
-                <td><span th:text="${customer.type}"></span></td>
+                <td><span th:text="#{__${customer.type}__}"></span></td>
                 <td><span th:text="${customer.email}"></span></td>
                 <td>
                     <a th:href="@{'/customer/' + ${customer.id}}" class="btn">

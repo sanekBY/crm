@@ -8,22 +8,47 @@
 
 <body>
 
-<div th:fragment="sidebar">
-    <nav class="col-md-2 d-none d-md-block bg-dark-graysidebar">
-        <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/customer/list}" th:text="#{customers}"/>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/item/list}" th:text="#{items}"/>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/order/list}" th:text="#{orders}"/>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<!--<div>-->
+<!--<div class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">-->
+<!--<div class="sidebar-sticky">-->
+<!--<ul class="nav flex-column">-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link active" th:href="@{/customer/list}" th:text="#{customers}"/>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link active" th:href="@{/item/list}" th:text="#{items}"/>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link active" th:href="@{/order/list}" th:text="#{orders}"/>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-2" th:fragment="sidebar">
+    <ul class="list-group sticky-top sticky-offset">
+
+        <a th:href="@{/customer/list}" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-users fa-fw mr-3"></span>
+                <span class="menu-collapsed" th:text="#{customers}"/>
+            </div>
+        </a>
+
+        <a th:href="@{/item/list}" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-folder fa-fw mr-3"></span>
+                <span class="menu-collapsed" th:text="#{items}"/>
+            </div>
+        </a>
+
+        <a th:href="@{/order/list}" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-cart-plus fa-fw mr-3"></span>
+                <span class="menu-collapsed" th:text="#{orders}"/>
+            </div>
+        </a>
+    </ul>
 </div>
 
 </body>

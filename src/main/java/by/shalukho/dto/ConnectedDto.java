@@ -1,7 +1,7 @@
 package by.shalukho.dto;
 
 
-import org.mapstruct.Qualifier;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
