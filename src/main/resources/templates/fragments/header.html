@@ -54,35 +54,34 @@
             <img src="https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             <span class="menu-collapsed">Crm</span>
         </a>
-        <!--<div class="collapse navbar-collapse" id="navbarNavDropdown">-->
-            <!--<ul class="navbar-nav">-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
                 <!--<li class="nav-item active">-->
-                    <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+                <!--<a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
                 <!--</li>-->
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" href="#">Features</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" href="#">Pricing</a>-->
-                <!--</li>-->
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                <a class="btn btn-dark" type="submit" sec:authorize="!isAuthenticated()" th:href="@{/login}"
+                   th:text="#{login}"/>
 
-                <!--&lt;!&ndash; This menu is hidden in bigger devices with d-sm-none.-->
-               <!--The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  &ndash;&gt;-->
-                <!--<li class="nav-item dropdown d-sm-block d-md-none">-->
-                    <!--<a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Menu-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="smallerscreenmenu">-->
-                        <!--<a class="dropdown-item" href="#">Dashboard</a>-->
-                        <!--<a class="dropdown-item" href="#">Profile</a>-->
-                        <!--<a class="dropdown-item" href="#">Tasks</a>-->
-                        <!--<a class="dropdown-item" href="#">Etc ...</a>-->
-                    <!--</div>-->
-                <!--</li>-->
-                <!--&lt;!&ndash; Smaller devices menu END &ndash;&gt;-->
+                <div class="dropdown" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        [[${#httpServletRequest.remoteUser}]]
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{/logout}" th:text="#{logout}"/>
+                    </div>
+                </div>
 
-            <!--</ul>-->
-        <!--</div>-->
+            </form>
+        </div>
     </nav>
     <!-- NavBar END -->
 </div>

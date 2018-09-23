@@ -2,17 +2,16 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorator="layouts/layout">
 <head>
-    <title>Login</title>
+    <title th:text="#{login}"/>
 </head>
 <body>
 
-<div layout:fragment="content">
-
-    <div class="row" style="margin-top:20px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+<div layout:fragment="content" class="content-center">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-2 col-md-offset-3">
             <form th:action="@{/login}" method="post">
                 <fieldset>
-                    <h1>
+                    <h1 style="text-align: center">
                         <div th:text="#{please.sign.in}"></div>
                     </h1>
 
@@ -35,10 +34,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="content-center">
                             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
                         </div>
                     </div>
                 </fieldset>
