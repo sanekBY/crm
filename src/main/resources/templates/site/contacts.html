@@ -12,12 +12,17 @@
             <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
         </div>
         <div class="col-sm-2">
-            <a th:href="@{/site/contact}" class="btn btn-success" th:text="#{add}"/>
+            <a th:href="@{/site/contact}" class="btn btn-success" th:text="#{add}"
+               th:if="${contacts == null || contacts.empty}"/>
         </div>
         <table id="contactList" class="table">
             <thead>
             <tr>
                 <th>№</th>
+                <th th:text="#{city}"/>
+                <th th:text="#{street}"/>
+                <th th:text="#{house}"/>
+                <th th:text="#{phone}"/>
                 <th th:text="#{email}"/>
                 <th></th>
             </tr>
@@ -28,6 +33,10 @@
             </tr>
             <tr th:each="contact : ${contacts}">
                 <td><span th:text="${contact.id}"> </span></td>
+                <td><span th:text="${contact.city}"></span></td>
+                <td><span th:text="${contact.street}"></span></td>
+                <td><span th:text="${contact.house}"></span></td>
+                <td><span th:text="${contact.phone}"></span></td>
                 <td><span th:text="${contact.email}"></span></td>
                 <td>
                     <a th:href="@{'/site/contact/' + ${contact.id}}" class="btn">

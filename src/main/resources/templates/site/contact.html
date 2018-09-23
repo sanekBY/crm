@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
+<head>
+    <title>Contact</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1 th:inline="text" th:text="#{add.new.contact}" style="text-align: center"></h1>
+
+    <form th:action="@{/site/contact}" th:object="${siteCompanyContactsDto}" method="post">
+
+        <div class="form-row">
+            <input type="hidden" name="id" class="form-control" th:field="*{id}"/>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="city" th:text="#{city}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="city" type="text" th:name="#{city}" class="form-control" required="true" autofocus="true"
+                       th:field="*{city}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="street" th:text="#{street}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="street" type="text" th:name="#{street}" class="form-control" required="true" autofocus="true"
+                       th:field="*{street}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="house" th:text="#{house}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="house" type="text" th:name="#{house}" class="form-control" required="true" autofocus="true"
+                       th:field="*{house}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="buildingType" th:text="#{buildingType}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="buildingType" type="text" th:name="#{buildingType}" class="form-control" required="true"
+                       autofocus="true"
+                       th:field="*{buildingType}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="underground-station" th:text="#{undergroundStation}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="underground-station" type="text" th:name="#{undergroundStation}" class="form-control"
+                       required="true" autofocus="true"
+                       th:field="*{undergroundStation}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="room" th:text="#{room}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="room" type="text" th:name="#{room}" class="form-control" required="true" autofocus="true"
+                       th:field="*{room}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="phone" th:text="#{phone}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="phone" type="text" th:name="#{phone}" class="form-control" required="true" autofocus="true"
+                       th:field="*{phone}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="email" th:text="#{email}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="email" type="text" th:name="#{email}" class="form-control" required="true" autofocus="true"
+                       th:field="*{email}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="workTime" th:text="#{work.time}"/>
+            </div>
+            <div class="col-sm-10">
+                <input id="workTime" type="text" th:name="#{work.time}" class="form-control" required="true"
+                       autofocus="true"
+                       th:field="*{workTime}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" th:value="#{save}"/>
+        </div>
+    </form>
+
+
+</div>
+</body>
+</html>
