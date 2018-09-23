@@ -6,25 +6,19 @@
 <body>
 
 <div th:insert="fragments/header :: header"/>
+<div class="row" id="body-row">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
 
-<!--<div class="container-fluid">-->
-    <div class="row"  id="body-row">
-        <div th:replace="fragments/sidebar :: sidebar"></div>
-
-        <div class="col-md-9 ml-sm-auto col-lg-10 px-4 crm-main mt-5">
-            <div th:if="${notification}" th:class="${'alert alert-dismissible fade show ' +  alertType}" role="alert">
-                <div th:text="${notification}"></div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div layout:fragment="content"></div>
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4 crm-main mt-5">
+        <div th:if="${notification}" th:class="${'alert alert-dismissible fade show ' +  alertType}" role="alert">
+            <div th:text="${notification}"></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-
+        <div layout:fragment="content"></div>
     </div>
-<!--</div>-->
 
-<!--<div th:insert="fragments/footer :: footer"/>-->
-
+</div>
 </body>
 </html>

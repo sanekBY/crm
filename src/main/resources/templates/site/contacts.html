@@ -2,40 +2,35 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorator="layouts/layout">
 <head>
-    <title>Customers</title>
+    <title>Contacts</title>
 </head>
 <body>
 <div layout:fragment="content">
-
 
     <div class="row form-group">
         <div class="col-sm-10">
             <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
         </div>
         <div class="col-sm-2">
-            <a th:href="@{/customer}" class="btn btn-success" th:text="#{add}"/>
+            <a th:href="@{/site/contact}" class="btn btn-success" th:text="#{add}"/>
         </div>
-        <table id="customerList" class="table">
+        <table id="contactList" class="table">
             <thead>
             <tr>
                 <th>№</th>
-                <th th:text="#{name}"/>
-                <th th:text="#{customer.type}"/>
                 <th th:text="#{email}"/>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${customers == null || customers.empty}">
-                <td colspan="2"> No any customers</td>
+            <tr th:if="${contacts == null || contacts.empty}">
+                <td colspan="2"> No any contacts</td>
             </tr>
-            <tr th:each="customer : ${customers}">
-                <td><span th:text="${customer.id}"> </span></td>
-                <td><span th:text="${customer.name}"></span></td>
-                <td><span th:text="#{__${customer.type}__}"></span></td>
-                <td><span th:text="${customer.email}"></span></td>
+            <tr th:each="contact : ${contacts}">
+                <td><span th:text="${contact.id}"> </span></td>
+                <td><span th:text="${contact.email}"></span></td>
                 <td>
-                    <a th:href="@{'/customer/' + ${customer.id}}" class="btn">
+                    <a th:href="@{'/site/contact/' + ${contact.id}}" class="btn">
                         <span class="fa fa-eye fa-lg" aria-hidden="true"/>
                     </a>
                 </td>
