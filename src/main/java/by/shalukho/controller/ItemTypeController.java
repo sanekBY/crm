@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/item-type")
-public class ItemTypeController extends AbstractController<ItemTypeDto, ItemTypeEntity> {
+public class ItemTypeController extends AbstractController<ItemTypeDto, ItemTypeEntity, ItemTypeService> {
 
     public static final String ITEM_TYPE_DTO_ATTRIBUTE = "itemTypeDto";
 

@@ -8,15 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public abstract class AbstractController<T, B extends AbstractEntity> {
+public abstract class AbstractController<T, B extends AbstractEntity, Service extends AbstractService> {
 
     public static final String ALERT_SUCCESS = "alert-success";
     public static final String ALERT_DANGER = "alert-danger";
     public static final String ALERT_WARNING = "alert-warning";
-    private final AbstractService service;
+
+    private final Service service;
     private final Class<T> clazz;
 
-    public AbstractController(final AbstractService service, final Class<T> clazz) {
+    public AbstractController(final Service service, final Class<T> clazz) {
         this.service = service;
         this.clazz = clazz;
     }
@@ -89,4 +90,8 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
     protected abstract String getListHtml();
 
     protected abstract String getHtml();
+
+    public Service getService() {
+        return service;
+    }
 }

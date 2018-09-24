@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/item-property")
-public class ItemPropertyController extends AbstractController<ItemPropertyDto, ItemPropertyEntity> {
+public class ItemPropertyController
+        extends AbstractController<ItemPropertyDto, ItemPropertyEntity, ItemPropertyService> {
 
     public static final String ITEM_PROPERTY_DTO_ATTRIBUTE = "itemPropertyDto";
 

@@ -5,12 +5,15 @@ import by.shalukho.entity.SiteCompanyContactsEntity;
 import by.shalukho.service.SiteCompanyContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/site/contact")
 public class SiteCompanyContactsController
-        extends AbstractController<SiteCompanyContactsDto, SiteCompanyContactsEntity> {
+        extends AbstractController<SiteCompanyContactsDto, SiteCompanyContactsEntity, SiteCompanyContactsService> {
 
     @Autowired
     public SiteCompanyContactsController(final SiteCompanyContactsService siteCompanyContactsService) {

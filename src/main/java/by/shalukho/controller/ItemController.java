@@ -2,6 +2,7 @@ package by.shalukho.controller;
 
 import by.shalukho.dto.ItemDto;
 import by.shalukho.entity.ItemEntity;
+import by.shalukho.service.CustomerService;
 import by.shalukho.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/item")
 //@PreAuthorize("hasAuthority('ADMIN')")
-public class ItemController extends AbstractController<ItemDto, ItemEntity> {
+public class ItemController extends AbstractController<ItemDto, ItemEntity, ItemService> {
 
     @Autowired
     public ItemController(final ItemService itemService) {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController extends AbstractController<UserDto, UserEntity> {
+public class UserController extends AbstractController<UserDto, UserEntity, UserService> {
 
     @Autowired
     public UserController(final UserService userService) {

@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Controller
 @RequestMapping(value = "/customer")
 @PreAuthorize("hasAuthority('ADMIN')")
-public class CustomerController extends AbstractController<CustomerDto, CustomerEntity> {
+public class CustomerController extends AbstractController<CustomerDto, CustomerEntity, CustomerService> {
 
     public static final String CUSTOMER_DTO_ATTRIBUTE = "customerDto";
 
