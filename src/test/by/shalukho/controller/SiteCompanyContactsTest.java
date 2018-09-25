@@ -17,7 +17,7 @@ public class SiteCompanyContactsTest extends AbstractControllerTest {
 
     private SiteCompanyContactsDto createContactsDto() {
         SiteCompanyContactsDto dto = new SiteCompanyContactsDto();
-        dto.setId(RANDOM_VALUE);
+        dto.setId(ID);
         dto.setBuildingType("Tower");
         dto.setCity("Minsk");
         dto.setEmail("print@twinspsprint.by");
