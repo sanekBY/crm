@@ -23,4 +23,39 @@
             <column name="WORK_TIME" type="varchar(255)"/>
         </createTable>
     </changeSet>
+    <changeSet id="ADD_SITE_REVIEWS" author="shalukho">
+        <createTable tableName="SITE_REVIEW">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="SITE_REVIEWPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="POSITION" type="varchar(255)"/>
+            <column name="TEXT" type="varchar(255)"/>
+            <column name="CREATED_ON" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACCEPTED" type="TINYINT(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="ADD_SITE_SECTIONS" author="shalukho">
+        <createTable tableName="SITE_SECTION">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="SITE_SECTIONPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="URL" type="varchar(255)"/>
+            <column name="SITE_SECTION_ID" type="BIGINT">
+                <constraints references="SITE_SECTION(ID)"
+                             foreignKeyName="FK_SITE_SECTION__SITE_SECTION_ID" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

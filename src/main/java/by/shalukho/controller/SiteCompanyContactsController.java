@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SiteCompanyContactsController
         extends AbstractController<SiteCompanyContactsDto, SiteCompanyContactsEntity, SiteCompanyContactsService> {
 
+    public static final String SITE_COMPANY_CONTACTS_DTO_ATTRIBUTE = "siteCompanyContactsDto";
+
     @Autowired
     public SiteCompanyContactsController(final SiteCompanyContactsService siteCompanyContactsService) {
         super(siteCompanyContactsService, SiteCompanyContactsDto.class);
@@ -22,7 +24,7 @@ public class SiteCompanyContactsController
 
     @Override
     protected String getAttribute() {
-        return "siteCompanyContactsDto";
+        return SITE_COMPANY_CONTACTS_DTO_ATTRIBUTE;
     }
 
     @Override
