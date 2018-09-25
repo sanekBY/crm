@@ -43,7 +43,7 @@ public class CustomerOrderTest extends AbstractCustomerTest {
                                                     final OrderItemDto orderItem) {
 
         final CustomerOrderDto customerOrderDto = new CustomerOrderDto();
-        customerOrderDto.setId(RANDOM_VALUE);
+        customerOrderDto.setId(ID);
         customerOrderDto.setDescription(CUSTOMER_ORDER_DESCRIPTION);
         customerOrderDto.setCustomer(customer);
         customerOrderDto.setFinalPrice(new BigDecimal(2000));
