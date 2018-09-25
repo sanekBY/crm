@@ -27,7 +27,7 @@ public class ItemControllerTest extends AbstractControllerTest {
 
     @Test
     public void checkItemTypeCreation() {
-        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
+        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
 
         checkEntityCreation(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
     }
@@ -35,8 +35,8 @@ public class ItemControllerTest extends AbstractControllerTest {
 
     @Test
     public void checkEntityCreation() {
-        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
-        ItemDto itemDto = createItem(RANDOM_VALUE, ITEM_NAME, itemTypeDto);
+        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
+        ItemDto itemDto = createItem(ID, ITEM_NAME, itemTypeDto);
 
         createPostRequest(ITEM_TYPE_WITHOUT_ID_URL, ItemTypeController.ITEM_TYPE_DTO_ATTRIBUTE, itemTypeDto);
 
@@ -45,9 +45,9 @@ public class ItemControllerTest extends AbstractControllerTest {
 
     @Test
     public void checkItemTypeWithPropertyCreation() {
-        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
+        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
 
-        ItemPropertyDto itemPropertyDto = createItemProperty(RANDOM_VALUE, ITEM_TYPE_PROPERTY_NAME);
+        ItemPropertyDto itemPropertyDto = createItemProperty(ID, ITEM_TYPE_PROPERTY_NAME);
         List<ItemPropertyDto> itemProperties = new ArrayList<>();
         itemProperties.add(itemPropertyDto);
 
@@ -60,10 +60,10 @@ public class ItemControllerTest extends AbstractControllerTest {
 
     @Test
     public void checkItemTypesWithMultiplePropertiesCreation() {
-        ItemTypeDto itemTypeDto = createItemType(RANDOM_VALUE, ITEM_TYPE_NAME);
+        ItemTypeDto itemTypeDto = createItemType(ID, ITEM_TYPE_NAME);
         ItemTypeDto secondItemTypeDto = createItemType(SECOND_ID, SECOND_ITEM_TYPE_NAME);
 
-        ItemPropertyDto itemPropertyDto = createItemProperty(RANDOM_VALUE, ITEM_TYPE_PROPERTY_NAME);
+        ItemPropertyDto itemPropertyDto = createItemProperty(ID, ITEM_TYPE_PROPERTY_NAME);
         ItemPropertyDto secondItemPropertyDto = createItemProperty(SECOND_ID,
                                                                    SECOND_ITEM_TYPE_PROPERTY_NAME);
 

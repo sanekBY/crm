@@ -1,6 +1,5 @@
 package by.shalukho.controller;
 
-import by.shalukho.controller.AbstractControllerTest;
 import by.shalukho.dto.AddressDto;
 import by.shalukho.dto.ContactDataDto;
 import by.shalukho.dto.CustomerDto;
@@ -24,7 +23,7 @@ public abstract class AbstractCustomerTest extends AbstractControllerTest {
 
     protected CustomerDto createCustomer() {
         CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(RANDOM_VALUE);
+        customerDto.setId(ID);
         customerDto.setName(CUSTOMER_NAME);
         customerDto.setEmail(CUSTOMER_EMAIL);
         customerDto.setType(CUSTOMER_TYPE);
@@ -35,7 +34,7 @@ public abstract class AbstractCustomerTest extends AbstractControllerTest {
 
     protected AddressDto createAddress() {
         AddressDto addressDto = new AddressDto();
-        addressDto.setId(RANDOM_VALUE);
+        addressDto.setId(ID);
         addressDto.setAddress(CUSTOMER_ADDRESS);
         addressDto.setCity(CUSTOMER_CITY);
         addressDto.setState(CUSTOMER_STATE);
@@ -45,7 +44,7 @@ public abstract class AbstractCustomerTest extends AbstractControllerTest {
 
     protected ContactDataDto createContacts() {
         ContactDataDto contactDataDto = new ContactDataDto();
-        contactDataDto.setId(RANDOM_VALUE);
+        contactDataDto.setId(ID);
         contactDataDto.setPhone(CUSTOMER_PHONE);
         contactDataDto.setPhoneType(CUSTOMER_PHONE_TYPE);
         return contactDataDto;
