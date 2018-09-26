@@ -3,8 +3,10 @@ package by.shalukho.controller.rest;
 
 import by.shalukho.dto.SiteCompanyContactsDto;
 import by.shalukho.dto.SiteReviewDto;
+import by.shalukho.dto.SiteSectionDto;
 import by.shalukho.service.SiteCompanyContactsService;
 import by.shalukho.service.SiteReviewService;
+import by.shalukho.service.SiteSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +21,15 @@ public class SiteRestController {
 
     private final SiteCompanyContactsService siteCompanyContactsService;
     private final SiteReviewService siteReviewService;
+    private final SiteSectionService siteSectionService;
 
     @Autowired
     public SiteRestController(final SiteCompanyContactsService siteCompanyContactsService,
-                              final SiteReviewService siteReviewService) {
+                              final SiteReviewService siteReviewService,
+                              final SiteSectionService siteSectionService) {
         this.siteCompanyContactsService = siteCompanyContactsService;
         this.siteReviewService = siteReviewService;
+        this.siteSectionService = siteSectionService;
     }
 
     @RequestMapping(value = "/api/contacts/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -42,6 +47,12 @@ public class SiteRestController {
     @RequestMapping(value = "/api/review", method = RequestMethod.POST)
     public void saveReview(final SiteReviewDto siteReviewDto) {
         siteReviewService.save(siteReviewDto);
+    }
+
+    @RequestMapping(value = "/api/sections", method = RequestMethod.GET, produces = "application/json")
+    public List<SiteSectionDto> getSiteSections() {
+        List<SiteSectionDto> sections = siteSectionService.findAll();
+        return sections;
     }
 
 }

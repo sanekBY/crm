@@ -29,7 +29,7 @@ public class SiteSectionEntity extends AbstractNamedEntity {
     private String url;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PARENT_SECTION_ID", nullable = false)
+    @JoinColumn(name = "PARENT_SECTION_ID")
     @ToString.Exclude
     private SiteSectionEntity parentSection;
 

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
+<head>
+    <title>Sections</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="row form-group">
+        <div class="col-sm-10">
+            <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
+        </div>
+        <div class="col-sm-2">
+            <a th:href="@{/site/section}" class="btn btn-success" th:text="#{add}"/>
+        </div>
+        <table id="sectionList" class="table">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th th:text="#{site.url}"/>
+                <th th:text="#{name}"/>
+                <!--<th th:text="#{house}"/>-->
+                <!--<th th:text="#{phone}"/>-->
+                <!--<th th:text="#{email}"/>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${sections == null || sections.empty}">
+                <td colspan="2"> No any sections</td>
+            </tr>
+            <tr th:each="section : ${sections}">
+                <td><span th:text="${section.id}"> </span></td>
+                <td><span th:text="${section.url}"> </span></td>
+                <td><span th:text="${section.name}"> </span></td>
+                <td>
+                    <a th:href="@{'/site/section/' + ${section.id}}" class="btn">
+                        <span class="fa fa-eye fa-lg" aria-hidden="true"/>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:insert="fragments/scripts :: table-filter"/>
+</div>
+
+</body>
+</html>

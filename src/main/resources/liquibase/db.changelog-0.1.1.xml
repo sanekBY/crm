@@ -52,9 +52,9 @@
             </column>
             <column name="NAME" type="varchar(255)"/>
             <column name="URL" type="varchar(255)"/>
-            <column name="SITE_SECTION_ID" type="BIGINT">
+            <column name="PARENT_SECTION_ID" type="BIGINT">
                 <constraints references="SITE_SECTION(ID)"
-                             foreignKeyName="FK_SITE_SECTION__SITE_SECTION_ID" nullable="false"/>
+                             foreignKeyName="FK_SITE_SECTION__SITE_SECTION_ID"/>
             </column>
         </createTable>
     </changeSet>
