@@ -11,4 +11,13 @@ public class SiteSectionConverter extends GenericConverter<SiteSectionDto, SiteS
         super(SiteSectionEntity.class);
     }
 
+    @Override
+    protected SiteSectionEntity extraConvertToEntity(final SiteSectionDto siteSectionDto,
+                                                               final SiteSectionEntity siteSectionEntity) {
+        SiteSectionEntity entity = super.extraConvertToEntity(siteSectionDto, siteSectionEntity);
+        if (siteSectionDto.getParentSection() != null) {
+            entity.setParentSection(convertToEntity(siteSectionDto.getParentSection()));
+        }
+        return entity;
+    }
 }

@@ -28,12 +28,12 @@ public class SiteSectionEntity extends AbstractNamedEntity {
     @Column(name = "URL")
     private String url;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "PARENT_SECTION_ID")
     @ToString.Exclude
     private SiteSectionEntity parentSection;
 
-    @OneToMany(mappedBy = "parentSection", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentSection", fetch = FetchType.EAGER, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<SiteSectionEntity> siteSections;
 

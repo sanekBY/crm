@@ -27,4 +27,6 @@ public class SiteReviewService
     public List<SiteReviewEntity> findAllByActive(boolean active) {
         return getRepository().findAllByActive(active);
     }
+
+
 }

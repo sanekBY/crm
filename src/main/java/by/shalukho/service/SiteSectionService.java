@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SiteSectionService
@@ -30,7 +29,6 @@ public class SiteSectionService
     }
 
     public List<SiteSectionEntity> findAllSimpleSection() {
-        return getRepository().findAll().stream().filter(s -> s.getParentSection() == null && s.getSiteSections() == null)
-                .collect(Collectors.toList());
+        return getRepository().findAllByActiveIsTrueAndParentSectionIsNull();
     }
 }
