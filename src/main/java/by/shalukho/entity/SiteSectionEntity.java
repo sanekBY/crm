@@ -21,12 +21,19 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "SITE_SECTION")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ConnectedDto(value = SiteSectionDto.class)
+@ToString(callSuper = true, doNotUseGetters = true)
 public class SiteSectionEntity extends AbstractNamedEntity {
 
     @Column(name = "URL")
     private String url;
+
+    @Column(name = "HEADER")
+    private String header;
+
+    @Column(name = "TEXT")
+    private String text;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "PARENT_SECTION_ID")
@@ -35,6 +42,7 @@ public class SiteSectionEntity extends AbstractNamedEntity {
 
     @OneToMany(mappedBy = "parentSection", fetch = FetchType.EAGER, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
+    @ToString.Exclude
     private List<SiteSectionEntity> siteSections;
 
 }

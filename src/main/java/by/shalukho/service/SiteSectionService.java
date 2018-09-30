@@ -28,7 +28,11 @@ public class SiteSectionService
         return getRepository().findAllByActive(active);
     }
 
-    public List<SiteSectionEntity> findAllSimpleSection() {
-        return getRepository().findAllByActiveIsTrueAndParentSectionIsNull();
+    public List<SiteSectionDto> findAllSimpleSection() {
+        List<SiteSectionEntity> sections =
+                getRepository().findAllByActiveIsTrueAndParentSectionIsNull();
+        List<SiteSectionDto> siteSectionDtos = getConverter().convertAllToDto(sections);
+        return siteSectionDtos;
     }
+
 }

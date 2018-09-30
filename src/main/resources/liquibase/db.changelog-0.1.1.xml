@@ -58,4 +58,10 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="ADD_SECTION_HEADER_AND_TEXT" author="shalukho">
+        <addColumn tableName="SITE_SECTION">
+            <column name="HEADER" type="varchar(255)"/>
+            <column name="TEXT" type="varchar(1024)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

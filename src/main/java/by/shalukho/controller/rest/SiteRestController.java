@@ -8,6 +8,7 @@ import by.shalukho.service.SiteCompanyContactsService;
 import by.shalukho.service.SiteReviewService;
 import by.shalukho.service.SiteSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,11 +33,13 @@ public class SiteRestController {
         this.siteSectionService = siteSectionService;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/api/contacts/{id}", method = RequestMethod.GET, produces = "application/json")
     public SiteCompanyContactsDto getSiteContactData(@PathVariable("id") final Long id) {
         return siteCompanyContactsService.findById(id);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/api/reviews", method = RequestMethod.GET, produces = "application/json")
     public List<SiteReviewDto> getSiteReviews() {
         List<SiteReviewDto> reviews =
@@ -44,14 +47,16 @@ public class SiteRestController {
         return reviews;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/api/review", method = RequestMethod.POST)
     public void saveReview(final SiteReviewDto siteReviewDto) {
         siteReviewService.save(siteReviewDto);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/api/sections", method = RequestMethod.GET, produces = "application/json")
     public List<SiteSectionDto> getSiteSections() {
-        List<SiteSectionDto> sections = siteSectionService.findAll();
+        final List<SiteSectionDto> sections = siteSectionService.findAllSimpleSection();
         return sections;
     }
 

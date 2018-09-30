@@ -5,7 +5,7 @@
     <title>Sections</title>
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" th:fragment="contend">
     <div class="easy-tree">
         <ul layout:include="@{fragments/section-fragment} :: section"
             th:with="sections=${siteSections}"></ul>

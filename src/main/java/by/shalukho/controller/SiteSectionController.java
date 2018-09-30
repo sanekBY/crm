@@ -24,6 +24,7 @@ public class SiteSectionController
         super(siteSectionService, SiteSectionDto.class);
     }
 
+
     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String addSection(@PathVariable Long id, final Model model) {
         SiteSectionDto dto = new SiteSectionDto();
@@ -41,8 +42,18 @@ public class SiteSectionController
             dto.setParentSection(parentSection);
         }
         getService().save(dto);
-        addSuccessAlert(model, "Saved");
+        addSuccessAlert(model, "Added");
         return goToEntityList(model);
+    }
+
+
+    @Override
+    public String getEntity(@PathVariable("id") final Long id, final Model model) {
+        SiteSectionDto section = getService().findById(id);
+        SiteSectionDto parentSection = getService().findById(section.getParentSection().getId());
+        section.setParentSection(parentSection);
+        model.addAttribute(getAttribute(), section);
+        return getHtml();
     }
 
     @Override

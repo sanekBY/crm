@@ -12,4 +12,5 @@ public interface SiteSectionRepository extends JpaRepository<SiteSectionEntity, 
     List<SiteSectionEntity> findAllByActive(boolean active);
 
     List<SiteSectionEntity> findAllByActiveIsTrueAndParentSectionIsNull();
+
 }
