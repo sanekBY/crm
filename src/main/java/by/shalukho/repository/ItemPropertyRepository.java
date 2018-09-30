@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemPropertyRepository extends JpaRepository<ItemPropertyEntity, Long> {
-    Optional<ItemPropertyEntity> findByActiveAndId(boolean active, Long id);
+    Optional<ItemPropertyEntity> findByActiveIsTrueAndId(Long id);
 
-    List<ItemPropertyEntity> findAllByActive(boolean active);
+    List<ItemPropertyEntity> findAllByActiveIsTrue();
 }

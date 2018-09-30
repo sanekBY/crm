@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerOrderRepository extends JpaRepository<CustomerOrderEntity, Long> {
-    Optional<CustomerOrderEntity> findByActiveAndId(boolean active, Long id);
+    Optional<CustomerOrderEntity> findByActiveIsTrueAndId(Long id);
 
-    List<CustomerOrderEntity> findAllByActive(boolean active);
+    List<CustomerOrderEntity> findAllByActiveIsTrue();
 }

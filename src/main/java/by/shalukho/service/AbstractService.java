@@ -18,7 +18,7 @@ public abstract class AbstractService<T, B extends AbstractEntity, CustomReposit
     private GenericConverter<T, B> converter;
 
     public T findById(final Long id) {
-        final Optional<B> entity = findByActiveAndId(true, id);
+        final Optional<B> entity = findByActiveIsTrueAndId(id);
         if (entity.isPresent()) {
             return converter.convertToDto(entity.get());
         } else {
@@ -27,13 +27,13 @@ public abstract class AbstractService<T, B extends AbstractEntity, CustomReposit
     }
 
     public List<T> findAll() {
-        return findAllByActive(true).stream().map(e -> converter.convertToDto(e)).collect(Collectors.toList());
+        return findAllByActiveIsTrue().stream().map(e -> converter.convertToDto(e)).collect(Collectors.toList());
     }
 
     public void delete(final Long id) {
         final Optional<B> entity = repository.findById(id);
         if (entity.isPresent()) {
-            B entityValue = entity.get();
+            final B entityValue = entity.get();
             entityValue.setActive(false);
             repository.save(entityValue);
         } else {
@@ -48,12 +48,6 @@ public abstract class AbstractService<T, B extends AbstractEntity, CustomReposit
     }
 
     protected void beforeEntitySave(B entity) {
-    }
-
-    public List<T> findAllById(List<Long> ids) {
-        final List<B> entities = repository.findAllById(ids);
-        final List<T> dtos = (List<T>) entities.stream().map(e -> converter.convertToDto(e));
-        return dtos;
     }
 
     public CustomRepository getRepository() {

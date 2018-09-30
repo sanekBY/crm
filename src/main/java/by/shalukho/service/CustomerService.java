@@ -17,12 +17,12 @@ public class CustomerService extends AbstractService<CustomerDto, CustomerEntity
     }
 
     @Override
-    public Optional<CustomerEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    public Optional<CustomerEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
     @Override
-    public List<CustomerEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    public List<CustomerEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
 }

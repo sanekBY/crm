@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-
-public abstract class AbstractController<T, B extends AbstractEntity, Service extends AbstractService> {
+public abstract class AbstractController<T, B extends AbstractEntity> {
 
     public static final String ALERT_SUCCESS = "alert-success";
     public static final String ALERT_DANGER = "alert-danger";
@@ -63,8 +61,8 @@ public abstract class AbstractController<T, B extends AbstractEntity, Service ex
         return goToEntityList(model);
     }
 
-    protected String goToEntityList(final Model model) {
-        model.addAttribute(getListAttribute(), getAllEntities());
+    private String goToEntityList(final Model model) {
+        model.addAttribute(getListAttribute(), service.findAll());
         return getListHtml();
     }
 

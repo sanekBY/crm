@@ -20,20 +20,20 @@ public class CustomerOrderService
     }
 
     @Override
-    public Optional<CustomerOrderEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
-    }
-
-    @Override
-    public List<CustomerOrderEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
-    }
-
-    @Override
     protected void beforeEntitySave(CustomerOrderEntity customerOrderEntity) {
         if (customerOrderEntity.getCreatedOn() == null) {
             customerOrderEntity.setCreatedOn(LocalDateTime.now());
         }
         customerOrderEntity.setModifiedOn(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<CustomerOrderEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
+    }
+
+    @Override
+    public List<CustomerOrderEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
 }

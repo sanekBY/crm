@@ -9,6 +9,15 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
+/**
+ * Generic converter for entities and dtos.
+ * Dto should be placen in @ConnectedDto annotation
+ * Converts all fields using BeanUtils.
+ * Additional logic can be implemented in extraConvertToEntity and extraConvertToDto methods
+ *
+ * @param <T> - DTO class
+ * @param <B> - Entity class
+ */
 public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
 
     private Class<T> dtoClazz;
@@ -62,9 +71,7 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     private BiFunction<B, T, T> getEntityToDtoFunction() {
-        final BiFunction<B, T, T> function = (b, t) -> {
-            return extraConvertToDto(b, t);
-        };
+        final BiFunction<B, T, T> function = (b, t) -> extraConvertToDto(b, t);
         return function;
     }
 
@@ -73,9 +80,7 @@ public class GenericConverter<T, B> implements DtoDboConverter<T, B> {
     }
 
     private BiFunction<T, B, B> getDtoToEntityFunction() {
-        final BiFunction<T, B, B> function = (t, b) -> {
-            return extraConvertToEntity(t, b);
-        };
+        final BiFunction<T, B, B> function = (t, b) -> extraConvertToEntity(t, b);
         return function;
     }
 

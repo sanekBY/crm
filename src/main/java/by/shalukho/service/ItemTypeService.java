@@ -17,12 +17,12 @@ public class ItemTypeService extends AbstractService<ItemTypeDto, ItemTypeEntity
     }
 
     @Override
-    public Optional<ItemTypeEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    public Optional<ItemTypeEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
     @Override
-    public List<ItemTypeEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    public List<ItemTypeEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
 }

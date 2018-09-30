@@ -18,13 +18,11 @@ public class OrderItemPropertyService
         super(orderItemPropertyRepository, orderItemPropertyConverter);
     }
 
-    @Override
-    public Optional<OrderItemPropertyEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    @Override public Optional<OrderItemPropertyEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
-    @Override
-    public List<OrderItemPropertyEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    @Override public List<OrderItemPropertyEntity> findAllByActiveIsTrue() {
+        return null;
     }
 }
