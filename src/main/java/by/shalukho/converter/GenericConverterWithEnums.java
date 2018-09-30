@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * Generic converter for classes with enums. Can convert enum to string and string value to enum
+ */
 public class GenericConverterWithEnums<T, B> extends GenericConverter<T, B> implements EnumsConverter<T, B> {
 
     public GenericConverterWithEnums(final Class<B> entityClazz) {

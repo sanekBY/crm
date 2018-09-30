@@ -34,11 +34,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 public abstract class AbstractControllerTest {
 
-    public static final Long ID = 1L;
+    private static final Long ID = 1L;
 
     private MockMvc mockMvc;
-    public MediaType contentType;
-    public List<Matcher<?>> expectations;
+    private MediaType contentType;
+    private List<Matcher<?>> expectations;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

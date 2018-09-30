@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public abstract class AbstractController<T, B extends AbstractEntity> {
 
-    public static final String ALERT_SUCCESS = "alert-success";
-    public static final String ALERT_DANGER = "alert-danger";
-    public static final String ALERT_WARNING = "alert-warning";
+    protected static final String ALERT_SUCCESS = "alert-success";
+    protected static final String ALERT_DANGER = "alert-danger";
+    protected static final String ALERT_WARNING = "alert-warning";
     private final AbstractService service;
     private final Class<T> clazz;
 
