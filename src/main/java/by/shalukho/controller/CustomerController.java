@@ -3,7 +3,6 @@ package by.shalukho.controller;
 import by.shalukho.dto.AddressDto;
 import by.shalukho.dto.ContactDataDto;
 import by.shalukho.dto.CustomerDto;
-import by.shalukho.entity.CustomerEntity;
 import by.shalukho.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Controller
 @RequestMapping(value = "/customer")
 @PreAuthorize("hasAuthority('ADMIN')")
-public class CustomerController extends AbstractController<CustomerDto, CustomerEntity> {
+public class CustomerController extends AbstractController<CustomerDto> {
 
     public static final String CUSTOMER_DTO_ATTRIBUTE = "customerDto";
 
@@ -62,11 +60,13 @@ public class CustomerController extends AbstractController<CustomerDto, Customer
         return "customers";
     }
 
-    @Override protected String getListHtml() {
+    @Override
+    protected String getListHtml() {
         return "/customer/customers";
     }
 
-    @Override protected String getHtml() {
+    @Override
+    protected String getHtml() {
         return "/customer/customer";
     }
 

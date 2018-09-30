@@ -1,6 +1,5 @@
 package by.shalukho.controller;
 
-import by.shalukho.entity.AbstractEntity;
 import by.shalukho.service.AbstractService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public abstract class AbstractController<T, B extends AbstractEntity> {
+public abstract class AbstractController<T> {
 
     protected static final String ALERT_SUCCESS = "alert-success";
     protected static final String ALERT_DANGER = "alert-danger";

@@ -17,12 +17,12 @@ public class OrderItemService extends AbstractService<OrderItemDto, OrderItemEnt
     }
 
     @Override
-    public Optional<OrderItemEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    public Optional<OrderItemEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
     @Override
-    public List<OrderItemEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    public List<OrderItemEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
 }

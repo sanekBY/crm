@@ -18,7 +18,7 @@ public abstract class AbstractService<T, B extends AbstractEntity, CustomReposit
     private GenericConverter<T, B> converter;
 
     public T findById(final Long id) {
-        final Optional<B> entity = findAllByActiveIsTrueAndId(id);
+        final Optional<B> entity = findByActiveIsTrueAndId(id);
         if (entity.isPresent()) {
             return converter.convertToDto(entity.get());
         } else {

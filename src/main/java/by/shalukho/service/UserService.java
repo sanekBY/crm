@@ -21,12 +21,12 @@ public class UserService extends AbstractService<UserDto, UserEntity, UserReposi
     }
 
     @Override
-    public Optional<UserEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    public Optional<UserEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
     @Override
-    public List<UserEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    public List<UserEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
 }

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ServiceWithActive<B extends AbstractEntity> {
 
-    Optional<B> findAllByActiveIsTrueAndId(Long id);
+    Optional<B> findByActiveIsTrueAndId(Long id);
 
     List<B> findAllByActiveIsTrue();
 }
