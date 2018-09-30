@@ -19,14 +19,12 @@ public class SiteReviewService
     }
 
     @Override
-    public Optional<SiteReviewEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    public Optional<SiteReviewEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
     @Override
-    public List<SiteReviewEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    public List<SiteReviewEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
-
-
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SiteReviewRepository extends JpaRepository<SiteReviewEntity, Long> {
-    Optional<SiteReviewEntity> findByActiveAndId(boolean active, Long id);
+    Optional<SiteReviewEntity> findByActiveIsTrueAndId(Long id);
 
-    List<SiteReviewEntity> findAllByActive(boolean active);
+    List<SiteReviewEntity> findAllByActiveIsTrue();
 }

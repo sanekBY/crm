@@ -1,6 +1,5 @@
 package by.shalukho.controller;
 
-import by.shalukho.entity.AbstractEntity;
 import by.shalukho.service.AbstractService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public abstract class AbstractController<T, B extends AbstractEntity> {
+import java.util.List;
+
+public abstract class AbstractController<T, Service extends AbstractService> {
 
     public static final String ALERT_SUCCESS = "alert-success";
     public static final String ALERT_DANGER = "alert-danger";
@@ -61,12 +62,12 @@ public abstract class AbstractController<T, B extends AbstractEntity> {
         return goToEntityList(model);
     }
 
-    private String goToEntityList(final Model model) {
+    protected String goToEntityList(final Model model) {
         model.addAttribute(getListAttribute(), service.findAll());
         return getListHtml();
     }
 
-    protected List getAllEntities() {
+    protected List<T> getAllEntities() {
         return service.findAll();
     }
 

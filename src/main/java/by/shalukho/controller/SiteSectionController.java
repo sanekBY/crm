@@ -1,7 +1,6 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.SiteSectionDto;
-import by.shalukho.entity.SiteSectionEntity;
 import by.shalukho.service.SiteSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/site/section")
 public class SiteSectionController
-        extends AbstractController<SiteSectionDto, SiteSectionEntity, SiteSectionService> {
+        extends AbstractController<SiteSectionDto, SiteSectionService> {
 
     public static final String SITE_SECTION_DTO_ATTRIBUTE = "siteSectionDto";
 

@@ -1,7 +1,6 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.UserDto;
-import by.shalukho.entity.UserEntity;
 import by.shalukho.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController extends AbstractController<UserDto, UserEntity, UserService> {
+public class UserController extends AbstractController<UserDto, UserService> {
 
     @Autowired
     public UserController(final UserService userService) {

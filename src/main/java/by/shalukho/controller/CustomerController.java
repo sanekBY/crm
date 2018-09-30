@@ -3,7 +3,6 @@ package by.shalukho.controller;
 import by.shalukho.dto.AddressDto;
 import by.shalukho.dto.ContactDataDto;
 import by.shalukho.dto.CustomerDto;
-import by.shalukho.entity.CustomerEntity;
 import by.shalukho.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value = "/customer")
 @PreAuthorize("hasAuthority('ADMIN')")
-public class CustomerController extends AbstractController<CustomerDto, CustomerEntity, CustomerService> {
+public class CustomerController extends AbstractController<CustomerDto, CustomerService> {
 
     public static final String CUSTOMER_DTO_ATTRIBUTE = "customerDto";
 

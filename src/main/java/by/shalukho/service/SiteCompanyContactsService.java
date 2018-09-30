@@ -18,13 +18,14 @@ public class SiteCompanyContactsService
         super(siteCompanyContactsRepository, siteCompanyContactsConverter);
     }
 
+
     @Override
-    public Optional<SiteCompanyContactsEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
+    public Optional<SiteCompanyContactsEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
     }
 
     @Override
-    public List<SiteCompanyContactsEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
+    public List<SiteCompanyContactsEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
     }
 }

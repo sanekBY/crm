@@ -1,7 +1,6 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.ItemTypeDto;
-import by.shalukho.entity.ItemTypeEntity;
 import by.shalukho.service.ItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/item-type")
-public class ItemTypeController extends AbstractController<ItemTypeDto, ItemTypeEntity, ItemTypeService> {
+public class ItemTypeController extends AbstractController<ItemTypeDto, ItemTypeService> {
 
     public static final String ITEM_TYPE_DTO_ATTRIBUTE = "itemTypeDto";
 

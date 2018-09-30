@@ -18,16 +18,6 @@ public class SiteSectionService
         super(siteSectionRepository, siteSectionConverter);
     }
 
-    @Override
-    public Optional<SiteSectionEntity> findByActiveAndId(boolean active, Long id) {
-        return getRepository().findByActiveAndId(active, id);
-    }
-
-    @Override
-    public List<SiteSectionEntity> findAllByActive(boolean active) {
-        return getRepository().findAllByActive(active);
-    }
-
     public List<SiteSectionDto> findAllSimpleSection() {
         List<SiteSectionEntity> sections =
                 getRepository().findAllByActiveIsTrueAndParentSectionIsNull();
@@ -35,4 +25,13 @@ public class SiteSectionService
         return siteSectionDtos;
     }
 
+    @Override
+    public Optional<SiteSectionEntity> findByActiveIsTrueAndId(final Long id) {
+        return getRepository().findByActiveIsTrueAndId(id);
+    }
+
+    @Override
+    public List<SiteSectionEntity> findAllByActiveIsTrue() {
+        return getRepository().findAllByActiveIsTrue();
+    }
 }

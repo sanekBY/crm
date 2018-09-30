@@ -1,7 +1,6 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.ItemPropertyDto;
-import by.shalukho.entity.ItemPropertyEntity;
 import by.shalukho.service.ItemPropertyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/item-property")
 public class ItemPropertyController
-        extends AbstractController<ItemPropertyDto, ItemPropertyEntity, ItemPropertyService> {
+        extends AbstractController<ItemPropertyDto, ItemPropertyService> {
 
     public static final String ITEM_PROPERTY_DTO_ATTRIBUTE = "itemPropertyDto";
 
