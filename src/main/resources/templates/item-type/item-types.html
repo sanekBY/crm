@@ -1,18 +1,46 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
 <head>
-    <div th:replace="fragments/header :: header-css"/>
+    <title th:name="#{item.types}"/>
 </head>
 <body>
-
-<div th:replace="fragments/header :: header"/>
-
-<div class="container">
+<div layout:fragment="content">
 
 
+    <div class="row form-group">
+        <div class="col-sm-10">
+            <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
+        </div>
+        <div class="col-sm-2">
+            <a th:href="@{/item-type}" class="btn btn-success" th:text="#{add}"/>
+        </div>
+        <table id="customerList" class="table">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th th:text="#{name}"/>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${itemTypes.empty}">
+                <td colspan="2"> No any item types</td>
+            </tr>
+            <tr th:each="itemType : ${itemTypes}">
+                <td><span th:text="${itemType.id}"> </span></td>
+                <td><span th:text="${itemType.name}"></span></td>
+                <td>
+                    <a th:href="@{'/item-type/' + ${itemType.id}}" class="btn">
+                        <span class="fa fa-eye fa-lg" aria-hidden="true"/>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:insert="fragments/scripts :: table-filter"/>
 </div>
-<!-- /.container -->
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>
