@@ -4,6 +4,7 @@ import by.shalukho.SpringBootWebApplication;
 import by.shalukho.config.H2TestProfileJPAConfig;
 import by.shalukho.dto.AbstractDto;
 import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,11 +34,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 public abstract class AbstractControllerTest {
 
-    public static final Long RANDOM_VALUE = new Random().nextLong();
+    protected static final Long ID = 1L;
 
     private MockMvc mockMvc;
-    public MediaType contentType;
-    public List<Matcher<?>> expectations;
+    private MediaType contentType;
+    protected List<Matcher<?>> expectations;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -63,7 +63,7 @@ public abstract class AbstractControllerTest {
                                     .contentType(contentType))
                     .andExpect(status().isOk());
         } catch (Exception e) {
-            e.printStackTrace();
+            Assert.fail("Post request was failed");
         }
     }
 
@@ -78,12 +78,12 @@ public abstract class AbstractControllerTest {
                     try {
                         resultActions.andDo(print()).andExpect(model().attribute(attr, e));
                     } catch (Exception e1) {
-                        e1.printStackTrace();
+                        Assert.fail("Found unexpected value");
                     }
                 });
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Assert.fail("Get request was failed");
         }
     }
 

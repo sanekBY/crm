@@ -1,7 +1,6 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.CustomerOrderDto;
-import by.shalukho.entity.CustomerOrderEntity;
 import by.shalukho.service.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/order")
 //@PreAuthorize("hasAuthority('ADMIN')")
-public class CustomerOrderController extends AbstractController<CustomerOrderDto, CustomerOrderEntity> {
+public class CustomerOrderController extends AbstractController<CustomerOrderDto> {
 
     public static final String CUSTOMER_ORDER_DTO_ATTRIBUTE = "customerOrderDto";
 
