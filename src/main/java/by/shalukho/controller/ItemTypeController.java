@@ -4,6 +4,7 @@ import by.shalukho.dto.ItemTypeDto;
 import by.shalukho.service.ItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -11,6 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ItemTypeController extends AbstractController<ItemTypeDto> {
 
     public static final String ITEM_TYPE_DTO_ATTRIBUTE = "itemTypeDto";
+
+    @Override
+    public String createEntity(final Model model) {
+        ItemTypeDto itemTypeDto = new ItemTypeDto();
+        model.addAttribute("itemTypeDto", itemTypeDto);
+        return "fragments/item-type-form :: itemType";
+    }
 
     @Autowired
     public ItemTypeController(final ItemTypeService itemTypeService) {

@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorator="layouts/layout">
 <head>
-    <title th:name="#{items}"/>
+    <title th:text="#{items}"/>
 </head>
 <body>
 <div layout:fragment="content">
@@ -13,29 +13,26 @@
             <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
         </div>
         <div class="col-sm-2">
-            <a th:href="@{/item}" class="btn btn-success" th:text="#{add}"/>
+            <a id="add" class="btn btn-success" th:text="#{add.item.type}"/>
         </div>
+        <div class="col-sm-12" id="itemTypeHolder"/>
         <table id="customerList" class="table">
             <thead>
             <tr>
                 <th>№</th>
                 <th th:text="#{name}"/>
-                <th th:text="#{customer.type}"/>
-                <th th:text="#{email}"/>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${customers.empty}">
-                <td colspan="2"> No any customers</td>
+            <tr th:if="${itemTypes == null || itemTypes.empty}">
+                <td colspan="2" th:text="#{empty.list}"/>
             </tr>
-            <tr th:each="customer : ${customers}">
-                <td><span th:text="${customer.id}"> </span></td>
-                <td><span th:text="${customer.name}"></span></td>
-                <td><span th:text="#{__${customer.type}__}"></span></td>
-                <td><span th:text="${customer.email}"></span></td>
+            <tr th:each="itemType : ${itemTypes}">
+                <td><span th:text="${itemType.id}"> </span></td>
+                <td><span th:text="${itemType.name}"></span></td>
                 <td>
-                    <a th:href="@{'/customer/' + ${customer.id}}" class="btn">
+                    <a th:href="@{'/item/' + ${itemType.id}}" class="btn">
                         <span class="fa fa-eye fa-lg" aria-hidden="true"/>
                     </a>
                 </td>
@@ -43,8 +40,21 @@
             </tbody>
         </table>
     </div>
+    <script>
+        $(document).ready(function () {
+            $("#add").click(function () {
+                $.ajax({
+                    url: "/item-type/",
+                    success: function (data) {
+                        $("#itemTypeHolder").html(data);
+                        $("#itemType").show();
+                    }
+                })
+
+            });
+        });
+    </script>
     <div th:insert="fragments/scripts :: table-filter"/>
 </div>
-
 </body>
 </html>

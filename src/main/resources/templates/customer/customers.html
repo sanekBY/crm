@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <tr th:if="${customers.empty}">
-                <td colspan="2"> No any customers</td>
+                <td colspan="2" th:text="#{empty.list}"/>
             </tr>
             <tr th:each="customer : ${customers}">
                 <td><span th:text="${customer.id}"> </span></td>
