@@ -27,7 +27,10 @@ public class SiteSectionController
     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String addSection(@PathVariable Long id, final Model model) {
         SiteSectionDto dto = new SiteSectionDto();
-        SiteSectionDto parentSection = getService().findById(id);
+        SiteSectionDto parentSection = null;
+        if (id != -1) {
+            parentSection = getService().findById(id);
+        }
         dto.setParentSection(parentSection);
         model.addAttribute(getAttribute(), dto);
         return "fragments/modal-fragment :: modalContents";
@@ -36,9 +39,11 @@ public class SiteSectionController
     @Override
     public String createEntity(final SiteSectionDto dto, final Model model) {
         SiteSectionDto parentSection = dto.getParentSection();
-        if (parentSection != null) {
+        if (parentSection != null && parentSection.getId() != null) {
             parentSection = getService().findById(parentSection.getId());
             dto.setParentSection(parentSection);
+        } else {
+            dto.setParentSection(null);
         }
         getService().save(dto);
         addSuccessAlert(model, "Added");
@@ -56,7 +61,7 @@ public class SiteSectionController
     }
 
     @Override
-    protected List getAllEntities() {
+    protected List<SiteSectionDto> getAllEntities() {
         return getService().findAllSimpleSection();
     }
 

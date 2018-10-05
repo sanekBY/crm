@@ -63,7 +63,7 @@ public abstract class AbstractController<T, Service extends AbstractService> {
     }
 
     protected String goToEntityList(final Model model) {
-        model.addAttribute(getListAttribute(), service.findAll());
+        model.addAttribute(getListAttribute(), getAllEntities());
         return getListHtml();
     }
 
