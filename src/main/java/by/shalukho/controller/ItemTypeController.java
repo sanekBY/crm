@@ -37,7 +37,7 @@ public class ItemTypeController extends AbstractController<ItemTypeDto, ItemType
 
     @Override
     protected String getListHtml() {
-        return "/item-type/item-types";
+        return "/item/items";
     }
 
     @Override
