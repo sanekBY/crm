@@ -1,4 +1,4 @@
-package by.shalukho.sevice;
+package by.shalukho.service;
 
 import by.shalukho.converter.ItemConverter;
 import by.shalukho.converter.ItemTypeConverter;
@@ -6,7 +6,6 @@ import by.shalukho.dto.ItemDto;
 import by.shalukho.entity.ItemEntity;
 import by.shalukho.entity.ItemTypeEntity;
 import by.shalukho.repository.ItemRepository;
-import by.shalukho.service.ItemService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,6 +75,21 @@ public class ItemServiceTest {
     @Test
     public void saveItem() {
         itemService.save(new ItemDto());
+        Mockito.verify(itemRepository, Mockito.times(1)).save(Mockito.any());
+    }
+
+    @Test
+    public void deleteItem() {
+        final ItemEntity itemEntity = getItemEntity();
+        final ItemTypeEntity itemTypeEntity = getItemTypeEntity();
+
+        itemEntity.setItemType(itemTypeEntity);
+
+        Mockito.when(itemRepository.findById(ITEM_ID)).thenReturn(Optional.of(itemEntity));
+
+        itemService.delete(ITEM_ID);
+
+        Mockito.verify(itemRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(itemRepository, Mockito.times(1)).save(Mockito.any());
     }
 
