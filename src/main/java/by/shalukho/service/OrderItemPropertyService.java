@@ -18,7 +18,8 @@ public class OrderItemPropertyService
         super(orderItemPropertyRepository, orderItemPropertyConverter);
     }
 
-    @Override public Optional<OrderItemPropertyEntity> findByActiveIsTrueAndId(final Long id) {
+    @Override
+    public Optional<OrderItemPropertyEntity> findByActiveIsTrueAndId(final Long id) {
         return getRepository().findByActiveIsTrueAndId(id);
     }
 
