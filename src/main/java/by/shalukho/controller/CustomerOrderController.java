@@ -18,19 +18,23 @@ public class CustomerOrderController extends AbstractController<CustomerOrderDto
         super(customerOrderService, CustomerOrderDto.class);
     }
 
-    @Override protected String getAttribute() {
+    @Override
+    protected String getAttribute() {
         return CUSTOMER_ORDER_DTO_ATTRIBUTE;
     }
 
-    @Override protected String getListAttribute() {
+    @Override
+    protected String getListAttribute() {
         return "customerOrders";
     }
 
-    @Override protected String getListHtml() {
+    @Override
+    protected String getListHtml() {
         return "/order/order";
     }
 
-    @Override protected String getHtml() {
+    @Override
+    protected String getHtml() {
         return "/order/orders";
     }
 }

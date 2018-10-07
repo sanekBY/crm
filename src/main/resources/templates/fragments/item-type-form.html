@@ -1,0 +1,20 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Modal -->
+<div id="itemType" th:fragment="itemType">
+    <form id="form" th:action="@{/item-type}" th:object="${itemTypeDto}" method="post">
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="name" th:text="#{name}"/>
+            </div>
+            <div class="col-sm-8">
+                <input id="name" type="text" th:name="#{name}" class="form-control" required="true" autofocus="true"
+                       th:field="*{name}"/>
+            </div>
+            <div class="cols-sm-2">
+                <input type="submit" class="btn btn-success" th:value="#{save}"/>
+            </div>
+        </div>
+    </form>
+</div>
+</html>

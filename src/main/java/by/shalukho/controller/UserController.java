@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/user")
 public class UserController extends AbstractController<UserDto, UserService> {
 
+    public static final String USER_DTO_ATTRIBUTE = "userDto";
+
     @Autowired
     public UserController(final UserService userService) {
         super(userService, UserDto.class);
@@ -17,7 +19,7 @@ public class UserController extends AbstractController<UserDto, UserService> {
 
     @Override
     protected String getAttribute() {
-        return "userDto";
+        return USER_DTO_ATTRIBUTE;
     }
 
     @Override

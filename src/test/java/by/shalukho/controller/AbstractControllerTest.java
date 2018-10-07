@@ -52,12 +52,12 @@ public abstract class AbstractControllerTest {
         expectations = new ArrayList<>();
     }
 
-    protected void checkEntityCreation(String url, String attr, AbstractDto dto) {
+    protected void checkEntityCreation(final String url, final String attr, final AbstractDto dto) {
         createPostRequest(url, attr, dto);
         checkGetRequest(url, attr, dto);
     }
 
-    protected void createPostRequest(String url, String attr, AbstractDto dto) {
+    protected void createPostRequest(final String url, final String attr, final AbstractDto dto) {
         try {
             mockMvc.perform(post(url).flashAttr(attr, dto)
                                     .contentType(contentType))
@@ -67,10 +67,14 @@ public abstract class AbstractControllerTest {
         }
     }
 
-    protected void checkGetRequest(String url, String attr, AbstractDto dto) {
+    protected void deleteRequest(final String url, final Long id) {
+        doGetRequest(url + "/" + id + "/delete");
+    }
+
+    protected void checkGetRequest(final String url, final String attr, final AbstractDto dto) {
         final ResultActions resultActions;
         try {
-            resultActions = getMockMvc().perform(get(url + "/" + dto.getId()));
+            resultActions = doGetRequest(url + "/" + dto.getId());
             if (expectations.isEmpty()) {
                 resultActions.andExpect(model().attribute(attr, dto));
             } else {
@@ -85,6 +89,16 @@ public abstract class AbstractControllerTest {
         } catch (Exception e) {
             Assert.fail("Get request was failed");
         }
+    }
+
+    private ResultActions doGetRequest(final String url) {
+        ResultActions resultActions = null;
+        try {
+            resultActions = getMockMvc().perform(get(url));
+        } catch (Exception e) {
+            Assert.fail("Get request was failed");
+        }
+        return resultActions;
     }
 
     public MockMvc getMockMvc() {
