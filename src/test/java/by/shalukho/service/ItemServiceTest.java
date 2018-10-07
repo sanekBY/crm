@@ -38,6 +38,7 @@ public class ItemServiceTest {
     private ItemTypeConverter itemTypeConverter;
 
     private static final Long ITEM_ID = 1L;
+    private static final Long ITEM_2_ID = 2L;
     public static final String ITEM_NAME = "Item";
 
     private static final Long ITEM_TYPE_ID = 2L;
@@ -50,7 +51,7 @@ public class ItemServiceTest {
 
     @Test
     public void getItemTest() {
-        final ItemEntity itemEntity = getItemEntity();
+        final ItemEntity itemEntity = getItemEntity(ITEM_ID);
         final ItemTypeEntity itemTypeEntity = getItemTypeEntity();
 
         itemEntity.setItemType(itemTypeEntity);
@@ -67,9 +68,20 @@ public class ItemServiceTest {
 
     @Test
     public void getAllItemsTest() {
+        final ItemTypeEntity itemTypeEntity = getItemTypeEntity();
+
+        final ItemEntity itemEntity = getItemEntity(ITEM_ID);
+        final ItemEntity secondItemEntity = getItemEntity(ITEM_2_ID);
+
+        itemEntity.setItemType(itemTypeEntity);
+        secondItemEntity.setItemType(itemTypeEntity);
+
         Mockito.when(itemRepository.findAllByActiveIsTrue())
-                .thenReturn(Arrays.asList(new ItemEntity(), new ItemEntity()));
+                .thenReturn(Arrays.asList(itemEntity, secondItemEntity));
+
         final List<ItemDto> items = itemService.findAll();
+
+        Assert.assertEquals(2, items.size());
     }
 
     @Test
@@ -80,7 +92,7 @@ public class ItemServiceTest {
 
     @Test
     public void deleteItem() {
-        final ItemEntity itemEntity = getItemEntity();
+        final ItemEntity itemEntity = getItemEntity(ITEM_ID);
         final ItemTypeEntity itemTypeEntity = getItemTypeEntity();
 
         itemEntity.setItemType(itemTypeEntity);
@@ -100,9 +112,9 @@ public class ItemServiceTest {
         return itemTypeEntity;
     }
 
-    private ItemEntity getItemEntity() {
+    private ItemEntity getItemEntity(Long id) {
         final ItemEntity itemEntity = new ItemEntity();
-        itemEntity.setId(ITEM_ID);
+        itemEntity.setId(id);
         itemEntity.setActive(true);
         itemEntity.setName(ITEM_NAME);
         return itemEntity;
