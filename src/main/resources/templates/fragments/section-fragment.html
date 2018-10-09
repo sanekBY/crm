@@ -1,0 +1,28 @@
+<html xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<section layout:fragment="section">
+    <li th:each="section : ${sections}">
+        <span th:text="${section.name}" class="fa"></span>
+        <a class="fa fa-plus-circle" style="color:green" th:onclick="'javascript:createSection(\'' + ${section.id} + '\');'"></a>
+        <a class="fa fa-pencil" style="color:green"
+           th:if="${section.siteSections == null || section.siteSections.empty}" th:href="@{'/site/section/' + ${section.id}}"></a>
+        <a th:href="@{'/site/section/{id}/delete'(id=${section.id})}" class="fa fa-minus-circle" style="color:red"></a>
+        <ul layout:include="@{fragments/section-fragment} :: section"
+            th:with="sections=${section.siteSections}"></ul>
+    </li>
+
+    <div id="modalHolder"></div>
+
+    <script>
+        function createSection(id) {
+            $.ajax({
+                url: "/site/section/add/" + id,
+                success: function (data) {
+                    $("#modalHolder").html(data);
+                    $("#modalContents").modal("show");
+                }
+            })
+        }
+    </script>
+
+</section>
+</html>

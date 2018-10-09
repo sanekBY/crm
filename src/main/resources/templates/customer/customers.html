@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorator="layouts/layout">
 <head>
-    <title>Customers</title>
+    <title th:text="#{customers}"/>
 </head>
 <body>
 <div layout:fragment="content">
@@ -26,8 +26,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${customers.empty}">
-                <td colspan="2" th:text="#{empty.list}"/>
+            <tr th:if="${customers == null || customers.empty}">
+                <td colspan="2"> No any customers</td>
             </tr>
             <tr th:each="customer : ${customers}">
                 <td><span th:text="${customer.id}"> </span></td>

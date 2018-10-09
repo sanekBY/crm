@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
+<head>
+    <title th:text="#{section}"/>
+</head>
+<body>
+<div layout:fragment="content" th:fragment="contend">
+    <a class="btn btn-success" th:onclick="'javascript:createSection(-1);'" th:text="#{add}"/>
+    <div class="easy-tree">
+        <ul layout:include="@{fragments/section-fragment} :: section"
+            th:with="sections=${siteSections}"></ul>
+    </div>
+
+
+    <script>
+        function init() {
+            $('.easy-tree').EasyTree({
+                addable: true,
+                editable: true,
+                deletable: true
+            });
+        }
+
+        window.onload = init();
+    </script>
+
+</div>
+
+</body>
+</html>

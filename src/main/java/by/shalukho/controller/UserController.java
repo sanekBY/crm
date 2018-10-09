@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController extends AbstractController<UserDto> {
+public class UserController extends AbstractController<UserDto, UserService> {
 
     public static final String USER_DTO_ATTRIBUTE = "userDto";
 

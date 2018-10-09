@@ -4,6 +4,7 @@
     <div th:fragment="header-css">
         <!--<base href="/">-->
         <link rel="stylesheet" th:href="@{/css/main.css}"/>
+        <link rel="stylesheet" th:href="@{/css/easyTree.css}"/>
         <link rel="stylesheet" type="text/css"
               href="/webjars/bootstrap/4.1.1/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -11,6 +12,8 @@
                 src="/webjars/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript"
                 src="/webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" th:src="@{/js/easyTree.js}"></script>
     </div>
 </head>
 <body>
@@ -51,8 +54,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" th:href="@{/}">
-            <img src="https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            <span class="menu-collapsed">Crm</span>
+            <img th:src="@{/img/logo.png}" height="30" class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

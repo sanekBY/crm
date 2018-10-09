@@ -29,7 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/", "/css/**", "/webjars/**")
+                .antMatchers("/css/**", "/js/**", "/img/**","/webjars/**", "/api/**")
                 .permitAll()
                 .antMatchers("/**").hasAnyAuthority(RoleEnum.USER.name(), RoleEnum.ADMIN.name())
                 .anyRequest().authenticated()

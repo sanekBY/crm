@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/order")
 //@PreAuthorize("hasAuthority('ADMIN')")
-public class CustomerOrderController extends AbstractController<CustomerOrderDto> {
+public class CustomerOrderController extends AbstractController<CustomerOrderDto, CustomerOrderService> {
 
     public static final String CUSTOMER_ORDER_DTO_ATTRIBUTE = "customerOrderDto";
 

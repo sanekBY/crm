@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/layout">
+<head>
+    <title th:text="#{reviews}"/>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="row form-group">
+        <div class="col-sm-10">
+            <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
+        </div>
+        <table id="reviewist" class="table">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th th:text="#{review.name}"/>
+                <th th:text="#{review.position}"/>
+                <th th:text="#{review.text}"/>
+                <th th:text="#{review.creted.on}"/>
+                <!--<th th:text="#{house}"/>-->
+                <!--<th th:text="#{phone}"/>-->
+                <!--<th th:text="#{email}"/>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${reviews == null || reviews.empty}">
+                <td colspan="2"> No any reviews</td>
+            </tr>
+            <tr th:each="reviews : ${reviews}">
+                <td><span th:text="${section.id}"> </span></td>
+                <td><span th:text="${section.name}"> </span></td>
+                <td><span th:text="${section.position}"> </span></td>
+                <td><span th:text="${section.text}"> </span></td>
+                <td><span th:text="${section.createdOn}"> </span></td>
+                <td>
+                    <a th:href="@{'/site/contact/' + ${review.id}}" class="btn">
+                        <span class="fa fa-eye fa-lg" aria-hidden="true"/>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:insert="fragments/scripts :: table-filter"/>
+</div>
+
+</body>
+</html>

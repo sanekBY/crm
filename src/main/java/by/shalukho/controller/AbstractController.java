@@ -7,15 +7,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public abstract class AbstractController<T> {
+import java.util.List;
 
-    protected static final String ALERT_SUCCESS = "alert-success";
-    protected static final String ALERT_DANGER = "alert-danger";
-    protected static final String ALERT_WARNING = "alert-warning";
-    private final AbstractService service;
+public abstract class AbstractController<T, Service extends AbstractService> {
+
+    public static final String ALERT_SUCCESS = "alert-success";
+    public static final String ALERT_DANGER = "alert-danger";
+    public static final String ALERT_WARNING = "alert-warning";
+
+    private final Service service;
     private final Class<T> clazz;
 
-    public AbstractController(final AbstractService service, final Class<T> clazz) {
+    public AbstractController(final Service service, final Class<T> clazz) {
         this.service = service;
         this.clazz = clazz;
     }
@@ -60,8 +63,12 @@ public abstract class AbstractController<T> {
     }
 
     protected String goToEntityList(final Model model) {
-        model.addAttribute(getListAttribute(), service.findAll());
+        model.addAttribute(getListAttribute(), getAllEntities());
         return getListHtml();
+    }
+
+    protected List<T> getAllEntities() {
+        return service.findAll();
     }
 
     private void addAlert(final Model model, final String text, final String alertClass) {
@@ -88,4 +95,8 @@ public abstract class AbstractController<T> {
     protected abstract String getListHtml();
 
     protected abstract String getHtml();
+
+    public Service getService() {
+        return service;
+    }
 }

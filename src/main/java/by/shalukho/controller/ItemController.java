@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/item")
 //@PreAuthorize("hasAuthority('ADMIN')")
-public class ItemController extends AbstractController<ItemDto> {
+public class ItemController extends AbstractController<ItemDto, ItemService> {
 
     public static final String ITEM_TYPES = "itemTypes";
     private final ItemTypeService itemTypeService;

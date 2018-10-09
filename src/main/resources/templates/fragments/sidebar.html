@@ -16,12 +16,12 @@
             </div>
         </a>
 
-        <a th:href="@{/item/list}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-folder fa-fw mr-3"></span>
-                <span class="menu-collapsed" th:text="#{items}"/>
-            </div>
-        </a>
+        <!--<a th:href="@{/item/list}" class="bg-dark list-group-item list-group-item-action">-->
+            <!--<div class="d-flex w-100 justify-content-start align-items-center">-->
+                <!--<span class="fa fa-folder fa-fw mr-3"></span>-->
+                <!--<span class="menu-collapsed" th:text="#{items}"/>-->
+            <!--</div>-->
+        <!--</a>-->
 
         <a th:href="@{/order/list}" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
@@ -29,6 +29,28 @@
                 <span class="menu-collapsed" th:text="#{orders}"/>
             </div>
         </a>
+
+        <a href="#siteMenu" data-toggle="collapse" aria-expanded="false"
+           class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-sitemap fa-fw mr-3"></span>
+                <span class="menu-collapsed" th:text="#{site}"/>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+        </a>
+        <!-- Submenu content -->
+        <div id="siteMenu" class="collapse sidebar-submenu">
+            <a th:href="@{/site/contact/list}" class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed" th:text="#{contacts}"/>
+            </a>
+            <a th:href="@{/site/section/list}" class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed" th:text="#{section}"/>
+            </a>
+            <a th:href="@{/site/review/list}" class="list-group-item list-group-item-action bg-dark text-white">
+                <span class="menu-collapsed" th:text="#{reviews}"/>
+            </a>
+        </div>
+
     </ul>
 </div>
 </body>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/item-type")
-public class ItemTypeController extends AbstractController<ItemTypeDto> {
+public class ItemTypeController extends AbstractController<ItemTypeDto, ItemTypeService> {
 
     public static final String ITEM_TYPE_DTO_ATTRIBUTE = "itemTypeDto";
 
@@ -37,7 +37,7 @@ public class ItemTypeController extends AbstractController<ItemTypeDto> {
 
     @Override
     protected String getListHtml() {
-        return "/item-type/item-types";
+        return "/item/items";
     }
 
     @Override
