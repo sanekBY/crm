@@ -46,7 +46,7 @@ public class SiteSectionController
             dto.setParentSection(null);
         }
         getService().save(dto);
-        addSuccessAlert(model, "Added");
+        addSuccessAlert(model, getMessage("added"));
         return goToEntityList(model);
     }
 

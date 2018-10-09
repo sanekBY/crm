@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ItemService extends AbstractService<ItemDto, ItemEntity, ItemRepository> {
+public class ItemService extends AbstractUniqueNameService<ItemDto, ItemEntity, ItemRepository> {
 
     public ItemService(ItemRepository itemRepository, ItemConverter itemConverter) {
         super(itemRepository, itemConverter);
@@ -24,5 +24,10 @@ public class ItemService extends AbstractService<ItemDto, ItemEntity, ItemReposi
     @Override
     public List<ItemEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Optional<ItemEntity> findByName(final String name) {
+        return getRepository().findByName(name);
     }
 }

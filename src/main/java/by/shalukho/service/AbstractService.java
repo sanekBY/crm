@@ -1,6 +1,7 @@
 package by.shalukho.service;
 
 import by.shalukho.converter.GenericConverter;
+import by.shalukho.dto.AbstractDto;
 import by.shalukho.entity.AbstractEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public abstract class AbstractService<T, B extends AbstractEntity, CustomRepository extends JpaRepository>
+public abstract class AbstractService<T extends AbstractDto, B extends AbstractEntity, CustomRepository extends JpaRepository>
         implements ServiceWithActive<B> {
 
     private CustomRepository repository;

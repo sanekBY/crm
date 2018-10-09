@@ -10,4 +10,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     Optional<CustomerEntity> findByActiveIsTrueAndId(Long id);
 
     List<CustomerEntity> findAllByActiveIsTrue();
+
+    Optional<CustomerEntity> findByName(String name);
 }

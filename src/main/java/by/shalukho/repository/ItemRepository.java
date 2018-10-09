@@ -10,4 +10,6 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     Optional<ItemEntity> findByActiveIsTrueAndId(Long id);
 
     List<ItemEntity> findAllByActiveIsTrue();
+
+    Optional<ItemEntity> findByName(String name);
 }
