@@ -123,3 +123,10 @@ transform: rotate(90deg);
 .active {
     display: block;
 }
+
+.row-inactive {
+    color: gray;
+}
+
+.row-active {
+}

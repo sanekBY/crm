@@ -64,4 +64,26 @@
             <column name="TEXT" type="varchar(1024)"/>
         </addColumn>
     </changeSet>
+    <changeSet id="ADD_SITE_STOCK" author="shalukho">
+        <createTable tableName="SITE_STOCK">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="SITE_STOCKPK"/>
+            </column>
+            <column defaultValueNumeric="1" name="ACTIVE" type="TINYINT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+            <column name="TEXT" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_FROM" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_TO" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IMAGE_URL" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

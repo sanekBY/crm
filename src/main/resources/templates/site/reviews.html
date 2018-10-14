@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <tr th:if="${reviews == null || reviews.empty}">
-                <td colspan="2"> No any reviews</td>
+                <td colspan="2" th:text="#{empty.list}"/>
             </tr>
             <tr th:each="reviews : ${reviews}">
                 <td><span th:text="${section.id}"> </span></td>

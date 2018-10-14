@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <tr th:if="${contacts == null || contacts.empty}">
-                <td colspan="2"> No any contacts</td>
+                <td colspan="2" th:text="#{empty.list}"/>
             </tr>
             <tr th:each="contact : ${contacts}">
                 <td><span th:text="${contact.id}"> </span></td>
