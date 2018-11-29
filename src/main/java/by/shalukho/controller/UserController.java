@@ -29,10 +29,10 @@ public class UserController extends AbstractController<UserDto, UserService> {
 
     @Override
     protected String getListHtml() {
-        return "/user/users";
+        return "user/users";
     }
 
     @Override protected String getHtml() {
-        return "/user/user";
+        return "user/user";
     }
 }

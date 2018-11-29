@@ -42,11 +42,11 @@ public class ItemController extends AbstractController<ItemDto, ItemService> {
 
     @Override
     protected String getListHtml() {
-        return "/item/items";
+        return "item/items";
     }
 
     @Override
     protected String getHtml() {
-        return "/item/item";
+        return "item/item";
     }
 }

@@ -61,11 +61,11 @@ public class CustomerController extends AbstractController<CustomerDto, Customer
     }
 
     @Override protected String getListHtml() {
-        return "/customer/customers";
+        return "customer/customers";
     }
 
     @Override protected String getHtml() {
-        return "/customer/customer";
+        return "customer/customer";
     }
 
 }

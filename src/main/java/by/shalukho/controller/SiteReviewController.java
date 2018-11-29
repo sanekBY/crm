@@ -30,11 +30,11 @@ public class SiteReviewController
 
     @Override
     protected String getListHtml() {
-        return "/site/reviews";
+        return "site/reviews";
     }
 
     @Override
     protected String getHtml() {
-        return "/site/review";
+        return "site/review";
     }
 }

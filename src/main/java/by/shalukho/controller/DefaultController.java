@@ -10,17 +10,17 @@ public class DefaultController {
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home() {
-        return "/home";
+        return "home";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        return "/login";
+        return "login";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String error403() {
-        return "/error/403";
+        return "error/403";
     }
 
 }

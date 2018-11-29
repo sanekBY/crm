@@ -30,11 +30,11 @@ public class SiteCompanyContactsController
 
     @Override
     protected String getListHtml() {
-        return "/site/contacts";
+        return "site/contacts";
     }
 
     @Override
     protected String getHtml() {
-        return "/site/contact";
+        return "site/contact";
     }
 }

@@ -37,11 +37,11 @@ public class ItemTypeController extends AbstractController<ItemTypeDto, ItemType
 
     @Override
     protected String getListHtml() {
-        return "/item/items";
+        return "item/items";
     }
 
     @Override
     protected String getHtml() {
-        return "/item-type/item-type";
+        return "item-type/item-type";
     }
 }

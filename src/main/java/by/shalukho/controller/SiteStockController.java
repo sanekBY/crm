@@ -30,11 +30,11 @@ public class SiteStockController
 
     @Override
     protected String getListHtml() {
-        return "/site/stocks";
+        return "site/stocks";
     }
 
     @Override
     protected String getHtml() {
-        return "/site/stock";
+        return "site/stock";
     }
 }

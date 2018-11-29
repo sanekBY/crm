@@ -30,11 +30,11 @@ public class CustomerOrderController extends AbstractController<CustomerOrderDto
 
     @Override
     protected String getListHtml() {
-        return "/order/order";
+        return "order/order";
     }
 
     @Override
     protected String getHtml() {
-        return "/order/orders";
+        return "order/orders";
     }
 }

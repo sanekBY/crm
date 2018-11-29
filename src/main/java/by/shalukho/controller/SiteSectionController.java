@@ -77,11 +77,11 @@ public class SiteSectionController
 
     @Override
     protected String getListHtml() {
-        return "/site/sections";
+        return "site/sections";
     }
 
     @Override
     protected String getHtml() {
-        return "/site/section";
+        return "site/section";
     }
 }

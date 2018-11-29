@@ -28,7 +28,7 @@ public class ItemPropertyController
 
     @Override
     protected String getListHtml() {
-        return "/item-property/item-property";
+        return "item-property/item-property";
     }
 
     @Override

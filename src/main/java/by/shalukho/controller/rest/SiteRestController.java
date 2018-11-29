@@ -4,9 +4,11 @@ package by.shalukho.controller.rest;
 import by.shalukho.dto.SiteCompanyContactsDto;
 import by.shalukho.dto.SiteReviewDto;
 import by.shalukho.dto.SiteSectionDto;
+import by.shalukho.dto.SiteStockDto;
 import by.shalukho.service.SiteCompanyContactsService;
 import by.shalukho.service.SiteReviewService;
 import by.shalukho.service.SiteSectionService;
+import by.shalukho.service.SiteStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +25,17 @@ public class SiteRestController {
     private final SiteCompanyContactsService siteCompanyContactsService;
     private final SiteReviewService siteReviewService;
     private final SiteSectionService siteSectionService;
+    private final SiteStockService siteStockService;
 
     @Autowired
     public SiteRestController(final SiteCompanyContactsService siteCompanyContactsService,
                               final SiteReviewService siteReviewService,
-                              final SiteSectionService siteSectionService) {
+                              final SiteSectionService siteSectionService,
+                              final SiteStockService siteStockService) {
         this.siteCompanyContactsService = siteCompanyContactsService;
         this.siteReviewService = siteReviewService;
         this.siteSectionService = siteSectionService;
+        this.siteStockService = siteStockService;
     }
 
     @CrossOrigin
@@ -58,6 +63,13 @@ public class SiteRestController {
     public List<SiteSectionDto> getSiteSections() {
         final List<SiteSectionDto> sections = siteSectionService.findAllSimpleSection();
         return sections;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/stocks", method = RequestMethod.GET, produces = "application/json")
+    public List<SiteStockDto> getSiteStocks() {
+        final List<SiteStockDto> stocks = siteStockService.findAll();
+        return stocks;
     }
 
 }
