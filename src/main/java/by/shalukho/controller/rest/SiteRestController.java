@@ -47,7 +47,7 @@ public class SiteRestController {
     @CrossOrigin
     @RequestMapping(value = "/api/reviews", method = RequestMethod.GET, produces = "application/json")
     public List<SiteReviewDto> getSiteReviews() {
-        List<SiteReviewDto> reviews =
+        final List<SiteReviewDto> reviews =
                 siteReviewService.findAll().stream().filter(s -> s.isAccepted()).collect(Collectors.toList());
         return reviews;
     }

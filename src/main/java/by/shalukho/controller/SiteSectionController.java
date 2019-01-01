@@ -3,6 +3,7 @@ package by.shalukho.controller;
 import by.shalukho.dto.SiteSectionDto;
 import by.shalukho.service.SiteSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/site/section")
+@RequestMapping(value = SiteSectionController.CURRENT_URL)
 public class SiteSectionController
         extends AbstractController<SiteSectionDto, SiteSectionService> {
 
     public static final String SITE_SECTION_DTO_ATTRIBUTE = "siteSectionDto";
+    public static final String CURRENT_URL = "/site/section";
 
     @Autowired
     public SiteSectionController(final SiteSectionService siteSectionService) {
@@ -47,7 +49,7 @@ public class SiteSectionController
         }
         getService().save(dto);
         addSuccessAlert(model, getMessage("added"));
-        return goToEntityList(model);
+        return goToEntityList(1, model);
     }
 
 
@@ -61,7 +63,7 @@ public class SiteSectionController
     }
 
     @Override
-    protected List<SiteSectionDto> getAllEntities() {
+    protected List<SiteSectionDto> getAllEntitiesForPage(final PageRequest pageRequest) {
         return getService().findAllSimpleSection();
     }
 
@@ -83,5 +85,9 @@ public class SiteSectionController
     @Override
     protected String getHtml() {
         return "site/section";
+    }
+
+    @Override protected String getCurrentUrl() {
+        return CURRENT_URL;
     }
 }

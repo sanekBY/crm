@@ -7,11 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/site/review")
+@RequestMapping(value = SiteReviewController.CURRENT_URL)
 public class SiteReviewController
         extends AbstractController<SiteReviewDto, SiteReviewService> {
 
     public static final String SITE_REVIEW_DTO_ATTRIBUTE = "siteReviewDto";
+    public static final String CURRENT_URL = "/site/review";
 
     @Autowired
     public SiteReviewController(final SiteReviewService siteReviewService) {
@@ -36,5 +37,9 @@ public class SiteReviewController
     @Override
     protected String getHtml() {
         return "site/review";
+    }
+
+    @Override protected String getCurrentUrl() {
+        return CURRENT_URL;
     }
 }

@@ -7,10 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = UserController.CURRENT_URL)
 public class UserController extends AbstractController<UserDto, UserService> {
 
     public static final String USER_DTO_ATTRIBUTE = "userDto";
+    public static final String CURRENT_URL = "/user";
 
     @Autowired
     public UserController(final UserService userService) {
@@ -34,5 +35,9 @@ public class UserController extends AbstractController<UserDto, UserService> {
 
     @Override protected String getHtml() {
         return "user/user";
+    }
+
+    @Override protected String getCurrentUrl() {
+        return CURRENT_URL;
     }
 }

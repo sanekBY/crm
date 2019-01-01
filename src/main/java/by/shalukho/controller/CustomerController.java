@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(value = "/customer")
+@RequestMapping(value = CustomerController.CURRENT_URL)
 @PreAuthorize("hasAuthority('ADMIN')")
 public class CustomerController extends AbstractController<CustomerDto, CustomerService> {
 
     public static final String CUSTOMER_DTO_ATTRIBUTE = "customerDto";
+    public static final String CURRENT_URL = "/customer";
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -60,12 +61,19 @@ public class CustomerController extends AbstractController<CustomerDto, Customer
         return "customers";
     }
 
-    @Override protected String getListHtml() {
+    @Override
+    protected String getListHtml() {
         return "customer/customers";
     }
 
-    @Override protected String getHtml() {
+    @Override
+    protected String getHtml() {
         return "customer/customer";
+    }
+
+    @Override
+    protected String getCurrentUrl() {
+        return CURRENT_URL;
     }
 
 }

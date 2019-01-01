@@ -7,7 +7,6 @@
 <body>
 <div layout:fragment="content">
 
-
     <div class="row form-group">
         <div class="col-sm-10">
             <input class="form-control" id="inputFilter" type="text" th:placeholder="#{search} + '...'"/>
@@ -35,13 +34,14 @@
                 <td><span th:text="#{__${customer.type}__}"></span></td>
                 <td><span th:text="${customer.email}"></span></td>
                 <td>
-                    <a th:href="@{'/customer/' + ${customer.id}}" class="btn">
+                    <a th:href="@{${currentUrl} + '/' + ${customer.id}}" class="btn">
                         <span class="fa fa-eye fa-lg" aria-hidden="true"/>
                     </a>
                 </td>
             </tr>
             </tbody>
         </table>
+        <div th:insert="fragments/paginator :: paginator" th:with="pageUrl='customer'"/>
     </div>
     <div th:insert="fragments/scripts :: table-filter"/>
 </div>

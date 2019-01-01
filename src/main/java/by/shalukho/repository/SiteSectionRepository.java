@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SiteSectionRepository extends JpaRepository<SiteSectionEntity, Long> {
+
+
     Optional<SiteSectionEntity> findByActiveIsTrueAndId(Long id);
 
     List<SiteSectionEntity> findAllByActiveIsTrue();

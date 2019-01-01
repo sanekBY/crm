@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="paginator" class="row">
+    <div class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{${currentUrl} + '/list/' + ${pageNumber}}"
+           th:text=${pageNumber}></a>
+    </div>
+</div>
+</body>
+</html>

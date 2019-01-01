@@ -2,8 +2,10 @@ package by.shalukho.controller;
 
 import by.shalukho.dto.AbstractDto;
 import by.shalukho.service.AbstractService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 public abstract class AbstractController<T extends AbstractDto, Service extends AbstractService> {
 
     public static final String ALERT_SUCCESS = "alert-success";
     public static final String ALERT_DANGER = "alert-danger";
     public static final String ALERT_WARNING = "alert-warning";
+    public static final String PAGE_NUMBERS = "pageNumbers";
+    public static final String CURRENT_URL = "currentUrl";
 
     private final Service service;
     private final Class<T> clazz;
@@ -38,7 +43,7 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
         } catch (RuntimeException ex) {
             addDangerAlert(model, ex.getMessage());
         }
-        return goToEntityList(model);
+        return goToEntityList(1, model);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -59,7 +64,7 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     public String deleteEntity(@PathVariable("id") final Long id, final Model model) {
         service.delete(id);
         addSuccessAlert(model, getMessage("deleted"));
-        return goToEntityList(model);
+        return goToEntityList(1, model);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -68,22 +73,34 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
         return getHtml();
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String getEntities(Model model) {
-        return goToEntityList(model);
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+    public String getEntities(@PathVariable("id") Optional<Integer> page, final Model model) {
+        int currentPage = page.orElse(1);
+        return goToEntityList(currentPage, model);
     }
 
-    protected String goToEntityList(final Model model) {
-        model.addAttribute(getListAttribute(), getAllEntities());
+    protected String goToEntityList(final int pageId, final Model model) {
+        final PageRequest listPage = getListPage(pageId);
+        model.addAttribute(getListAttribute(), getAllEntitiesForPage(listPage));
+        model.addAttribute(CURRENT_URL, getCurrentUrl());
+        addPageNumbers(model, listPage);
         return getListHtml();
+    }
+
+    protected Model addPageNumbers(@NonNull final Model model, @NonNull final PageRequest listPage) {
+        return model.addAttribute(PAGE_NUMBERS, service.getPageNumbers(listPage));
     }
 
     protected String getMessage(String msg) {
         return messageSource.getMessage(msg, null, new Locale("ru"));
     }
 
-    protected List<T> getAllEntities() {
-        return service.findAll();
+    protected List<T> getAllEntitiesForPage(@NonNull final PageRequest pageRequest) {
+        return service.findPaginated(pageRequest);
+    }
+
+    protected PageRequest getListPage(final int id) {
+        return PageRequest.of(id - 1, 2);
     }
 
     private void addAlert(final Model model, final String text, final String alertClass) {
@@ -110,6 +127,8 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     protected abstract String getListHtml();
 
     protected abstract String getHtml();
+
+    protected abstract String getCurrentUrl();
 
     public Service getService() {
         return service;

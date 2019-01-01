@@ -1,21 +1,20 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.ItemDto;
-import by.shalukho.dto.ItemTypeDto;
 import by.shalukho.service.ItemService;
 import by.shalukho.service.ItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "/item")
+@RequestMapping(value = ItemController.CURRENT_URL)
 //@PreAuthorize("hasAuthority('ADMIN')")
 public class ItemController extends AbstractController<ItemDto, ItemService> {
 
     public static final String ITEM_TYPES = "itemTypes";
+    public static final String CURRENT_URL = "/item";
     private final ItemTypeService itemTypeService;
 
     @Autowired
@@ -25,8 +24,9 @@ public class ItemController extends AbstractController<ItemDto, ItemService> {
     }
 
     @Override
-    protected String goToEntityList(final Model model) {
-        model.addAttribute(getListAttribute(), itemTypeService.findAll());
+    protected String goToEntityList(final int pageId, final Model model) {
+        model.addAttribute(getListAttribute(), itemTypeService.findPaginated(getListPage(pageId)));
+        addPageNumbers(model, getListPage(pageId));
         return getListHtml();
     }
 
@@ -48,5 +48,9 @@ public class ItemController extends AbstractController<ItemDto, ItemService> {
     @Override
     protected String getHtml() {
         return "item/item";
+    }
+
+    @Override protected String getCurrentUrl() {
+        return CURRENT_URL;
     }
 }
