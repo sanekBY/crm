@@ -23,6 +23,8 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     public static final String ALERT_WARNING = "alert-warning";
     public static final String PAGE_NUMBERS = "pageNumbers";
     public static final String CURRENT_URL = "currentUrl";
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final int ITEMS_PER_LIST = 5;
 
     private final Service service;
     private final Class<T> clazz;
@@ -30,13 +32,13 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     @Autowired
     private MessageSource messageSource;
 
-    public AbstractController(final Service service, final Class<T> clazz) {
+    public AbstractController(@NonNull final Service service, @NonNull final Class<T> clazz) {
         this.service = service;
         this.clazz = clazz;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String createEntity(@ModelAttribute final T dto, final Model model) {
+    public String createEntity(@ModelAttribute final T dto, @NonNull final Model model) {
         try {
             service.save(dto);
             addSuccessAlert(model, getMessage("saved"));
@@ -47,7 +49,7 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String createEntity(final Model model) {
+    public String createEntity(@NonNull final Model model) {
         try {
             model.addAttribute(getAttribute(), createNewObject());
         } catch (Exception e) {
@@ -61,37 +63,48 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String deleteEntity(@PathVariable("id") final Long id, final Model model) {
+    public String deleteEntity(@PathVariable("id") final Long id, @NonNull final Model model) {
         service.delete(id);
         addSuccessAlert(model, getMessage("deleted"));
         return goToEntityList(1, model);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getEntity(@PathVariable("id") final Long id, final Model model) {
+    public String getEntity(@PathVariable("id") final Long id, @NonNull final Model model) {
         model.addAttribute(getAttribute(), service.findById(id));
         return getHtml();
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String getEntities(@NonNull final Model model) {
+        int currentPage = 1;
+        return goToEntityList(currentPage, model);
+    }
+
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
-    public String getEntities(@PathVariable("id") Optional<Integer> page, final Model model) {
+    public String getEntities(@PathVariable("id") Optional<Integer> page, @NonNull final Model model) {
         int currentPage = page.orElse(1);
         return goToEntityList(currentPage, model);
     }
 
-    protected String goToEntityList(final int pageId, final Model model) {
+    protected String goToEntityList(final int pageId, @NonNull final Model model) {
         final PageRequest listPage = getListPage(pageId);
-        model.addAttribute(getListAttribute(), getAllEntitiesForPage(listPage));
+        addListToModel(model, listPage);
         model.addAttribute(CURRENT_URL, getCurrentUrl());
+        model.addAttribute(CURRENT_PAGE, pageId);
         addPageNumbers(model, listPage);
         return getListHtml();
+    }
+
+    protected void addListToModel(@NonNull final Model model, @NonNull final PageRequest listPage) {
+        model.addAttribute(getListAttribute(), getAllEntitiesForPage(listPage));
     }
 
     protected Model addPageNumbers(@NonNull final Model model, @NonNull final PageRequest listPage) {
         return model.addAttribute(PAGE_NUMBERS, service.getPageNumbers(listPage));
     }
 
-    protected String getMessage(String msg) {
+    protected String getMessage(@NonNull final String msg) {
         return messageSource.getMessage(msg, null, new Locale("ru"));
     }
 
@@ -100,23 +113,23 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     }
 
     protected PageRequest getListPage(final int id) {
-        return PageRequest.of(id - 1, 2);
+        return PageRequest.of(id - 1, ITEMS_PER_LIST);
     }
 
-    private void addAlert(final Model model, final String text, final String alertClass) {
+    private void addAlert(@NonNull final Model model, @NonNull final String text, @NonNull final String alertClass) {
         model.addAttribute("notification", text);
         model.addAttribute("alertType", alertClass);
     }
 
-    protected void addSuccessAlert(final Model model, final String text) {
+    protected void addSuccessAlert(@NonNull final Model model, @NonNull final String text) {
         addAlert(model, text, ALERT_SUCCESS);
     }
 
-    protected void addDangerAlert(final Model model, final String text) {
+    protected void addDangerAlert(@NonNull final Model model, @NonNull final String text) {
         addAlert(model, text, ALERT_DANGER);
     }
 
-    protected void addWarningAlert(final Model model, final String text) {
+    protected void addWarningAlert(@NonNull final Model model, @NonNull final String text) {
         addAlert(model, text, ALERT_WARNING);
     }
 

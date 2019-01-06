@@ -4,6 +4,8 @@ import by.shalukho.converter.SiteReviewConverter;
 import by.shalukho.dto.SiteReviewDto;
 import by.shalukho.entity.SiteReviewEntity;
 import by.shalukho.repository.SiteReviewRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +28,10 @@ public class SiteReviewService
     @Override
     public List<SiteReviewEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Page<SiteReviewEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

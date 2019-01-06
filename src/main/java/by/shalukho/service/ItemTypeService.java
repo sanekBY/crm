@@ -4,6 +4,8 @@ import by.shalukho.converter.ItemTypeConverter;
 import by.shalukho.dto.ItemTypeDto;
 import by.shalukho.entity.ItemTypeEntity;
 import by.shalukho.repository.ItemTypeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +26,10 @@ public class ItemTypeService extends AbstractService<ItemTypeDto, ItemTypeEntity
     @Override
     public List<ItemTypeEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Page<ItemTypeEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

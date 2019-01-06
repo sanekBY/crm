@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public abstract class AbstractService<T extends AbstractDto, B extends AbstractE
     }
 
     public List<T> findPaginated(@NonNull final PageRequest pageRequest) {
-        final List<B> content = repository.findAll(pageRequest).getContent();
+        final List<B> content = findAllByActiveIsTrue(pageRequest).getContent();
         return converter.convertAllToDto(content);
     }
 
@@ -83,5 +84,9 @@ public abstract class AbstractService<T extends AbstractDto, B extends AbstractE
 
     public GenericConverter<T, B> getConverter() {
         return converter;
+    }
+
+    @Override public Page<B> findAllByActiveIsTrue(final Pageable pageable) {
+        return null;
     }
 }

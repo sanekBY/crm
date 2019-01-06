@@ -3,12 +3,29 @@
 <head>
 </head>
 <body>
-<div th:fragment="paginator" class="row">
-    <div class="pagination"
-         th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{${currentUrl} + '/list/' + ${pageNumber}}"
-           th:text=${pageNumber}></a>
-    </div>
+<div th:fragment="paginator">
+    <nav>
+        <ul class="pagination">
+            <li th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link"
+                                     th:href="@{${currentUrl} + '/list/' + ${currentPage - 1}}">
+                    <
+                </a>
+            </li>
+            <li th:class="${pageNumber == currentPage} ? 'page-item disabled' : 'page-item'"
+                th:each="pageNumber : ${pageNumbers}">
+                <a th:class="${pageNumber == currentPage} ? 'page-link paginator-active' : 'page-link'"
+                                                                           th:href="@{${currentUrl} + '/list/' + ${pageNumber}}"
+                                                                           th:text=${pageNumber}>
+                </a>
+            </li>
+            <li th:class="${currentPage == pageNumbers.size()} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{${currentUrl} + '/list/' + ${currentPage + 1}}">
+                    >
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>

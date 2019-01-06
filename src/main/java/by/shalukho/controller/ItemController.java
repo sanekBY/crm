@@ -4,6 +4,7 @@ import by.shalukho.dto.ItemDto;
 import by.shalukho.service.ItemService;
 import by.shalukho.service.ItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +22,6 @@ public class ItemController extends AbstractController<ItemDto, ItemService> {
     public ItemController(final ItemService itemService, final ItemTypeService itemTypeService) {
         super(itemService, ItemDto.class);
         this.itemTypeService = itemTypeService;
-    }
-
-    @Override
-    protected String goToEntityList(final int pageId, final Model model) {
-        model.addAttribute(getListAttribute(), itemTypeService.findPaginated(getListPage(pageId)));
-        addPageNumbers(model, getListPage(pageId));
-        return getListHtml();
     }
 
     @Override
@@ -50,7 +44,13 @@ public class ItemController extends AbstractController<ItemDto, ItemService> {
         return "item/item";
     }
 
-    @Override protected String getCurrentUrl() {
+    @Override
+    protected String getCurrentUrl() {
         return CURRENT_URL;
+    }
+
+    @Override
+    protected void addListToModel(final Model model, final PageRequest listPage) {
+        model.addAttribute(getListAttribute(), itemTypeService.findPaginated(listPage));
     }
 }

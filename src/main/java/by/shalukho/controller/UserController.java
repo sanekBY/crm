@@ -33,11 +33,13 @@ public class UserController extends AbstractController<UserDto, UserService> {
         return "user/users";
     }
 
-    @Override protected String getHtml() {
+    @Override
+    protected String getHtml() {
         return "user/user";
     }
 
-    @Override protected String getCurrentUrl() {
+    @Override
+    protected String getCurrentUrl() {
         return CURRENT_URL;
     }
 }

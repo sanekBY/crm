@@ -4,6 +4,8 @@ import by.shalukho.converter.CustomerOrderConverter;
 import by.shalukho.dto.CustomerOrderDto;
 import by.shalukho.entity.CustomerOrderEntity;
 import by.shalukho.repository.CustomerOrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,5 +37,10 @@ public class CustomerOrderService
     @Override
     public List<CustomerOrderEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Page<CustomerOrderEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

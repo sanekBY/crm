@@ -4,6 +4,8 @@ import by.shalukho.converter.SiteCompanyContactsConverter;
 import by.shalukho.dto.SiteCompanyContactsDto;
 import by.shalukho.entity.SiteCompanyContactsEntity;
 import by.shalukho.repository.SiteCompanyContactsRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,5 +29,10 @@ public class SiteCompanyContactsService
     @Override
     public List<SiteCompanyContactsEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Page<SiteCompanyContactsEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

@@ -130,3 +130,8 @@ transform: rotate(90deg);
 
 .row-active {
 }
+
+.paginator-active {
+    color: white !important;
+    background: #007bff !important;
+}

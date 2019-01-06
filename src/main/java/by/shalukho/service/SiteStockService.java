@@ -4,6 +4,8 @@ import by.shalukho.converter.SiteStockConverter;
 import by.shalukho.dto.SiteStockDto;
 import by.shalukho.entity.SiteStockEntity;
 import by.shalukho.repository.SiteStockRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +28,10 @@ public class SiteStockService
     @Override
     public List<SiteStockEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Page<SiteStockEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

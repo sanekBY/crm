@@ -4,6 +4,8 @@ import by.shalukho.converter.CustomerConverter;
 import by.shalukho.dto.CustomerDto;
 import by.shalukho.entity.CustomerEntity;
 import by.shalukho.repository.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,11 @@ public class CustomerService extends AbstractUniqueNameService<CustomerDto, Cust
     @Override
     public List<CustomerEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override
+    public Page<CustomerEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 
     @Override

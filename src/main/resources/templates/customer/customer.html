@@ -118,7 +118,7 @@
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-success pull-right" th:value="#{save}"/>
-            <a th:href="@{'/customer/{id}/delete'(id=*{id})}" class="btn btn-danger" th:if="*{id != null}">
+            <a th:href="@{${currentUrl} + '/{id}/delete'(id=*{id})}" class="btn btn-danger" th:if="*{id != null}">
                 <span class="fa fa-trash-o fa-lg" aria-hidden="true"/>
             </a>
         </div>

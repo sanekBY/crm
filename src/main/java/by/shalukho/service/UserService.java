@@ -4,6 +4,8 @@ import by.shalukho.converter.UserConverter;
 import by.shalukho.dto.UserDto;
 import by.shalukho.entity.UserEntity;
 import by.shalukho.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +30,9 @@ public class UserService extends AbstractService<UserDto, UserEntity, UserReposi
     @Override
     public List<UserEntity> findAllByActiveIsTrue() {
         return getRepository().findAllByActiveIsTrue();
+    }
+
+    @Override public Page<UserEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

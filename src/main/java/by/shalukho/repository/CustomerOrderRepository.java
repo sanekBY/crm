@@ -1,6 +1,8 @@
 package by.shalukho.repository;
 
 import by.shalukho.entity.CustomerOrderEntity;
+import by.shalukho.entity.ItemEntity;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +17,6 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrderEnti
     Optional<CustomerOrderEntity> findByActiveIsTrueAndId(Long id);
 
     List<CustomerOrderEntity> findAllByActiveIsTrue();
+
+    Page<CustomerOrderEntity> findAllByActiveIsTrue(@NonNull final Pageable page);
 }

@@ -1,6 +1,9 @@
 package by.shalukho.repository;
 
 import by.shalukho.entity.UserEntity;
+import lombok.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,4 +15,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByActiveIsTrueAndId(Long id);
 
     List<UserEntity> findAllByActiveIsTrue();
+
+    Page<UserEntity> findAllByActiveIsTrue(@NonNull final Pageable page);
+
 }

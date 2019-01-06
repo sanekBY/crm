@@ -4,6 +4,8 @@ import by.shalukho.converter.ItemConverter;
 import by.shalukho.dto.ItemDto;
 import by.shalukho.entity.ItemEntity;
 import by.shalukho.repository.ItemRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +31,10 @@ public class ItemService extends AbstractUniqueNameService<ItemDto, ItemEntity, 
     @Override
     public Optional<ItemEntity> findByName(final String name) {
         return getRepository().findByName(name);
+    }
+
+    @Override
+    public Page<ItemEntity> findAllByActiveIsTrue(final Pageable pageable) {
+        return getRepository().findAllByActiveIsTrue(pageable);
     }
 }

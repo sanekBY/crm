@@ -46,7 +46,8 @@ public class ItemTypeController extends AbstractController<ItemTypeDto, ItemType
         return "item-type/item-type";
     }
 
-    @Override protected String getCurrentUrl() {
+    @Override
+    protected String getCurrentUrl() {
         return CURRENT_URL;
     }
 }
