@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = SiteCompanyContactsController.CURRENT_URL)
+@RequestMapping(value = SiteCompanyContactsController.CURRENT_PAGE_URL)
 public class SiteCompanyContactsController
         extends AbstractController<SiteCompanyContactsDto, SiteCompanyContactsService> {
 
     public static final String SITE_COMPANY_CONTACTS_DTO_ATTRIBUTE = "siteCompanyContactsDto";
-    public static final String CURRENT_URL = "/site/contact";
+    public static final String CURRENT_PAGE_URL = "/site/contact";
 
     @Autowired
     public SiteCompanyContactsController(final SiteCompanyContactsService siteCompanyContactsService) {
@@ -40,6 +40,6 @@ public class SiteCompanyContactsController
     }
 
     @Override protected String getCurrentUrl() {
-        return CURRENT_URL;
+        return CURRENT_PAGE_URL;
     }
 }

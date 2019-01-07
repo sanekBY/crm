@@ -10,12 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = ItemController.CURRENT_URL)
+@RequestMapping(value = ItemController.CURRENT_PAGE_URL)
 //@PreAuthorize("hasAuthority('ADMIN')")
 public class ItemController extends AbstractController<ItemDto, ItemService> {
 
     public static final String ITEM_TYPES = "itemTypes";
-    public static final String CURRENT_URL = "/item";
+    public static final String CURRENT_PAGE_URL = "/item";
     private final ItemTypeService itemTypeService;
 
     @Autowired
@@ -46,7 +46,7 @@ public class ItemController extends AbstractController<ItemDto, ItemService> {
 
     @Override
     protected String getCurrentUrl() {
-        return CURRENT_URL;
+        return CURRENT_PAGE_URL;
     }
 
     @Override

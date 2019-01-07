@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = SiteStockController.CURRENT_URL)
+@RequestMapping(value = SiteStockController.CURRENT_PAGE_URL)
 public class SiteStockController
         extends AbstractController<SiteStockDto, SiteStockService> {
 
     public static final String SITE_STOCK_DTO_ATTRIBUTE = "siteStockDto";
-    public static final String CURRENT_URL = "/site/stock";
+    public static final String CURRENT_PAGE_URL = "/site/stock";
 
     @Autowired
     public SiteStockController(final SiteStockService siteStockService) {
@@ -40,6 +40,6 @@ public class SiteStockController
     }
 
     @Override protected String getCurrentUrl() {
-        return CURRENT_URL;
+        return CURRENT_PAGE_URL;
     }
 }

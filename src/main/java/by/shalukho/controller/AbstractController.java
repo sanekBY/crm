@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,22 +39,24 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String createEntity(@ModelAttribute final T dto, @NonNull final Model model) {
+    public String createEntity(@ModelAttribute final T dto,
+                               @NonNull final Model model,
+                               @NonNull final RedirectAttributes redirectAttributes) {
         try {
             service.save(dto);
-            addSuccessAlert(model, getMessage("saved"));
+            addSuccessAlert(redirectAttributes, getMessage("saved"));
         } catch (RuntimeException ex) {
-            addDangerAlert(model, ex.getMessage());
+            addDangerAlert(redirectAttributes, ex.getMessage());
         }
-        return goToEntityList(1, model);
+        return redirectToList(1);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String createEntity(@NonNull final Model model) {
+    public String createEntity(@NonNull final Model model, @NonNull final RedirectAttributes redirectAttributes) {
         try {
             model.addAttribute(getAttribute(), createNewObject());
         } catch (Exception e) {
-            addDangerAlert(model, e.getMessage());
+            addDangerAlert(redirectAttributes, e.getMessage());
         }
         return getHtml();
     }
@@ -63,15 +66,17 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String deleteEntity(@PathVariable("id") final Long id, @NonNull final Model model) {
+    public String deleteEntity(@PathVariable("id") final Long id,
+                               @NonNull final RedirectAttributes redirectAttributes) {
         service.delete(id);
-        addSuccessAlert(model, getMessage("deleted"));
-        return goToEntityList(1, model);
+        addSuccessAlert(redirectAttributes, getMessage("deleted"));
+        return redirectToList(1);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getEntity(@PathVariable("id") final Long id, @NonNull final Model model) {
         model.addAttribute(getAttribute(), service.findById(id));
+        model.addAttribute(CURRENT_URL, getCurrentUrl());
         return getHtml();
     }
 
@@ -87,13 +92,18 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
         return goToEntityList(currentPage, model);
     }
 
-    protected String goToEntityList(final int pageId, @NonNull final Model model) {
+    private String goToEntityList(final int pageId, @NonNull final Model model) {
         final PageRequest listPage = getListPage(pageId);
         addListToModel(model, listPage);
         model.addAttribute(CURRENT_URL, getCurrentUrl());
         model.addAttribute(CURRENT_PAGE, pageId);
         addPageNumbers(model, listPage);
         return getListHtml();
+    }
+
+
+    protected String redirectToList(final int pageId) {
+        return "redirect:" + getCurrentUrl() + "/list/" + pageId;
     }
 
     protected void addListToModel(@NonNull final Model model, @NonNull final PageRequest listPage) {
@@ -116,21 +126,23 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
         return PageRequest.of(id - 1, ITEMS_PER_LIST);
     }
 
-    private void addAlert(@NonNull final Model model, @NonNull final String text, @NonNull final String alertClass) {
-        model.addAttribute("notification", text);
-        model.addAttribute("alertType", alertClass);
+    private void addAlert(@NonNull final RedirectAttributes redirectAttributes,
+                          @NonNull final String text,
+                          @NonNull final String alertClass) {
+        redirectAttributes.addFlashAttribute("notification", text);
+        redirectAttributes.addFlashAttribute("alertType", alertClass);
     }
 
-    protected void addSuccessAlert(@NonNull final Model model, @NonNull final String text) {
-        addAlert(model, text, ALERT_SUCCESS);
+    protected void addSuccessAlert(@NonNull final RedirectAttributes redirectAttributes, @NonNull final String text) {
+        addAlert(redirectAttributes, text, ALERT_SUCCESS);
     }
 
-    protected void addDangerAlert(@NonNull final Model model, @NonNull final String text) {
-        addAlert(model, text, ALERT_DANGER);
+    protected void addDangerAlert(@NonNull final RedirectAttributes redirectAttributes, @NonNull final String text) {
+        addAlert(redirectAttributes, text, ALERT_DANGER);
     }
 
-    protected void addWarningAlert(@NonNull final Model model, @NonNull final String text) {
-        addAlert(model, text, ALERT_WARNING);
+    protected void addWarningAlert(@NonNull final RedirectAttributes redirectAttributes, @NonNull final String text) {
+        addAlert(redirectAttributes, text, ALERT_WARNING);
     }
 
     protected abstract String getAttribute();

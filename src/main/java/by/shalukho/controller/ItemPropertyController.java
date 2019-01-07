@@ -6,12 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = ItemPropertyController.CURRENT_URL)
+@RequestMapping(value = ItemPropertyController.CURRENT_PAGE_URL)
 public class ItemPropertyController
         extends AbstractController<ItemPropertyDto, ItemPropertyService> {
 
     public static final String ITEM_PROPERTY_DTO_ATTRIBUTE = "itemPropertyDto";
-    public static final String CURRENT_URL = "/item-property";
+    public static final String CURRENT_PAGE_URL = "/item-property";
 
     public ItemPropertyController(final ItemPropertyService itemPropertyService) {
         super(itemPropertyService, ItemPropertyDto.class);
@@ -38,6 +38,6 @@ public class ItemPropertyController
     }
 
     @Override protected String getCurrentUrl() {
-        return CURRENT_URL;
+        return CURRENT_PAGE_URL;
     }
 }

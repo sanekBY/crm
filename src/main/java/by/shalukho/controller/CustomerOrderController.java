@@ -7,12 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = CustomerOrderController.CURRENT_URL)
+@RequestMapping(value = CustomerOrderController.CURRENT_PAGE_URL)
 //@PreAuthorize("hasAuthority('ADMIN')")
 public class CustomerOrderController extends AbstractController<CustomerOrderDto, CustomerOrderService> {
 
     public static final String CUSTOMER_ORDER_DTO_ATTRIBUTE = "customerOrderDto";
-    public static final String CURRENT_URL = "/order";
+    public static final String CURRENT_PAGE_URL = "/order";
 
     @Autowired
     public CustomerOrderController(final CustomerOrderService customerOrderService) {
@@ -40,6 +40,6 @@ public class CustomerOrderController extends AbstractController<CustomerOrderDto
     }
 
     @Override protected String getCurrentUrl() {
-        return CURRENT_URL;
+        return CURRENT_PAGE_URL;
     }
 }

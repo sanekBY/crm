@@ -1,10 +1,13 @@
 package by.shalukho.controller.rest;
 
 
+import by.shalukho.controller.ImageUploadController;
+import by.shalukho.dto.ImageDto;
 import by.shalukho.dto.SiteCompanyContactsDto;
 import by.shalukho.dto.SiteReviewDto;
 import by.shalukho.dto.SiteSectionDto;
 import by.shalukho.dto.SiteStockDto;
+import by.shalukho.service.ImageService;
 import by.shalukho.service.SiteCompanyContactsService;
 import by.shalukho.service.SiteReviewService;
 import by.shalukho.service.SiteSectionService;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,16 +30,19 @@ public class SiteRestController {
     private final SiteReviewService siteReviewService;
     private final SiteSectionService siteSectionService;
     private final SiteStockService siteStockService;
+    private final ImageService imageService;
 
     @Autowired
     public SiteRestController(final SiteCompanyContactsService siteCompanyContactsService,
                               final SiteReviewService siteReviewService,
                               final SiteSectionService siteSectionService,
-                              final SiteStockService siteStockService) {
+                              final SiteStockService siteStockService,
+                              final ImageService imageService) {
         this.siteCompanyContactsService = siteCompanyContactsService;
         this.siteReviewService = siteReviewService;
         this.siteSectionService = siteSectionService;
         this.siteStockService = siteStockService;
+        this.imageService = imageService;
     }
 
     @CrossOrigin
@@ -70,6 +77,17 @@ public class SiteRestController {
     public List<SiteStockDto> getSiteStocks() {
         final List<SiteStockDto> stocks = siteStockService.findAll();
         return stocks;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/main/images", method = RequestMethod.GET, produces = "application/json")
+    public List<String> getSiteImages() {
+        final List<ImageDto> allImages = imageService.findAll();
+        final List<String> serveFile = allImages.stream().map(
+                path -> MvcUriComponentsBuilder.fromMethodName(ImageUploadController.class,
+                                                               "serveFile", path.getName()).build().toString())
+                .collect(Collectors.toList());
+        return serveFile;
     }
 
 }
