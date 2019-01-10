@@ -14,4 +14,5 @@ public class SiteStockDto extends AbstractDto {
     private String dateTo;
     private String imageUrl;
     private boolean opened;
+    private ImageDto image;
 }

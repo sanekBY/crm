@@ -75,9 +75,13 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getEntity(@PathVariable("id") final Long id, @NonNull final Model model) {
-        model.addAttribute(getAttribute(), service.findById(id));
+        model.addAttribute(getAttribute(), getEntity(id));
         model.addAttribute(CURRENT_URL, getCurrentUrl());
         return getHtml();
+    }
+
+    protected T getEntity(@PathVariable("id") final Long id) {
+        return (T) service.findById(id);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)

@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class ImageDto extends AbstractDto {
     private String name;
     private String path;
+    private String type;
 }

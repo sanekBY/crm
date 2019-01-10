@@ -99,6 +99,16 @@
             <column name="PATH" type="varchar(1024)">
                 <constraints nullable="false"/>
             </column>
+            <column name="TYPE" type="enum('MAIN', 'NEWS')"/>
         </createTable>
+    </changeSet>
+    <changeSet id="ADD_IMAGE_TO_STOCK" author="">
+        <addColumn tableName="SITE_STOCK">
+            <column name="IMAGE_ID" type="BIGINT">
+                <constraints references="IMAGE(ID)"
+                             foreignKeyName="FK_SITE_STOCK__IMAGE_ID"/>
+            </column>
+        </addColumn>
+        <dropColumn tableName="SITE_STOCK" columnName="IMAGE_URL"/>
     </changeSet>
 </databaseChangeLog>

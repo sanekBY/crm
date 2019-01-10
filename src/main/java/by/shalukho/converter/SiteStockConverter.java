@@ -1,15 +1,20 @@
 package by.shalukho.converter;
 
+import by.shalukho.dto.ImageDto;
 import by.shalukho.dto.SiteStockDto;
+import by.shalukho.entity.ImageEntity;
 import by.shalukho.entity.SiteStockEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
 public class SiteStockConverter extends GenericConverter<SiteStockDto, SiteStockEntity> {
+
+    @Autowired
+    private ImageConverter imageConverter;
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -24,6 +29,12 @@ public class SiteStockConverter extends GenericConverter<SiteStockDto, SiteStock
         final SiteStockEntity stockEntity = super.extraConvertToEntity(siteStockDto, siteStockEntity);
         stockEntity.setDateFrom(parseDate(siteStockDto.getDateFrom()));
         stockEntity.setDateTo(parseDate(siteStockDto.getDateTo()));
+
+        if (siteStockDto.getImage() != null) {
+            final ImageEntity imageEntity = imageConverter.convertToEntity(siteStockDto.getImage());
+            stockEntity.setImageEntity(imageEntity);
+        }
+
         return stockEntity;
     }
 
@@ -33,6 +44,12 @@ public class SiteStockConverter extends GenericConverter<SiteStockDto, SiteStock
         final SiteStockDto stockDto = super.extraConvertToDto(siteStockEntity, siteStockDto);
         stockDto.setDateFrom(getDate(siteStockEntity.getDateFrom()));
         stockDto.setDateTo(getDate(siteStockEntity.getDateTo()));
+
+        if (siteStockEntity.getImageEntity() != null) {
+            final ImageDto imageDto = imageConverter.convertToDto(siteStockEntity.getImageEntity());
+            stockDto.setImage(imageDto);
+        }
+
         return stockDto;
     }
 

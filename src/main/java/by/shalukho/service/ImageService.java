@@ -3,6 +3,7 @@ package by.shalukho.service;
 import by.shalukho.converter.ImageConverter;
 import by.shalukho.dto.ImageDto;
 import by.shalukho.entity.ImageEntity;
+import by.shalukho.entity.ImageTypeEnum;
 import by.shalukho.property.StorageProperty;
 import by.shalukho.repository.ImageRepository;
 import lombok.NonNull;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ImageService extends AbstractUniqueNameService<ImageDto, ImageEntity, ImageRepository> {
+public class ImageService extends AbstractService<ImageDto, ImageEntity, ImageRepository> {
     private final Path rootLocation;
 
 
@@ -43,9 +44,12 @@ public class ImageService extends AbstractUniqueNameService<ImageDto, ImageEntit
         return getRepository().findAllByActiveIsTrue();
     }
 
-    @Override
-    public Optional<ImageEntity> findByName(final String name) {
-        return getRepository().findByName(name);
+    public List<ImageDto> findAllByActiveIsTrue(@NonNull final Pageable pageable,
+                                                @NonNull final ImageTypeEnum imageType) {
+        final List<ImageEntity> content =
+                getRepository().findAllByActiveIsTrueAndType(pageable, imageType).getContent();
+        final List<ImageDto> images = getConverter().convertAllToDto(content);
+        return images;
     }
 
     @Override
@@ -53,20 +57,32 @@ public class ImageService extends AbstractUniqueNameService<ImageDto, ImageEntit
         return getRepository().findAllByActiveIsTrue(pageable);
     }
 
-    public void store(@NonNull final MultipartFile file) {
+    public void store(@NonNull final MultipartFile file, @NonNull final ImageTypeEnum type) {
+        final String originalFilename = file.getOriginalFilename();
         try {
             if (file.isEmpty()) {
-                throw new RuntimeException("Failed to store empty file " + file.getOriginalFilename());
+                throw new RuntimeException("Failed to store empty file " + originalFilename);
             }
             init();
-            final Path path = rootLocation.resolve(file.getOriginalFilename());
-            final ImageEntity imageEntity = new ImageEntity();
-            imageEntity.setName(file.getOriginalFilename());
+            final Path path = rootLocation.resolve(originalFilename);
+            ImageEntity imageEntity = new ImageEntity();
+            imageEntity.setName(originalFilename);
+
+            final Optional<ImageEntity> existedEntity =
+                    getRepository().findByName(originalFilename);
+            if (existedEntity.isPresent()) {
+                imageEntity = existedEntity.get();
+                imageEntity.setActive(true);
+            }
             imageEntity.setPath(path.toString());
+            imageEntity.setType(type);
+
             save(getConverter().convertToDto(imageEntity));
+
+            Files.deleteIfExists(path);
             Files.copy(file.getInputStream(), path);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to store file " + file.getOriginalFilename(), e);
+            throw new RuntimeException("Failed to store file " + originalFilename, e);
         }
     }
 
