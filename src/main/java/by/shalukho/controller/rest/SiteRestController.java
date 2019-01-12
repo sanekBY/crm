@@ -1,13 +1,13 @@
 package by.shalukho.controller.rest;
 
 
-import by.shalukho.controller.ImageUploadController;
+import by.shalukho.controller.MainImageController;
 import by.shalukho.dto.ImageDto;
 import by.shalukho.dto.SiteCompanyContactsDto;
 import by.shalukho.dto.SiteReviewDto;
 import by.shalukho.dto.SiteSectionDto;
 import by.shalukho.dto.SiteStockDto;
-import by.shalukho.service.ImageService;
+import by.shalukho.service.image_services.MainImageService;
 import by.shalukho.service.SiteCompanyContactsService;
 import by.shalukho.service.SiteReviewService;
 import by.shalukho.service.SiteSectionService;
@@ -30,14 +30,14 @@ public class SiteRestController {
     private final SiteReviewService siteReviewService;
     private final SiteSectionService siteSectionService;
     private final SiteStockService siteStockService;
-    private final ImageService imageService;
+    private final MainImageService imageService;
 
     @Autowired
     public SiteRestController(final SiteCompanyContactsService siteCompanyContactsService,
                               final SiteReviewService siteReviewService,
                               final SiteSectionService siteSectionService,
                               final SiteStockService siteStockService,
-                              final ImageService imageService) {
+                              final MainImageService imageService) {
         this.siteCompanyContactsService = siteCompanyContactsService;
         this.siteReviewService = siteReviewService;
         this.siteSectionService = siteSectionService;
@@ -84,7 +84,7 @@ public class SiteRestController {
     public List<String> getSiteImages() {
         final List<ImageDto> allImages = imageService.findAll();
         final List<String> serveFile = allImages.stream().map(
-                path -> MvcUriComponentsBuilder.fromMethodName(ImageUploadController.class,
+                path -> MvcUriComponentsBuilder.fromMethodName(MainImageController.class,
                                                                "serveFile", path.getName()).build().toString())
                 .collect(Collectors.toList());
         return serveFile;

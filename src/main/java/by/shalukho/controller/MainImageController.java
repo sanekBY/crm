@@ -2,7 +2,8 @@ package by.shalukho.controller;
 
 import by.shalukho.dto.ImageDto;
 import by.shalukho.entity.ImageTypeEnum;
-import by.shalukho.service.ImageService;
+import by.shalukho.service.image_services.MainImageService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -11,15 +12,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value = ImageUploadController.CURRENT_PAGE_URL)
-public class ImageUploadController extends AbstractImageUploadController<ImageDto, ImageService> {
+@RequestMapping(value = MainImageController.CURRENT_PAGE_URL)
+public class MainImageController extends AbstractImageUploadController<ImageDto, MainImageService> {
 
     public static final String CURRENT_PAGE_URL = "/site/image";
 
     @Autowired
-    public ImageUploadController(final ImageService imageService) {
+    public MainImageController(final MainImageService imageService) {
         super(imageService, ImageDto.class);
     }
 
@@ -28,7 +30,16 @@ public class ImageUploadController extends AbstractImageUploadController<ImageDt
         return getImages(pageRequest);
     }
 
-    @Override public String handleFileUpload(final MultipartFile file, final RedirectAttributes redirectAttributes) {
+    protected List<ImageDto> getImages(@NonNull final PageRequest pageRequest) {
+        final List<ImageDto> allEntitiesForPage = getService().findAllByActiveIsTrue(pageRequest, getImageType());
+        final List<ImageDto> serveFile = allEntitiesForPage.stream().peek(
+                image -> prepareImagePath(image)).collect(Collectors.toList());
+        return serveFile;
+    }
+
+
+    @Override
+    public String handleFileUpload(final MultipartFile file, final RedirectAttributes redirectAttributes) {
         super.handleFileUpload(file, redirectAttributes);
         addSuccessAlert(redirectAttributes, getMessage("imageSaved") + " " + file.getOriginalFilename());
         return "redirect:" + getCurrentUrl() + "/list";

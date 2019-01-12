@@ -9,7 +9,7 @@
 <div layout:fragment="content">
     <h1 th:inline="text" th:text="#{add.new.customer}" style="text-align: center"></h1>
 
-    <form th:action="@{/customer}" th:object="${customerDto}" method="post">
+    <form th:action="${currentUrl}" th:object="${customerDto}" method="post">
 
         <div class="form-row">
             <input type="hidden" name="id" class="form-control" th:field="*{id}"/>
@@ -116,12 +116,7 @@
                 <span class="fa fa-address-book" aria-hidden="true"/>
             </button>
         </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-success pull-right" th:value="#{save}"/>
-            <a th:href="@{${currentUrl} + '/{id}/delete'(id=*{id})}" class="btn btn-danger" th:if="*{id != null}">
-                <span class="fa fa-trash-o fa-lg" aria-hidden="true"/>
-            </a>
-        </div>
+        <div th:insert="fragments/page-parts :: save-delete"/>
     </form>
 
 

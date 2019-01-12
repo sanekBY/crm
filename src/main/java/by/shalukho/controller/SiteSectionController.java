@@ -30,7 +30,7 @@ public class SiteSectionController
 
     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String addSection(@PathVariable Long id, final Model model) {
-        SiteSectionDto dto = new SiteSectionDto();
+        final SiteSectionDto dto = new SiteSectionDto();
         SiteSectionDto parentSection = null;
         if (id != -1) {
             parentSection = getService().findById(id);
@@ -42,7 +42,6 @@ public class SiteSectionController
 
     @Override
     public String createEntity(final SiteSectionDto dto,
-                               final Model model,
                                @NonNull final RedirectAttributes redirectAttributes) {
         SiteSectionDto parentSection = dto.getParentSection();
         if (parentSection != null && parentSection.getId() != null) {
@@ -59,8 +58,8 @@ public class SiteSectionController
 
     @Override
     public String getEntity(@PathVariable("id") final Long id, final Model model) {
-        SiteSectionDto section = getService().findById(id);
-        SiteSectionDto parentSection = getService().findById(section.getParentSection().getId());
+        final SiteSectionDto section = getService().findById(id);
+        final SiteSectionDto parentSection = getService().findById(section.getParentSection().getId());
         section.setParentSection(parentSection);
         model.addAttribute(getAttribute(), section);
         return getHtml();

@@ -9,7 +9,7 @@
 <div layout:fragment="content">
     <h1 th:inline="text" th:text="#{add.new.contact}" style="text-align: center"></h1>
 
-    <form th:action="@{/site/contact}" th:object="${siteCompanyContactsDto}" method="post">
+    <form th:action="${currentUrl}" th:object="${siteCompanyContactsDto}" method="post">
 
         <div class="form-row">
             <input type="hidden" name="id" class="form-control" th:field="*{id}"/>
@@ -108,9 +108,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <input type="submit" class="btn btn-success pull-right" th:value="#{save}"/>
-        </div>
+        <div th:insert="fragments/page-parts :: save-delete"/>
     </form>
 
 

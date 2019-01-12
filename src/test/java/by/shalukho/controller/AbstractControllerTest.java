@@ -61,7 +61,7 @@ public abstract class AbstractControllerTest {
         try {
             mockMvc.perform(post(url).flashAttr(attr, dto)
                                     .contentType(contentType))
-                    .andExpect(status().isOk());
+                    .andExpect(status().is(302));
         } catch (Exception e) {
             Assert.fail("Post request was failed");
         }

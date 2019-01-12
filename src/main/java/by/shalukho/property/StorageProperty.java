@@ -7,15 +7,20 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("storage")
 public class StorageProperty {
     /**
-     * Folder location for storing files
+     * Folder mainImageLocation for storing files
      */
-    private String location = "/opt/soft/images";
+    private String mainImageLocation = "/opt/soft/images/main";
 
-    public String getLocation() {
-        return location;
+    /**
+     * Folder stockImageLocation for storing files
+     */
+    private String stockImageLocation = "/opt/soft/images/stock";
+
+    public String getMainImageLocation() {
+        return mainImageLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setMainImageLocation(String mainImageLocation) {
+        this.mainImageLocation = mainImageLocation;
     }
 }

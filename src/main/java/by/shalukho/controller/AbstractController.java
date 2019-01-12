@@ -1,6 +1,7 @@
 package by.shalukho.controller;
 
 import by.shalukho.dto.AbstractDto;
+import by.shalukho.entity.ImageEntity;
 import by.shalukho.service.AbstractService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -19,13 +22,13 @@ import java.util.Optional;
 
 public abstract class AbstractController<T extends AbstractDto, Service extends AbstractService> {
 
-    public static final String ALERT_SUCCESS = "alert-success";
-    public static final String ALERT_DANGER = "alert-danger";
-    public static final String ALERT_WARNING = "alert-warning";
-    public static final String PAGE_NUMBERS = "pageNumbers";
-    public static final String CURRENT_URL = "currentUrl";
-    public static final String CURRENT_PAGE = "currentPage";
-    public static final int ITEMS_PER_LIST = 5;
+    private static final String ALERT_SUCCESS = "alert-success";
+    private static final String ALERT_DANGER = "alert-danger";
+    private static final String ALERT_WARNING = "alert-warning";
+    private static final String PAGE_NUMBERS = "pageNumbers";
+    private static final String CURRENT_URL = "currentUrl";
+    private static final String CURRENT_PAGE = "currentPage";
+    private static final int ITEMS_PER_LIST = 5;
 
     private final Service service;
     private final Class<T> clazz;
@@ -40,8 +43,12 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
 
     @RequestMapping(method = RequestMethod.POST)
     public String createEntity(@ModelAttribute final T dto,
-                               @NonNull final Model model,
                                @NonNull final RedirectAttributes redirectAttributes) {
+        return createEntity(dto, redirectAttributes, service);
+    }
+
+    protected String createEntity(@ModelAttribute final T dto,
+                                @NonNull final RedirectAttributes redirectAttributes, final Service service) {
         try {
             service.save(dto);
             addSuccessAlert(redirectAttributes, getMessage("saved"));
@@ -61,7 +68,7 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
         return getHtml();
     }
 
-    protected T createNewObject() throws InstantiationException, IllegalAccessException {
+    private T createNewObject() throws InstantiationException, IllegalAccessException {
         return clazz.newInstance();
     }
 
@@ -98,11 +105,19 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
 
     private String goToEntityList(final int pageId, @NonNull final Model model) {
         final PageRequest listPage = getListPage(pageId);
+        addListAttributes(pageId, model, listPage);
+        return getListHtml();
+    }
+
+    private void addListAttributes(final int pageId, @NonNull final Model model, final PageRequest listPage) {
         addListToModel(model, listPage);
         model.addAttribute(CURRENT_URL, getCurrentUrl());
         model.addAttribute(CURRENT_PAGE, pageId);
+        addAdditionalListAttributes(model);
         addPageNumbers(model, listPage);
-        return getListHtml();
+    }
+
+    protected void addAdditionalListAttributes(@NonNull final Model model) {
     }
 
 
@@ -126,7 +141,7 @@ public abstract class AbstractController<T extends AbstractDto, Service extends 
         return service.findPaginated(pageRequest);
     }
 
-    protected PageRequest getListPage(final int id) {
+    private PageRequest getListPage(final int id) {
         return PageRequest.of(id - 1, ITEMS_PER_LIST);
     }
 
