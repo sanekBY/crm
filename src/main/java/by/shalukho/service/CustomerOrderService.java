@@ -4,13 +4,9 @@ import by.shalukho.converter.CustomerOrderConverter;
 import by.shalukho.dto.CustomerOrderDto;
 import by.shalukho.entity.CustomerOrderEntity;
 import by.shalukho.repository.CustomerOrderRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerOrderService
@@ -29,18 +25,4 @@ public class CustomerOrderService
         customerOrderEntity.setModifiedOn(LocalDateTime.now());
     }
 
-    @Override
-    public Optional<CustomerOrderEntity> findByActiveIsTrueAndId(final Long id) {
-        return getRepository().findByActiveIsTrueAndId(id);
-    }
-
-    @Override
-    public List<CustomerOrderEntity> findAllByActiveIsTrue() {
-        return getRepository().findAllByActiveIsTrue();
-    }
-
-    @Override
-    public Page<CustomerOrderEntity> findAllByActiveIsTrue(final Pageable pageable) {
-        return getRepository().findAllByActiveIsTrue(pageable);
-    }
 }

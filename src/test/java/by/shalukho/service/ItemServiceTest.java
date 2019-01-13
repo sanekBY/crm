@@ -56,7 +56,7 @@ public class ItemServiceTest {
 
         itemEntity.setItemType(itemTypeEntity);
 
-        Mockito.when(itemRepository.findByActiveIsTrueAndId(ITEM_ID)).thenReturn(Optional.of(itemEntity));
+        Mockito.when(itemService.findByActiveIsTrueAndId(ITEM_ID)).thenReturn(Optional.of(itemEntity));
 
         final ItemDto itemDto = itemService.findById(ITEM_ID);
 
@@ -76,7 +76,7 @@ public class ItemServiceTest {
         itemEntity.setItemType(itemTypeEntity);
         secondItemEntity.setItemType(itemTypeEntity);
 
-        Mockito.when(itemRepository.findAllByActiveIsTrue())
+        Mockito.when(itemService.findAllByActiveIsTrue())
                 .thenReturn(Arrays.asList(itemEntity, secondItemEntity));
 
         final List<ItemDto> items = itemService.findAll();

@@ -7,7 +7,6 @@ import by.shalukho.repository.SiteSectionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SiteSectionService
@@ -23,15 +22,5 @@ public class SiteSectionService
                 getRepository().findAllByActiveIsTrueAndParentSectionIsNull();
         List<SiteSectionDto> siteSectionDtos = getConverter().convertAllToDto(sections);
         return siteSectionDtos;
-    }
-
-    @Override
-    public Optional<SiteSectionEntity> findByActiveIsTrueAndId(final Long id) {
-        return getRepository().findByActiveIsTrueAndId(id);
-    }
-
-    @Override
-    public List<SiteSectionEntity> findAllByActiveIsTrue() {
-        return getRepository().findAllByActiveIsTrue();
     }
 }

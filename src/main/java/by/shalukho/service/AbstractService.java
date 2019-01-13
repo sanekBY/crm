@@ -3,12 +3,14 @@ package by.shalukho.service;
 import by.shalukho.converter.GenericConverter;
 import by.shalukho.dto.AbstractDto;
 import by.shalukho.entity.AbstractEntity;
+import by.shalukho.repository.AbstractRepository;
+import by.shalukho.specification.SpecificationFilter;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @AllArgsConstructor
-public abstract class AbstractService<T extends AbstractDto, B extends AbstractEntity, CustomRepository extends JpaRepository>
+public abstract class AbstractService<T extends AbstractDto, B extends AbstractEntity, CustomRepository extends AbstractRepository>
         implements ServiceWithActive<B> {
 
-    private CustomRepository repository;
+    public final Specification<B> IS_ACTIVE_SPECIFICATION = SpecificationFilter.equal(B::isActive, "true");
 
+    private CustomRepository repository;
     private GenericConverter<T, B> converter;
 
     public T findById(final Long id) {
@@ -33,8 +36,34 @@ public abstract class AbstractService<T extends AbstractDto, B extends AbstractE
         }
     }
 
+    public List<T> findAll(final Specification specification) {
+        final List<B> allEntities = repository.findAll(SpecificationFilter.and(IS_ACTIVE_SPECIFICATION, specification));
+        return converter.convertAllToDto(allEntities);
+    }
+
+    public T findOne(final Specification specification) {
+        Optional<B> entity = repository.findOne(specification);
+        if (entity.isPresent()) {
+            return converter.convertToDto(entity.get());
+        } else {
+            throw new RuntimeException("entity was not found");
+        }
+    }
+
     public List<T> findAll() {
-        return findAllByActiveIsTrue().stream().map(e -> converter.convertToDto(e)).collect(Collectors.toList());
+        return converter.convertAllToDto(findAllByActiveIsTrue());
+    }
+
+    @Override
+    public Optional<B> findByActiveIsTrueAndId(final Long id) {
+        return repository.findOne(
+                SpecificationFilter.and(IS_ACTIVE_SPECIFICATION,
+                                        SpecificationFilter.equal(B::getId, id.toString())));
+    }
+
+    @Override
+    public List<B> findAllByActiveIsTrue() {
+        return repository.findAll(IS_ACTIVE_SPECIFICATION);
     }
 
     public List<T> findPaginated(@NonNull final PageRequest pageRequest) {
@@ -78,15 +107,13 @@ public abstract class AbstractService<T extends AbstractDto, B extends AbstractE
         return repository;
     }
 
-    public void setRepository(CustomRepository repository) {
-        this.repository = repository;
-    }
-
     public GenericConverter<T, B> getConverter() {
         return converter;
     }
 
-    @Override public Page<B> findAllByActiveIsTrue(final Pageable pageable) {
-        return null;
+    @Override
+    public Page<B> findAllByActiveIsTrue(final Pageable pageable) {
+        return repository.findAll(
+                SpecificationFilter.and(IS_ACTIVE_SPECIFICATION), pageable);
     }
 }

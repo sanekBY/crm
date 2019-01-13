@@ -18,10 +18,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "IMAGE")
 @EqualsAndHashCode(callSuper = true)
 @ConnectedDto(value = ImageDto.class)
-public class ImageEntity extends AbstractEntity {
-
-    @Column(name = "NAME")
-    private String name;
+public class ImageEntity extends AbstractNamedEntity {
 
     @Column(name = "PATH")
     private String path;

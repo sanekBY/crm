@@ -45,7 +45,7 @@ public class UserServiceTest {
     public void getUserTest() {
         final UserEntity userEntity = getUserEntity();
 
-        Mockito.when(userRepository.findByActiveIsTrueAndId(USER_ID)).thenReturn(Optional.of(userEntity));
+        Mockito.when(userService.findByActiveIsTrueAndId(USER_ID)).thenReturn(Optional.of(userEntity));
 
         final UserDto userDto = userService.findById(USER_ID);
 

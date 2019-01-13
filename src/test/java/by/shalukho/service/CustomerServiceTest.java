@@ -51,7 +51,7 @@ public class CustomerServiceTest {
     public void getCustomerTest() {
         final CustomerEntity customerEntity = getCustomerEntity();
 
-        Mockito.when(customerRepository.findByActiveIsTrueAndId(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
+        Mockito.when(customerService.findByActiveIsTrueAndId(CUSTOMER_ID)).thenReturn(Optional.of(customerEntity));
 
         final CustomerDto customerDto = customerService.findById(CUSTOMER_ID);
         Assert.assertEquals(customerDto.getId(), customerEntity.getId());

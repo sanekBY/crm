@@ -19,4 +19,6 @@ public abstract class AbstractEntity {
 
     @Column(name = "ACTIVE", columnDefinition = "tinyint(2) default '1'", nullable = false)
     private boolean active = true;
+
+
 }

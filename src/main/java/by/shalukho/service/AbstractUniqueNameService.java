@@ -3,14 +3,15 @@ package by.shalukho.service;
 import by.shalukho.converter.GenericConverter;
 import by.shalukho.dto.AbstractDto;
 import by.shalukho.entity.AbstractNamedEntity;
+import by.shalukho.repository.AbstractRepository;
+import by.shalukho.specification.SpecificationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Locale;
 import java.util.Optional;
 
-public abstract class AbstractUniqueNameService<T extends AbstractDto, B extends AbstractNamedEntity, CustomRepository extends JpaRepository>
+public abstract class AbstractUniqueNameService<T extends AbstractDto, B extends AbstractNamedEntity, CustomRepository extends AbstractRepository>
         extends
         AbstractService<T, B, CustomRepository> implements ServiceWithUniqueName<B> {
 
@@ -21,6 +22,10 @@ public abstract class AbstractUniqueNameService<T extends AbstractDto, B extends
         super(repository, converter);
     }
 
+    @Override
+    public Optional<B> findByName(final String name) {
+        return getRepository().findOne(SpecificationFilter.like(AbstractNamedEntity::getName, name));
+    }
 
     @Override
     protected void beforeEntitySave(final B entity) {
