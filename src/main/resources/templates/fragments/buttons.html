@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+        <a  th:fragment="delete-button" th:href="@{${currentUrl} + '/{id}/delete'(id=*{id})}" class="btn btn-danger" th:if="*{id != null}">
+            <span class="fa fa-trash-o fa-lg" aria-hidden="true"/>
+        </a>
+        <input th:fragment="save-button" type="submit" class="btn btn-success pull-right" th:value="#{save}"/>
+</body>
+</html>
